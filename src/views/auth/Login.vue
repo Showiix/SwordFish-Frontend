@@ -2,17 +2,29 @@
   <div class="login-page">
     <div class="container">
       <div class="login-card">
-        <h1>登录</h1>
-        <el-form :model="loginForm" label-width="80px">
-          <el-form-item label="账号">
-            <el-input v-model="loginForm.account" placeholder="请输入学号或邮箱" />
+        <h1>{{ $t('login.title') }}</h1>
+        <p class="subtitle">{{ $t('login.subtitle') }}</p>
+        <el-form :model="loginForm" label-width="100px">
+          <el-form-item :label="$t('login.username')">
+            <el-input
+              v-model="loginForm.account"
+              :placeholder="$t('login.usernamePlaceholder')"
+            />
           </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" />
+          <el-form-item :label="$t('login.password')">
+            <el-input
+              v-model="loginForm.password"
+              type="password"
+              :placeholder="$t('login.passwordPlaceholder')"
+            />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="handleLogin">登录</el-button>
-            <el-button @click="goToRegister">去注册</el-button>
+            <el-button type="primary" @click="handleLogin">
+              {{ $t('login.loginButton') }}
+            </el-button>
+            <el-button @click="goToRegister">
+              {{ $t('login.goRegister') }}
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -20,14 +32,23 @@
   </div>
 </template>
 
+
+
+
+
+
+
 <script setup lang="ts">
+// 引入vue
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/store/modules/auth'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const { t } = useI18n()
 
 const loginForm = reactive({
   account: '',
@@ -36,22 +57,24 @@ const loginForm = reactive({
 
 const handleLogin = async () => {
   if (!loginForm.account || !loginForm.password) {
-    ElMessage.warning('请输入账号和密码')
+    ElMessage.warning(t('login.loginFailed'))
     return
   }
 
   const result = await authStore.login(loginForm)
   if (result.success) {
-    ElMessage.success('登录成功')
+    ElMessage.success(t('login.loginSuccess'))
     router.push('/')
   } else {
-    ElMessage.error(result.message || '登录失败')
+    ElMessage.error(result.message || t('login.loginFailed'))
   }
 }
 
+// 跳转到注册页面 使用的是router.push
 const goToRegister = () => {
   router.push('/register')
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -73,7 +96,17 @@ const goToRegister = () => {
 
   h1 {
     text-align: center;
+    margin-bottom: $spacing-sm;
+    font-size: 28px;
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  .subtitle {
+    text-align: center;
     margin-bottom: $spacing-xl;
+    color: $text-secondary;
+    font-size: 14px;
   }
 }
 </style>

@@ -22,20 +22,20 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/products/:id',
-    name: 'ProductDetail',
-    component: () => import('@/views/products/ProductDetail.vue'),
-    meta: {
-      title: '商品详情'
-    }
-  },
-  {
     path: '/products/publish',
     name: 'PublishProduct',
     component: () => import('@/views/products/PublishProduct.vue'),
     meta: {
       title: '发布商品',
       requiresAuth: true
+    }
+  },
+  {
+    path: '/products/:id',
+    name: 'ProductDetail',
+    component: () => import('@/views/products/ProductDetail.vue'),
+    meta: {
+      title: '商品详情'
     }
   },
   {
@@ -91,11 +91,12 @@ const routes: RouteRecordRaw[] = [
   }
 ]
 
-// 创建路由实例
+// 创建路由实例对象
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(), // 然后这个对象的history属性是createWebHistory()创建的
   routes,
   scrollBehavior(to, from, savedPosition) {
+    // 如果之前有滚动位置，则返回之前的位置
     if (savedPosition) {
       return savedPosition
     } else {
@@ -124,7 +125,7 @@ router.beforeEach((to, from, next) => {
   // 已登录用户访问登录页,重定向到首页
   if ((to.path === '/login' || to.path === '/register') && authStore.isAuthenticated) {
     next('/')
-    return
+    return  
   }
 
   next()

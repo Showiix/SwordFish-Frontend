@@ -1,0 +1,1034 @@
+openapi: 3.0.3
+info:
+  title: 校园二手交易平台 API
+  description: |
+    Swordfish 校园二手交易平台的 RESTful API 接口文档
+    
+    ## 认证方式
+    使用 Bearer Token 认证，需要在请求头中添加：
+    ```
+    Authorization: Bearer {token}
+    ```
+    
+    ## 统一响应格式
+    所有接口返回格式统一为：
+    ```json
+    {
+      "code": 200,
+      "msg": "操作成功",
+      "data": {}
+    }
+    ```
+  version: 1.0.0
+  contact:
+    name: SwordFish Team
+    email: support@swordfish.edu.cn
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000/api
+    description: 本地开发环境
+  - url: https://api.swordfish.edu.cn/api
+    description: 生产环境
+
+tags:
+  - name: 用户模块
+    description: 用户注册、登录、认证、信息管理
+  - name: 商品模块
+    description: 商品发布、查询、管理
+  - name: 交易模块
+    description: 订单创建、支付、管理
+  - name: 聊天模块
+    description: 即时通讯、消息管理
+  - name: 投诉模块
+    description: 投诉举报管理
+  - name: 评价模块
+    description: 商品评价管理
+  - name: 文件上传
+    description: 文件上传服务
+  - name: 通知系统
+    description: 系统通知管理
+  - name: 后台管理
+    description: 管理员功能
+
+security:
+  - BearerAuth: []
+
+paths:
+  # ==================== 用户模块 ====================
+  /user/register:
+    post:
+      tags:
+        - 用户模块
+      summary: 用户注册
+      description: 新用户注册接口
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - student_id
+                - campus_email
+                - password
+              properties:
+                student_id:
+                  type: string
+                  description: 学号（唯一）
+                  example: "2023001"
+                campus_email:
+                  type: string
+                  format: email
+                  description: 校园邮箱（必须包含@school.edu.cn）
+                  example: "2023001@school.edu.cn"
+                password:
+                  type: string
+                  format: password
+                  minLength: 6
+                  maxLength: 20
+                  description: 密码（6-20位）
+                  example: "123456"
+                phone:
+                  type: string
+                  pattern: '^\d{11}$'
+                  description: 手机号（11位）
+                  example: "13800138000"
+                avatar_url:
+                  type: string
+                  format: uri
+                  description: 头像URL（需先上传）
+      responses:
+        '200':
+          description: 注册成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /user/login:
+    post:
+      tags:
+        - 用户模块
+      summary: 用户登录
+      description: 使用学号或邮箱登录
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - account
+                - password
+              properties:
+                account:
+                  type: string
+                  description: 登录账号（学号或校园邮箱）
+                  example: "2023001"
+                password:
+                  type: string
+                  format: password
+                  description: 密码
+                  example: "123456"
+      responses:
+        '200':
+          description: 登录成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          token:
+                            type: string
+                            description: JWT Token
+                            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                          user_info:
+                            $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /user/auth:
+    post:
+      tags:
+        - 用户模块
+      summary: 校园身份认证提交
+      description: 提交学生证照片进行身份认证
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - real_name
+                - student_card_url
+              properties:
+                real_name:
+                  type: string
+                  description: 真实姓名
+                  example: "张三"
+                student_card_url:
+                  type: string
+                  format: uri
+                  description: 学生证照片URL
+                  example: "http://localhost:3000/uploads/student_card_123456.jpg"
+      responses:
+        '200':
+          description: 认证申请已提交
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          user_id:
+                            type: integer
+                          auth_status:
+                            type: integer
+                            enum: [0, 1, 2]
+                            description: 0=待审核, 1=已通过, 2=已拒绝
+                          real_name:
+                            type: string
+
+  /user/info:
+    get:
+      tags:
+        - 用户模块
+      summary: 获取个人信息
+      description: 获取当前登录用户的个人信息
+      responses:
+        '200':
+          description: 获取成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    
+    put:
+      tags:
+        - 用户模块
+      summary: 修改个人信息
+      description: 修改手机号和头像
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  pattern: '^\d{11}$'
+                  description: 手机号
+                  example: "13900139000"
+                avatar_url:
+                  type: string
+                  format: uri
+                  description: 头像URL
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /user/password:
+    put:
+      tags:
+        - 用户模块
+      summary: 修改密码
+      description: 修改当前用户密码
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - old_password
+                - new_password
+              properties:
+                old_password:
+                  type: string
+                  format: password
+                  description: 旧密码
+                  example: "123456"
+                new_password:
+                  type: string
+                  format: password
+                  minLength: 6
+                  maxLength: 20
+                  description: 新密码（6-20位）
+                  example: "654321"
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '400':
+          description: 旧密码错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /user/credit:
+    get:
+      tags:
+        - 用户模块
+      summary: 查询用户信用记录
+      description: 获取当前用户的信用分记录
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+          description: 页码
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: 每页数量
+      responses:
+        '200':
+          description: 查询成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          credit_score:
+                            type: integer
+                            description: 当前信用分
+                          records:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/CreditRecord'
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          page_size:
+                            type: integer
+
+  # ==================== 商品模块 ====================
+  /goods/publish:
+    post:
+      tags:
+        - 商品模块
+      summary: 发布商品
+      description: 发布新商品（需要已认证用户）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - goods_title
+                - goods_type
+                - goods_price
+              properties:
+                goods_title:
+                  type: string
+                  maxLength: 100
+                  description: 商品标题
+                  example: "九成新考研英语真题"
+                goods_type:
+                  type: integer
+                  enum: [0, 1, 2]
+                  description: 0=二手物品, 1=租赁服务, 2=技能交换
+                  example: 0
+                goods_price:
+                  type: number
+                  format: decimal
+                  minimum: 0
+                  description: 价格（保留2位小数）
+                  example: 30.00
+                goods_desc:
+                  type: string
+                  description: 商品详情
+                  example: "用了1个月,无笔记,保存完好"
+                goods_images:
+                  type: array
+                  maxItems: 9
+                  items:
+                    type: string
+                    format: uri
+                  description: 商品图片URL数组（最多9张）
+      responses:
+        '200':
+          description: 发布成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          goods_id:
+                            type: integer
+                          goods_status:
+                            type: integer
+
+  /goods/list:
+    get:
+      tags:
+        - 商品模块
+      summary: 商品列表查询
+      description: 获取商品列表，支持搜索和筛选
+      security: []
+      parameters:
+        - name: keyword
+          in: query
+          schema:
+            type: string
+          description: 搜索关键词（模糊匹配标题和描述）
+        - name: goods_type
+          in: query
+          schema:
+            type: integer
+            enum: [0, 1, 2]
+          description: 商品类型
+        - name: min_price
+          in: query
+          schema:
+            type: number
+          description: 最低价格
+        - name: max_price
+          in: query
+          schema:
+            type: number
+          description: 最高价格
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+          description: 页码
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 10
+          description: 每页数量
+      responses:
+        '200':
+          description: 查询成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          list:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Goods'
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          page_size:
+                            type: integer
+
+  /goods/detail/{goods_id}:
+    get:
+      tags:
+        - 商品模块
+      summary: 商品详情查询
+      description: 获取指定商品的详细信息
+      security: []
+      parameters:
+        - name: goods_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 商品ID
+      responses:
+        '200':
+          description: 查询成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Goods'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /goods/my-publish:
+    get:
+      tags:
+        - 商品模块
+      summary: 我的发布商品列表
+      description: 获取当前用户发布的商品列表
+      parameters:
+        - name: goods_status
+          in: query
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3]
+          description: 商品状态 0=待审核, 1=已上架, 2=已卖出, 3=已下架
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: 查询成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/PaginatedGoodsList'
+
+  /goods/edit/{goods_id}:
+    put:
+      tags:
+        - 商品模块
+      summary: 编辑商品
+      description: 编辑已发布的商品信息
+      parameters:
+        - name: goods_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                goods_title:
+                  type: string
+                goods_price:
+                  type: number
+                goods_desc:
+                  type: string
+                goods_images:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /goods/delete/{goods_id}:
+    delete:
+      tags:
+        - 商品模块
+      summary: 删除商品
+      description: 删除已发布的商品
+      parameters:
+        - name: goods_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  # ==================== 交易模块 ====================
+  /order/create:
+    post:
+      tags:
+        - 交易模块
+      summary: 创建订单
+      description: 创建新的订单
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - goods_id
+              properties:
+                goods_id:
+                  type: integer
+                  description: 商品ID
+                remark:
+                  type: string
+                  description: 备注信息
+      responses:
+        '200':
+          description: 订单创建成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Order'
+
+  /order/list:
+    get:
+      tags:
+        - 交易模块
+      summary: 我的订单列表
+      description: 获取当前用户的订单列表
+      parameters:
+        - name: order_status
+          in: query
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3]
+          description: 订单状态 0=待付款, 1=已付款, 2=已完成, 3=已取消
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: 查询成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          list:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Order'
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          page_size:
+                            type: integer
+
+  /order/detail/{order_id}:
+    get:
+      tags:
+        - 交易模块
+      summary: 订单详情
+      description: 获取指定订单的详细信息
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 查询成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Order'
+
+  /order/pay/{order_id}:
+    post:
+      tags:
+        - 交易模块
+      summary: 支付订单
+      description: 支付指定订单
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+
+  /order/complete/{order_id}:
+    post:
+      tags:
+        - 交易模块
+      summary: 确认完成订单
+      description: 买家确认收货，订单完成
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+
+  /order/cancel/{order_id}:
+    post:
+      tags:
+        - 交易模块
+      summary: 取消订单
+      description: 取消指定订单
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+
+  # ==================== 文件上传 ====================
+  /upload/image:
+    post:
+      tags:
+        - 文件上传
+      summary: 上传图片
+      description: 上传单张图片文件
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 图片文件（支持 jpg, png, jpeg, gif）
+      responses:
+        '200':
+          description: 上传成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                            format: uri
+                            description: 图片访问URL
+                            example: "http://localhost:3000/uploads/image_123456.jpg"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 请在请求头中添加 Bearer Token
+
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 状态码
+          example: 200
+        msg:
+          type: string
+          description: 返回信息
+          example: "操作成功"
+        data:
+          type: object
+          description: 返回数据
+
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: 用户ID
+          example: 1
+        student_id:
+          type: string
+          description: 学号
+          example: "2023001"
+        campus_email:
+          type: string
+          format: email
+          description: 校园邮箱
+          example: "2023001@school.edu.cn"
+        real_name:
+          type: string
+          description: 真实姓名
+          example: "张三"
+        phone:
+          type: string
+          description: 手机号
+          example: "13800138000"
+        auth_status:
+          type: integer
+          enum: [0, 1, 2]
+          description: 认证状态 0=待审核, 1=已通过, 2=已拒绝
+          example: 1
+        credit_score:
+          type: integer
+          description: 信用分
+          example: 500
+        avatar_url:
+          type: string
+          format: uri
+          description: 头像URL
+          example: "http://localhost:3000/uploads/avatar_123456.jpg"
+        ban_status:
+          type: integer
+          enum: [0, 1]
+          description: 封禁状态 0=正常, 1=已封禁
+        create_time:
+          type: string
+          format: date-time
+          description: 创建时间
+          example: "2025-10-01 08:00:00"
+
+    CreditRecord:
+      type: object
+      properties:
+        id:
+          type: integer
+        credit_desc:
+          type: string
+          description: 信用分变更描述
+        credit_change:
+          type: integer
+          description: 信用分变化值
+        create_time:
+          type: string
+          format: date-time
+
+    Goods:
+      type: object
+      properties:
+        goods_id:
+          type: integer
+          description: 商品ID
+          example: 1
+        goods_title:
+          type: string
+          description: 商品标题
+          example: "九成新考研英语真题"
+        goods_type:
+          type: integer
+          enum: [0, 1, 2]
+          description: 商品类型
+          example: 0
+        goods_price:
+          type: number
+          format: decimal
+          description: 价格
+          example: 30.00
+        goods_desc:
+          type: string
+          description: 商品描述
+        goods_images:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: 商品图片数组
+        goods_status:
+          type: integer
+          enum: [0, 1, 2, 3]
+          description: 商品状态 0=待审核, 1=已上架, 2=已卖出, 3=已下架
+          example: 1
+        create_time:
+          type: string
+          format: date-time
+        publisher:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            student_id:
+              type: string
+            real_name:
+              type: string
+            credit_score:
+              type: integer
+
+    PaginatedGoodsList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/Goods'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+
+    Order:
+      type: object
+      properties:
+        order_id:
+          type: integer
+          description: 订单ID
+        goods_id:
+          type: integer
+          description: 商品ID
+        buyer_id:
+          type: integer
+          description: 买家ID
+        seller_id:
+          type: integer
+          description: 卖家ID
+        order_price:
+          type: number
+          format: decimal
+          description: 订单价格
+        order_status:
+          type: integer
+          enum: [0, 1, 2, 3]
+          description: 订单状态 0=待付款, 1=已付款, 2=已完成, 3=已取消
+        remark:
+          type: string
+          description: 备注信息
+        create_time:
+          type: string
+          format: date-time
+        update_time:
+          type: string
+          format: date-time
+
+  responses:
+    Success:
+      description: 操作成功
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+          example:
+            code: 200
+            msg: "操作成功"
+            data: null
+
+    BadRequest:
+      description: 请求参数错误
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+          example:
+            code: 400
+            msg: "参数错误"
+            data: null
+
+    Unauthorized:
+      description: 未授权
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+          example:
+            code: 401
+            msg: "未登录或token失效"
+            data: null
+
+    Forbidden:
+      description: 禁止访问
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+          example:
+            code: 403
+            msg: "无权限访问"
+            data: null
+
+    NotFound:
+      description: 资源不存在
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+          example:
+            code: 404
+            msg: "资源不存在"
+            data: null
+
+    ServerError:
+      description: 服务器错误
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+          example:
+            code: 500
+            msg: "服务器内部错误"
+            data: null
+

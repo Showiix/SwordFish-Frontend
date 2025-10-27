@@ -10,8 +10,8 @@
             <span class="logo-text">Swordfish</span>
           </div>
           <p class="footer-description">
-            您的校园二手交易市场。
-            让学生的可持续购物变得简单。
+            {{ $t('footer.slogan') }}
+            {{ $t('footer.subSlogan') }}
           </p>
           <div class="social-links">
             <a href="#" class="social-link">
@@ -28,32 +28,32 @@
 
         <!-- 链接分组 -->
         <div class="footer-section">
-          <h3 class="footer-title">快速链接</h3>
+          <h3 class="footer-title">{{ $t('footer.quickLinks') }}</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="goTo('/about')">关于我们</a></li>
-            <li><a href="#" @click.prevent="goTo('/how-it-works')">如何使用</a></li>
-            <li><a href="#" @click.prevent="goTo('/faq')">常见问题</a></li>
-            <li><a href="#" @click.prevent="goTo('/contact')">联系我们</a></li>
+            <li><a href="#" @click.prevent="goTo('/about')">{{ $t('footer.about') }}</a></li>
+            <li><a href="#" @click.prevent="goTo('/how-it-works')">{{ $t('footer.howToUse') }}</a></li>
+            <li><a href="#" @click.prevent="goTo('/faq')">{{ $t('footer.faq') }}</a></li>
+            <li><a href="#" @click.prevent="goTo('/contact')">{{ $t('footer.contact') }}</a></li>
           </ul>
         </div>
 
         <div class="footer-section">
-          <h3 class="footer-title">商品分类</h3>
+          <h3 class="footer-title">{{ $t('footer.categories') }}</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="searchCategory('Electronics')">电子产品</a></li>
-            <li><a href="#" @click.prevent="searchCategory('Books')">图书文具</a></li>
-            <li><a href="#" @click.prevent="searchCategory('Fashion')">服饰鞋包</a></li>
-            <li><a href="#" @click.prevent="searchCategory('Furniture')">家具家居</a></li>
+            <li><a href="#" @click.prevent="searchCategory('Electronics')">{{ $t('footer.electronics') }}</a></li>
+            <li><a href="#" @click.prevent="searchCategory('Books')">{{ $t('footer.books') }}</a></li>
+            <li><a href="#" @click.prevent="searchCategory('Fashion')">{{ $t('footer.clothing') }}</a></li>
+            <li><a href="#" @click.prevent="searchCategory('Furniture')">{{ $t('footer.furniture') }}</a></li>
           </ul>
         </div>
 
         <div class="footer-section">
-          <h3 class="footer-title">帮助支持</h3>
+          <h3 class="footer-title">{{ $t('footer.helpSupport') }}</h3>
           <ul class="footer-links">
-            <li><a href="#" @click.prevent="goTo('/help')">帮助中心</a></li>
-            <li><a href="#" @click.prevent="goTo('/safety')">安全提示</a></li>
-            <li><a href="#" @click.prevent="goTo('/terms')">服务条款</a></li>
-            <li><a href="#" @click.prevent="goTo('/privacy')">隐私政策</a></li>
+            <li><a href="#" @click.prevent="goTo('/help')">{{ $t('footer.helpCenter') }}</a></li>
+            <li><a href="#" @click.prevent="goTo('/safety')">{{ $t('footer.safetyTips') }}</a></li>
+            <li><a href="#" @click.prevent="goTo('/terms')">{{ $t('footer.terms') }}</a></li>
+            <li><a href="#" @click.prevent="goTo('/privacy')">{{ $t('footer.privacy') }}</a></li>
           </ul>
         </div>
       </div>
@@ -61,10 +61,10 @@
       <!-- Footer底部 -->
       <div class="footer-bottom">
         <p class="copyright">
-          © {{ currentYear }} Swordfish. All rights reserved.
+          {{ $t('footer.copyright').replace('2024', String(currentYear)) }}
         </p>
         <div class="footer-meta">
-          <span>用 ❤️ 为学生打造</span>
+          <span>{{ madeWithLove }}</span>
         </div>
       </div>
     </div>
@@ -74,10 +74,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { Message, Star, Share } from '@element-plus/icons-vue'
 
 const router = useRouter()
+const { locale } = useI18n()
 const currentYear = computed(() => new Date().getFullYear())
+const madeWithLove = computed(() => {
+  return locale.value === 'zh-CN' ? '用 ❤️ 为学生打造' : 'Made with ❤️ for students'
+})
 
 const goTo = (path: string) => {
   router.push(path)

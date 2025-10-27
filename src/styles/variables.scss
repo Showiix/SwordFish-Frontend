@@ -1,29 +1,38 @@
 // SCSS变量定义
 
-// 颜色
-$primary-color: #1e3a8a; // 深蓝色
-$secondary-color: #3b82f6; // 亮蓝色
+// 主色系 (Primary)
+$primary-color: #00668c; // 主蓝色 (accent-200)
+$primary-light: #d4eaf7; // 浅蓝色 (primary-100)
+$primary-medium: #b6ccd8; // 中蓝灰 (primary-200)
+$primary-dark: #3b3c3d; // 深灰色 (primary-300)
+
+// 辅助色系 (Accent)
+$secondary-color: #71c4ef; // 天蓝色 (accent-100)
+$accent-color: #71c4ef; // 强调色
+$accent-dark: #00668c; // 深蓝色
+
+// 状态颜色 (保持原有功能色)
 $success-color: #10b981;
 $warning-color: #f59e0b;
 $danger-color: #ef4444;
-$info-color: #6b7280;
+$info-color: #71c4ef; // 使用新的天蓝色
 
 // 文字颜色
-$text-primary: #1f2937;
-$text-secondary: #6b7280;
-$text-tertiary: #9ca3af;
+$text-primary: #1d1c1c; // 主要文字 (text-100)
+$text-secondary: #313d44; // 次要文字 (text-200)
+$text-tertiary: #b6ccd8; // 三级文字 (primary-200)
 $text-white: #ffffff;
 
 // 背景颜色
-$bg-primary: #ffffff;
-$bg-secondary: #f9fafb;
-$bg-tertiary: #f3f4f6;
-$bg-dark: #1f2937;
+$bg-primary: #fffefb; // 主背景 (bg-100)
+$bg-secondary: #f5f4f1; // 次背景 (bg-200)
+$bg-tertiary: #cccbc8; // 三级背景 (bg-300)
+$bg-dark: #3b3c3d; // 深色背景 (primary-300)
 
 // 边框颜色
-$border-color: #e5e7eb;
-$border-color-light: #f3f4f6;
-$border-color-dark: #d1d5db;
+$border-color: #cccbc8; // 边框色 (bg-300)
+$border-color-light: #f5f4f1; // 浅边框 (bg-200)
+$border-color-dark: #b6ccd8; // 深边框 (primary-200)
 
 // 字体
 $font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

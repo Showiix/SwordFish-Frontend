@@ -27,19 +27,22 @@
         <!-- 筛选按钮 -->
         <el-button class="action-btn" @click="showFilter">
           <el-icon><Filter /></el-icon>
-          <span>筛选</span>
+          <span>{{ $t('nav.filter') }}</span>
         </el-button>
 
         <!-- 发布商品按钮 -->
         <el-button type="primary" class="sell-btn" @click="goToSell">
           <el-icon><Plus /></el-icon>
-          <span>发布商品</span>
+          <span>{{ $t('nav.publish') }}</span>
         </el-button>
+
+        <!-- 语言切换 -->
+        <LanguageSwitcher />
 
         <!-- 未登录状态 -->
         <template v-if="!isLoggedIn">
           <el-button class="login-btn" @click="goToLogin">
-            登录
+            {{ $t('nav.login') }}
           </el-button>
         </template>
 
@@ -63,23 +66,23 @@
               <el-dropdown-menu>
                 <el-dropdown-item command="profile">
                   <el-icon><User /></el-icon>
-                  <span>个人中心</span>
+                  <span>{{ $t('nav.profile') }}</span>
                 </el-dropdown-item>
                 <el-dropdown-item command="orders">
                   <el-icon><ShoppingBag /></el-icon>
-                  <span>我的订单</span>
+                  <span>{{ $t('nav.myOrders') }}</span>
                 </el-dropdown-item>
                 <el-dropdown-item command="products">
                   <el-icon><Box /></el-icon>
-                  <span>我的商品</span>
+                  <span>{{ $t('nav.myProducts') }}</span>
                 </el-dropdown-item>
                 <el-dropdown-item command="messages">
                   <el-icon><ChatDotRound /></el-icon>
-                  <span>消息</span>
+                  <span>{{ $t('nav.messages') }}</span>
                 </el-dropdown-item>
                 <el-dropdown-item divided command="logout">
                   <el-icon><SwitchButton /></el-icon>
-                  <span>退出登录</span>
+                  <span>{{ $t('nav.logout') }}</span>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -93,6 +96,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import {
   Search,
@@ -106,9 +110,11 @@ import {
   SwitchButton
 } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/store/modules/auth'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const { t } = useI18n()
 
 const searchKeyword = ref('')
 const unreadCount = ref(0)
@@ -133,7 +139,7 @@ const showFilter = () => {
 // 去发布商品
 const goToSell = () => {
   if (!isLoggedIn.value) {
-    ElMessage.warning('请先登录')
+    ElMessage.warning(t('common.tip'))
     router.push('/login')
     return
   }
@@ -180,10 +186,10 @@ const handleCommand = (command: string) => {
 const handleLogout = async () => {
   try {
     await authStore.logout()
-    ElMessage.success('已退出登录')
+    ElMessage.success(t('nav.logout'))
     router.push('/')
   } catch (error) {
-    ElMessage.error('退出失败')
+    ElMessage.error(t('common.error'))
   }
 }
 </script>

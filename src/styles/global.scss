@@ -1,6 +1,90 @@
 // 全局样式
 @use './variables.scss' as *;
 
+// Element Plus 主题色覆盖（使用 CSS 变量）
+:root {
+  // 主色
+  --el-color-primary: #00668c;
+  --el-color-primary-light-3: #71c4ef;
+  --el-color-primary-light-5: #b6ccd8;
+  --el-color-primary-light-7: #d4eaf7;
+  --el-color-primary-light-8: #f5f4f1;
+  --el-color-primary-light-9: #fffefb;
+  --el-color-primary-dark-2: #3b3c3d;
+
+  // 成功色
+  --el-color-success: #10b981;
+  --el-color-success-light-3: #34d399;
+  --el-color-success-light-5: #6ee7b7;
+  --el-color-success-light-7: #a7f3d0;
+  --el-color-success-light-8: #d1fae5;
+  --el-color-success-light-9: #ecfdf5;
+
+  // 警告色
+  --el-color-warning: #f59e0b;
+  --el-color-warning-light-3: #fbbf24;
+  --el-color-warning-light-5: #fcd34d;
+  --el-color-warning-light-7: #fde68a;
+  --el-color-warning-light-8: #fef3c7;
+  --el-color-warning-light-9: #fffbeb;
+
+  // 危险色
+  --el-color-danger: #ef4444;
+  --el-color-danger-light-3: #f87171;
+  --el-color-danger-light-5: #fca5a5;
+  --el-color-danger-light-7: #fecaca;
+  --el-color-danger-light-8: #fee2e2;
+  --el-color-danger-light-9: #fef2f2;
+
+  // 信息色
+  --el-color-info: #71c4ef;
+  --el-color-info-light-3: #93d5f5;
+  --el-color-info-light-5: #b6e4fa;
+  --el-color-info-light-7: #d4eaf7;
+  --el-color-info-light-8: #e8f5fc;
+  --el-color-info-light-9: #f5fbff;
+
+  // 文字颜色
+  --el-text-color-primary: #1d1c1c;
+  --el-text-color-regular: #313d44;
+  --el-text-color-secondary: #b6ccd8;
+  --el-text-color-placeholder: #cccbc8;
+  --el-text-color-disabled: #cccbc8;
+
+  // 边框颜色
+  --el-border-color: #cccbc8;
+  --el-border-color-light: #f5f4f1;
+  --el-border-color-lighter: #fffefb;
+  --el-border-color-extra-light: #fffefb;
+  --el-border-color-dark: #b6ccd8;
+  --el-border-color-darker: #3b3c3d;
+
+  // 背景颜色
+  --el-bg-color: #fffefb;
+  --el-bg-color-page: #f5f4f1;
+  --el-bg-color-overlay: #ffffff;
+  --el-fill-color-blank: #ffffff;
+
+  // 填充颜色
+  --el-fill-color: #f5f4f1;
+  --el-fill-color-light: #fffefb;
+  --el-fill-color-lighter: #fffefb;
+  --el-fill-color-extra-light: #fffefb;
+  --el-fill-color-dark: #cccbc8;
+  --el-fill-color-darker: #b6ccd8;
+
+  // 遮罩颜色
+  --el-overlay-color: rgba(59, 60, 61, 0.6);
+  --el-overlay-color-light: rgba(59, 60, 61, 0.4);
+  --el-overlay-color-lighter: rgba(59, 60, 61, 0.2);
+
+  // 盒子阴影
+  --el-box-shadow: 0 1px 2px 0 rgba(29, 28, 28, 0.05);
+  --el-box-shadow-light: 0 1px 2px 0 rgba(29, 28, 28, 0.02);
+  --el-box-shadow-lighter: 0 0 6px 0 rgba(29, 28, 28, 0.04);
+  --el-box-shadow-dark: 0 4px 6px -1px rgba(29, 28, 28, 0.1);
+}
+
 // 重置样式
 * {
   margin: 0;
