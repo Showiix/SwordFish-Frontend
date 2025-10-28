@@ -1,3 +1,5 @@
+import { register } from "echarts/types/src/component/axisPointer/globalListener.js";
+
 // 中文简体语言包
 export default {
   common: {
@@ -44,7 +46,9 @@ export default {
     usernamePlaceholder: '请输入用户名',
     passwordPlaceholder: '请输入密码',
     loginSuccess: '登录成功',
-    loginFailed: '登录失败，请检查用户名和密码'
+    loginFailed: '登录失败，请检查用户名和密码',
+    registerFailed: '注册失败，请检查是否有遗漏',
+    registerSuccess: '注册成功',
   },
 
   products: {
@@ -98,5 +102,27 @@ export default {
 
     // 版权
     copyright: '© 2024 Swordfish 校园二手交易平台。保留所有权利。'
+  },
+
+
+  register: {
+    title: '注册',
+    subtitle: '欢迎加入校园二手交易平台',
+    username: '用户名',
+    password: '密码',
+    confirmPassword: '确认密码',
+    registerButton: '注册',
+    alreadyHaveAccount: '已经有账号？',
+    goLogin: '立即登录',
+    email: '邮箱',
+    student_id: '学号',
+    usernamePlaceholder: '请输入用户名',
+    emailPlaceholder: '请输入邮箱',
+    student_idPlaceholder: '请输入学号',
+    passwordPlaceholder: '请输入密码',
+    confirmPasswordPlaceholder: '请确认密码',
+    agreeToTerms: '我同意服务条款和隐私政策',
+
   }
+
 }

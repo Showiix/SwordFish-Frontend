@@ -38,12 +38,15 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       return { success: false, message: '登录失败' }
-    } catch (error: any) {
+    } 
+    catch (error: any) {
       return {
         success: false,
         message: error.message || '登录失败'
       }
-    } finally {
+    } 
+    finally 
+    {
       isLoading.value = false
     }
   }

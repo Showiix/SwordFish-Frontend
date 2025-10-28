@@ -44,7 +44,9 @@ export default {
     usernamePlaceholder: 'Please enter username',
     passwordPlaceholder: 'Please enter password',
     loginSuccess: 'Login successful',
-    loginFailed: 'Login failed, please check your username and password'
+    loginFailed: 'Login failed, please check your username and password',
+    registerFailed: 'Register failed, please check for missing fields',
+    registerSuccess: 'Register successful',
   },
 
   products: {
@@ -98,5 +100,24 @@ export default {
 
     // Copyright
     copyright: '© 2024 Swordfish Campus Marketplace. All rights reserved.'
+  },
+
+  register: {
+    title: 'Register',
+    subtitle: 'Welcome to Campus Secondhand Trading Platform',
+    username: 'Username',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    registerButton: 'Register',
+    alreadyHaveAccount: 'Already have an account?',
+    goLogin: 'Login Now',
+    email: 'Email',
+    student_id: 'Student ID',
+    usernamePlaceholder: 'Please enter username',
+    emailPlaceholder: 'Please enter email',
+    student_idPlaceholder: 'Please enter student ID',
+    passwordPlaceholder: 'Please enter password',
+    confirmPasswordPlaceholder: 'Please confirm password',
+    agreeToTerms: 'I agree to the terms of service and privacy policy',
   }
 }

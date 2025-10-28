@@ -4,6 +4,13 @@ export const storage = {
   /**
    * 设置存储
    */
+
+
+  // 这个对象是用来设置存储的，有一个set方法，传入key和value
+  // void类型表示没有返回值
+  // key是字符串类型，value是any类型
+
+
   set(key: string, value: any): void {
     try {
       const data = JSON.stringify(value)
@@ -20,7 +27,7 @@ export const storage = {
     try {
       const data = localStorage.getItem(key)
       if (data) {
-        return JSON.parse(data) as T
+        return JSON.parse(data) as T //断言为T类型
       }
       return null
     } catch (error) {

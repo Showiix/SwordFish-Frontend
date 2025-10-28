@@ -25,10 +25,11 @@ export interface LoginForm {
 /** 注册表单 */
 export interface RegisterForm {
   student_id: string
-  campus_email: string
   password: string
-  phone?: string
-  avatar_url?: string
+  username: string
+  email: string
+  confirmPassword: string
+  agreeToTerms: boolean
 }
 
 /** 登录响应 */
