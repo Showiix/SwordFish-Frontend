@@ -6,10 +6,10 @@ import { TOKEN_KEY } from './constants'
 
 // 创建axios实例
 const service: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 15000,
-  headers: {
-    'Content-Type': 'application/json'
+  baseURL: import.meta.env.VITE_API_BASE_URL, // 后端服务器地址
+  timeout: 15000, // 请求超时时间
+  headers: { 
+    'Content-Type': 'application/json'  // 请求头
   }
 })
 
@@ -85,6 +85,9 @@ service.interceptors.response.use(
 )
 
 // 通用请求方法
+// request这个对象封装了四个方法：get、post、put、delete  
+// 每个方法都接收两个参数：url和config
+// return service 是 创造出的axios的实例
 export const request = {
   get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return service.get(url, config)

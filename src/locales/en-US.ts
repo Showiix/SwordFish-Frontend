@@ -1,3 +1,5 @@
+import { register } from "echarts/types/src/component/axisPointer/globalListener.js";
+
 // English language pack
 export default {
   common: {
@@ -119,5 +121,16 @@ export default {
     passwordPlaceholder: 'Please enter password',
     confirmPasswordPlaceholder: 'Please confirm password',
     agreeToTerms: 'I agree to the terms of service and privacy policy',
+    usernameRequired: 'Please enter username',
+    emailRequired: 'Please enter email',
+    studentIdRequired: 'Please enter student ID',
+    passwordRequired: 'Please enter password',
+    confirmPasswordRequired: 'Please confirm password',
+    agreeToTermsRequired: 'Please agree to the terms of service and privacy policy',
+    usernameLength: 'Username must be 3-10 characters',
+    emailLength: 'Email must be 10-30 characters',
+    registerSuccess: 'Register successful',
+    registerFailed: 'Register failed, please check for missing fields',
+    goToLogin: 'Go to Login',
   }
 }

@@ -122,6 +122,23 @@ export default {
     passwordPlaceholder: '请输入密码',
     confirmPasswordPlaceholder: '请确认密码',
     agreeToTerms: '我同意服务条款和隐私政策',
+    usernameRequired: '请输入用户名',
+    emailRequired: '请输入邮箱',
+    studentIdRequired: '请输入学号',
+    passwordRequired: '请输入密码',
+    confirmPasswordRequired: '请确认密码',
+    agreeToTermsRequired: '请同意服务条款和隐私政策',
+    usernameLength: '用户名长度为3-10位',
+    emailLength: '邮箱长度为10-30位',
+    studentIdLength: '学号长度为10位',
+    passwordLength: '密码长度为8-20位',
+    confirmPasswordLength: '确认密码长度为8-20位',
+    agreeToTermsLength: '请同意服务条款和隐私政策',
+    registerSuccess: '注册成功',
+    registerFailed: '注册失败，请检查是否有遗漏',
+    goToLogin: '去登录',
+    
+
 
   }
 

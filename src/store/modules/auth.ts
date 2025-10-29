@@ -6,6 +6,7 @@ import { TOKEN_KEY, USER_KEY } from '@/utils/constants'
 import { request } from '@/utils/request'
 import type { User, LoginForm, RegisterForm, LoginResponse } from '@/types/auth'
 
+// 这个pinia的名字是auth ，defineStore是pinia的一个定义pinia的方法
 export const useAuthStore = defineStore('auth', () => {
   // 状态
   const user = ref<User | null>(storage.get<User>(USER_KEY))
