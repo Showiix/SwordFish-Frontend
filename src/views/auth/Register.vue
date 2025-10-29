@@ -56,7 +56,7 @@
           <!-- 同意服务条款和隐私政策 -->
           <el-form-item :label="$t('register.agreeToTerms')" >
             <el-checkbox v-model="registerForm.agreeToTerms" />
-            <!-- TODO 服务条款和隐私政策的跳转待开发 -->
+            <!-- TODO 服务条款和隐私政策的跳转link待开发 -->
 
           </el-form-item>
 
@@ -66,7 +66,9 @@
             <el-button 
               type="primary" 
               :disabled="!registerForm.agreeToTerms"
-              @click="handleRegister">
+              @click="handleRegister"
+              :loading="loading">
+
 
               {{ $t('register.registerButton') }}
 
@@ -167,6 +169,7 @@ const registerRules = reactive<FormRules>(
   }
 )
 
+const loading = ref(false) // 定义一个loading，用于控制按钮的加载状态
 
 
 // handleRegister逻辑：如果注册表单有遗漏，那么就会报错
@@ -183,6 +186,7 @@ const  handleRegister = async () => {
   if (!registerFormRef.value) return  // 如果这个注册表单的组件还没有加载出来，直接return
 
   try{
+    loading.value = true // 开始加载
     await registerFormRef.value.validate() // 这个validate方法是elementplus提供的专门用来自动校验表单
 
 
@@ -200,19 +204,22 @@ const  handleRegister = async () => {
     }
   catch(error){
     ElMessage.error(t('register.registerFailed'))  // 如果注册失败，那么就会提示注册失败
+    }
 
+  finally{
 
+    loading.value = false // 结束加载
+  }
 
 
 }
 
-
-}
-
-
+// 跳转到登录页面的函数
 const goToLogin = () => {
   router.push('/login')
 }
+
+
 
 </script>
 
