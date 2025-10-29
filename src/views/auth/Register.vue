@@ -32,7 +32,9 @@
           <!-- 密码 -->
           <el-form-item :label="$t('register.password')" prop="password">
             <el-input v-model="registerForm.password" 
-            :placeholder="$t('register.passwordPlaceholder')" 
+            :placeholder="$t('register.passwordPlaceholder')"
+            type="password"
+            show-password
             />
 
           </el-form-item>
@@ -73,13 +75,16 @@
               {{ $t('register.registerButton') }}
 
             </el-button>
+            <!-- 去登陆按钮 -->
+            <el-button type="primary" @click= "goToLogin" :loading="loading"> 
+              {{ $t('register.goLogin') }}
+            </el-button>
+
+            
           </el-form-item>
 
 
-          <!-- 去登陆按钮 -->
-          <el-button @click= "goToLogin"> 
-            {{ $t('register.goLogin') }}
-          </el-button>
+            
 
 
 
