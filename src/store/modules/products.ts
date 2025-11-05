@@ -4,6 +4,11 @@ import { ref, computed } from 'vue'
 import { getProductList, getProductDetail } from '@/services/products'
 import type { Product, ProductFilters } from '@/types/products'
 import { PAGE_SIZE, DEFAULT_PAGE } from '@/utils/constants'
+// 临时导入 Mock 数据（后端开发完成后可删除）
+import { getMockProductById, getMockProductList } from '@/mock/products'
+
+// 开发模式标志：true = 使用 Mock 数据，false = 使用真实 API
+const USE_MOCK = true
 
 export const useProductsStore = defineStore('products', () => {
   // 状态
@@ -41,6 +46,25 @@ export const useProductsStore = defineStore('products', () => {
     try {
       loading.value = true
 
+      // 使用 Mock 数据
+      if (USE_MOCK) {
+        // 模拟网络延迟
+        await new Promise(resolve => setTimeout(resolve, 500))
+        
+        const mockData = getMockProductList(page, pagination.value.page_size)
+        
+        if (append) {
+          products.value.push(...mockData.items)
+        } else {
+          products.value = mockData.items
+        }
+        
+        pagination.value = mockData.pagination
+        
+        return { code: 200, msg: 'success', data: mockData }
+      }
+
+      // 使用真实 API
       const params: ProductFilters = {
         ...filters.value,
         page,
@@ -78,6 +102,23 @@ export const useProductsStore = defineStore('products', () => {
   const fetchProductDetail = async (id: number) => {
     try {
       loading.value = true
+      
+      // 使用 Mock 数据
+      if (USE_MOCK) {
+        // 模拟网络延迟
+        await new Promise(resolve => setTimeout(resolve, 800))
+        
+        const mockProduct = getMockProductById(id)
+        
+        if (mockProduct) {
+          currentProduct.value = mockProduct
+          return { code: 200, msg: 'success', data: mockProduct }
+        } else {
+          throw new Error('商品不存在')
+        }
+      }
+
+      // 使用真实 API
       const response = await getProductDetail(id)
 
       if (response.code === 200) {

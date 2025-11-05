@@ -2,111 +2,142 @@
   <div class="register-page">
     <div class="container">
       <div class="register-card">
-        <!-- 标题 -->
-        <h1>{{ $t('register.title') }}</h1>
-        <!-- 副标题 -->
-        <p class = "subtitle" >  {{ $t('register.subtitle') }}</p>
+        <!-- 标题区域 -->
+        <div class="header-section">
+          <h1 class="title">{{ $t('register.title') }}</h1>
+          <p class="subtitle">{{ $t('register.subtitle') }}</p>
+        </div>
 
         <!-- 表单 -->
         <el-form 
-        :model="registerForm" 
-        label-width="100px"
-        ref="registerFormRef"
-        :rules="registerRules"
+          :model="registerForm" 
+          ref="registerFormRef"
+          :rules="registerRules"
+          class="register-form"
+          label-position="top"
+          size="large"
         >
-          <el-form-item :label="$t('register.username')" prop="username" >
-            <el-input v-model="registerForm.username" 
-            :placeholder="$t('register.usernamePlaceholder')" 
-            />
+          <!-- 用户名 -->
+          <el-form-item :label="$t('register.username')" prop="username">
+            <el-input 
+              v-model="registerForm.username" 
+              :placeholder="$t('register.usernamePlaceholder')"
+              clearable
+            >
+              <template #prefix>
+                <el-icon><User /></el-icon>
+              </template>
+            </el-input>
           </el-form-item>
 
           <!-- 邮箱 -->
-          <el-form-item :label="$t('register.email')" prop="email" >
-            <el-input v-model="registerForm.email" 
-            :placeholder="$t('register.emailPlaceholder')" 
-            />
-          
-          
+          <el-form-item :label="$t('register.email')" prop="email">
+            <el-input 
+              v-model="registerForm.email" 
+              :placeholder="$t('register.emailPlaceholder')"
+              clearable
+            >
+              <template #prefix>
+                <el-icon><Message /></el-icon>
+              </template>
+            </el-input>
+          </el-form-item>
+
+          <!-- 学号 -->
+          <el-form-item :label="$t('register.student_id')" prop="student_id">
+            <el-input 
+              v-model="registerForm.student_id" 
+              :placeholder="$t('register.student_idPlaceholder')"
+              clearable
+            >
+              <template #prefix>
+                <el-icon><Postcard /></el-icon>
+              </template>
+            </el-input>
           </el-form-item>
 
           <!-- 密码 -->
           <el-form-item :label="$t('register.password')" prop="password">
-            <el-input v-model="registerForm.password" 
-            :placeholder="$t('register.passwordPlaceholder')"
-            type="password"
-            show-password
-            />
-
+            <el-input 
+              v-model="registerForm.password" 
+              :placeholder="$t('register.passwordPlaceholder')"
+              type="password"
+              show-password
+              clearable
+            >
+              <template #prefix>
+                <el-icon><Lock /></el-icon>
+              </template>
+            </el-input>
           </el-form-item>
 
           <!-- 确认密码 -->
           <el-form-item :label="$t('register.confirmPassword')" prop="confirmPassword">
-            <el-input v-model="registerForm.confirmPassword"
-            :placeholder="$t('register.confirmPasswordPlaceholder')" 
-            show-password
-            />
+            <el-input 
+              v-model="registerForm.confirmPassword"
+              :placeholder="$t('register.confirmPasswordPlaceholder')" 
+              type="password"
+              show-password
+              clearable
+            >
+              <template #prefix>
+                <el-icon><Lock /></el-icon>
+              </template>
+            </el-input>
           </el-form-item>
 
-          <!-- 学号 -->
-          <el-form-item :label="$t('register.student_id')" prop="student_id" >
-            <el-input v-model="registerForm.student_id" 
-            :placeholder="$t('register.student_idPlaceholder')" 
-            />
+          <!-- 同意服务条款 -->
+          <el-form-item class="terms-item">
+            <el-checkbox v-model="registerForm.agreeToTerms">
+              <span class="terms-text">
+                我已阅读并同意
+                <a href="#" class="terms-link">《服务条款》</a>
+                和
+                <a href="#" class="terms-link">《隐私政策》</a>
+              </span>
+            </el-checkbox>
           </el-form-item>
 
-
-          <!-- 同意服务条款和隐私政策 -->
-          <el-form-item :label="$t('register.agreeToTerms')" >
-            <el-checkbox v-model="registerForm.agreeToTerms" />
-            <!-- TODO 服务条款和隐私政策的跳转link待开发 -->
-
-          </el-form-item>
-
-
-          <!-- 提交注册按钮 -->
-          <el-form-item>
+          <!-- 按钮组 -->
+          <el-form-item class="button-group">
             <el-button 
               type="primary" 
               :disabled="!registerForm.agreeToTerms"
               @click="handleRegister"
-              :loading="loading">
-
-
+              :loading="loading"
+              class="register-button"
+            >
               {{ $t('register.registerButton') }}
-
             </el-button>
-            <!-- 去登陆按钮 -->
-            <el-button type="primary" @click= "goToLogin" :loading="loading"> 
-              {{ $t('register.goLogin') }}
-            </el-button>
-
-            
           </el-form-item>
 
-
-            
-
-
-
+          <!-- 去登录 -->
+          <div class="footer-section">
+            <span class="footer-text">已有账号？</span>
+            <el-button 
+              type="text" 
+              @click="goToLogin"
+              class="login-link"
+            >
+              {{ $t('register.goLogin') }}
+            </el-button>
+          </div>
         </el-form>
-
       </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script setup lang="ts">
 // 注册页面
-import { reactive , ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
+import { User, Message, Lock, Postcard } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/store/modules/auth'
 import type { RegisterForm } from '@/types/auth'
-import type { FormInstance , FormRules } from 'element-plus' // 引入FormInstance和FormRules 表单实例和表单规则
+import type { FormInstance, FormRules } from 'element-plus'
 
 
 const router = useRouter() // 引入router，引入useRouter()的router
@@ -152,7 +183,7 @@ const registerRules = reactive<FormRules>(
       { required: true, message: t('register.confirmPasswordRequired'), trigger: 'blur' },
 
       // 确认密码和密码必须相同 
-      { validator: (rule: any, value: any, callback: any) => {
+      { validator: (_rule: any, value: any, callback: any) => {
         if (value !== registerForm.password) {
           callback(new Error(t('register.confirmPasswordInvalid')))
         } else {
@@ -242,19 +273,178 @@ const goToLogin = () => {
   justify-content: center;
   min-height: calc(100vh - $header-height);
   padding: $spacing-xl 0;
+  background: #d4eaf7;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 0 $spacing-md;
 }
 
 .register-card {
-  max-width: 500px;
   width: 100%;
   padding: $spacing-2xl;
   background: white;
   border-radius: $border-radius-lg;
-  box-shadow: $shadow-lg;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 
-  h1 {
+  // 标题区域
+  .header-section {
     text-align: center;
     margin-bottom: $spacing-xl;
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      color: $text-primary;
+      margin: 0 0 $spacing-sm 0;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: $text-secondary;
+      margin: 0;
+    }
+  }
+
+  // 表单样式
+  .register-form {
+    margin-top: $spacing-xl;
+
+    :deep(.el-form-item) {
+      margin-bottom: $spacing-lg;
+
+      // 标签样式
+      .el-form-item__label {
+        font-weight: 500;
+        color: $text-primary;
+        margin-bottom: $spacing-xs;
+      }
+
+      // 输入框样式
+      .el-input {
+        .el-input__wrapper {
+          padding: 12px 15px;
+          box-shadow: 0 0 0 1px #dcdfe6 inset;
+          transition: all 0.3s;
+
+          &:hover {
+            box-shadow: 0 0 0 1px #c0c4cc inset;
+          }
+
+          &.is-focus {
+            box-shadow: 0 0 0 1px $primary-color inset;
+          }
+        }
+
+        .el-input__prefix {
+          color: $text-tertiary;
+        }
+      }
+    }
+
+    // 服务条款样式
+    .terms-item {
+      margin-bottom: $spacing-md;
+
+      :deep(.el-form-item__content) {
+        line-height: 1.6;
+      }
+
+      .terms-text {
+        font-size: 14px;
+        color: $text-secondary;
+
+        .terms-link {
+          color: $primary-color;
+          text-decoration: none;
+          transition: color 0.3s;
+
+          &:hover {
+            color: darken($primary-color, 10%);
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    // 按钮组样式
+    .button-group {
+      margin-bottom: $spacing-md;
+
+      .register-button {
+        width: 100%;
+        height: 48px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: $border-radius-md;
+        transition: all 0.3s;
+
+        &:not(.is-disabled):hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 16px rgba($primary-color, 0.3);
+        }
+
+        &.is-disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    // 底部区域
+    .footer-section {
+      text-align: center;
+      padding-top: $spacing-md;
+      border-top: 1px solid $border-color;
+
+      .footer-text {
+        font-size: 14px;
+        color: $text-secondary;
+        margin-right: $spacing-xs;
+      }
+
+      .login-link {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0;
+
+        &:hover {
+          color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .register-page {
+    padding: $spacing-md 0;
+  }
+
+  .register-card {
+    padding: $spacing-xl $spacing-md;
+
+    .header-section {
+      .title {
+        font-size: 24px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+    }
+
+    .register-form {
+      .button-group {
+        .register-button {
+          height: 44px;
+          font-size: 15px;
+        }
+      }
+    }
   }
 }
 </style>

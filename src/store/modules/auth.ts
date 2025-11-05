@@ -5,6 +5,11 @@ import { storage } from '@/utils/storage'
 import { TOKEN_KEY, USER_KEY } from '@/utils/constants'
 import { request } from '@/utils/request'
 import type { User, LoginForm, RegisterForm, LoginResponse } from '@/types/auth'
+// 临时导入 Mock 数据（后端开发完成后可删除）
+import { mockLogin, mockRegister } from '@/mock/users'
+
+// 开发模式标志：true = 使用 Mock 数据，false = 使用真实 API
+const USE_MOCK = true
 
 // 这个pinia的名字是auth ，defineStore是pinia的一个定义pinia的方法
 export const useAuthStore = defineStore('auth', () => {
@@ -22,6 +27,32 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (loginForm: LoginForm) => {
     try {
       isLoading.value = true
+
+      // 使用 Mock 数据
+      if (USE_MOCK) {
+        const result = await mockLogin(loginForm.account, loginForm.password)
+        
+        if (result.success && result.data) {
+          const { token: accessToken, user_info } = result.data
+
+          // 更新状态
+          user.value = user_info
+          token.value = accessToken
+
+          // 持久化存储
+          storage.set(TOKEN_KEY, accessToken)
+          storage.set(USER_KEY, user_info)
+
+          return { success: true }
+        }
+
+        return { 
+          success: false, 
+          message: result.message || '登录失败' 
+        }
+      }
+
+      // 使用真实 API
       const response = await request.post<{ data: LoginResponse }>('/user/login', loginForm)
 
       if (response.data) {
@@ -56,6 +87,23 @@ export const useAuthStore = defineStore('auth', () => {
   const register = async (registerForm: RegisterForm) => {
     try {
       isLoading.value = true
+
+      // 使用 Mock 数据
+      if (USE_MOCK) {
+        const result = await mockRegister({
+          username: registerForm.username,
+          email: registerForm.email,
+          student_id: registerForm.student_id,
+          password: registerForm.password
+        })
+
+        return {
+          success: result.success,
+          message: result.message
+        }
+      }
+
+      // 使用真实 API
       const response = await request.post('/user/register', registerForm)
 
       return {
