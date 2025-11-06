@@ -5,7 +5,8 @@ import { getProductList, getProductDetail } from '@/services/products'
 import type { Product, ProductFilters } from '@/types/products'
 import { PAGE_SIZE, DEFAULT_PAGE } from '@/utils/constants'
 // 临时导入 Mock 数据（后端开发完成后可删除）
-import { getMockProductById, getMockProductList } from '@/mock/products'
+import { getMockProductById, getMockProductList, mockPublishProduct } from '@/mock/products'
+import { publishProduct } from '@/services/products'
 
 // 开发模式标志：true = 使用 Mock 数据，false = 使用真实 API
 const USE_MOCK = true
@@ -203,6 +204,47 @@ export const useProductsStore = defineStore('products', () => {
     }
   }
 
+  /**
+   * 发布商品
+   */
+  const publishNewProduct = async (formData: {
+    goods_title: string
+    goods_type: number
+    goods_price: number
+    condition_level?: string
+    goods_images?: string[]
+    goods_desc?: string
+  }): Promise<{ code: number; msg: string; data: Product }> => {
+    try {
+      loading.value = true
+
+      // 使用 Mock 数据
+      if (USE_MOCK) {
+        const result = await mockPublishProduct(formData)
+        if (result.success && result.data) {
+          // 发布成功后，可以选择更新本地商品列表
+          // products.value.unshift(result.data)
+          return { code: 200, msg: result.message || 'success', data: result.data }
+        }
+        throw new Error(result.message || '发布失败')
+      }
+
+      // 使用真实 API
+      // publishProduct 返回 Promise<ApiResponse<Product>>
+      const apiResponse = await publishProduct(formData)
+      
+      if (apiResponse.code === 200) {
+        return apiResponse
+      }
+      throw new Error(apiResponse.msg || '发布失败')
+    } catch (error: any) {
+      console.error('发布商品失败:', error)
+      throw error
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     // 状态
     products: computed(() => products.value),
@@ -223,6 +265,7 @@ export const useProductsStore = defineStore('products', () => {
     resetFilters,
     loadMore,
     clearCurrentProduct,
-    clearProducts
+    clearProducts,
+    publishNewProduct
   }
 })

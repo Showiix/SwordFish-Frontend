@@ -28,9 +28,11 @@ $bg-primary: #fffefb; // 主背景 (bg-100)
 $bg-secondary: #f5f4f1; // 次背景 (bg-200)
 $bg-tertiary: #cccbc8; // 三级背景 (bg-300)
 $bg-dark: #3b3c3d; // 深色背景 (primary-300)
+$bg-color-page: #f5f4f1; // 别名，页面背景色
 
 // 边框颜色
 $border-color: #cccbc8; // 边框色 (bg-300)
+$border-color-base: #cccbc8; // 别名，与 Element Plus 保持一致
 $border-color-light: #f5f4f1; // 浅边框 (bg-200)
 $border-color-dark: #b6ccd8; // 深边框 (primary-200)
 
@@ -38,11 +40,13 @@ $border-color-dark: #b6ccd8; // 深边框 (primary-200)
 $font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 $font-size-base: 16px;
 $font-size-small: 14px;
+$font-size-sm: 14px; // 别名，与 Element Plus 保持一致
 $font-size-large: 18px;
 $font-size-xlarge: 24px;
 
 // 圆角
 $border-radius-sm: 4px;
+$border-radius-base: 4px; // 别名，与 Element Plus 保持一致
 $border-radius-md: 8px;
 $border-radius-lg: 12px;
 $border-radius-xl: 16px;

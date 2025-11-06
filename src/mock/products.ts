@@ -306,3 +306,62 @@ export function getMockProductList(page = 1, pageSize = 10) {
   }
 }
 
+/**
+ * Mock 发布商品
+ */
+export async function mockPublishProduct(formData: {
+  goods_title: string
+  goods_type: number
+  goods_price: number
+  condition_level?: string
+  goods_images?: string[]
+  goods_desc?: string
+}) {
+  // 模拟网络延迟
+  await new Promise(resolve => setTimeout(resolve, 1200))
+
+  // 模拟验证失败（10%概率，用于测试）
+  if (Math.random() < 0.1) {
+    return {
+      success: false,
+      message: '发布失败：商品标题包含敏感词汇，请修改后重试'
+    }
+  }
+
+  // 生成新商品ID（取当前最大ID+1）
+  const maxId = Math.max(...mockProducts.map(p => p.goods_id), 0)
+  const newProductId = maxId + 1
+
+  // 创建新商品（模拟当前登录用户发布）
+  const newProduct: Product = {
+    goods_id: newProductId,
+    goods_title: formData.goods_title,
+    goods_type: formData.goods_type,
+    goods_price: formData.goods_price,
+    goods_desc: formData.goods_desc,
+    goods_images: formData.goods_images || [],
+    goods_status: 0, // 在售
+    condition_level: formData.condition_level,
+    create_time: new Date().toISOString(),
+    update_time: new Date().toISOString(),
+    views: 0,
+    publisher: {
+      user_id: 101, // 当前登录用户（与 mockUsers.ts 中的用户对应）
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  }
+
+  // 添加到 mock 数据列表（添加到开头，最新发布的在前面）
+  mockProducts.unshift(newProduct)
+
+  return {
+    success: true,
+    data: newProduct,
+    message: '发布成功'
+  }
+}
