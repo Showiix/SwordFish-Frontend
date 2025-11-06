@@ -82,6 +82,70 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/about',
+    name: 'About',
+    component: () => import('@/views/info/AboutPage.vue'),
+    meta: {
+      title: '关于我们'
+    }
+  },
+  {
+    path: '/how-it-works',
+    name: 'HowItWorks',
+    component: () => import('@/views/info/HowItWorksPage.vue'),
+    meta: {
+      title: '如何使用'
+    }
+  },
+  {
+    path: '/faq',
+    name: 'FAQ',
+    component: () => import('@/views/info/FAQPage.vue'),
+    meta: {
+      title: '常见问题'
+    }
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('@/views/info/ContactPage.vue'),
+    meta: {
+      title: '联系我们'
+    }
+  },
+  {
+    path: '/help',
+    name: 'HelpCenter',
+    component: () => import('@/views/info/HelpCenterPage.vue'),
+    meta: {
+      title: '帮助中心'
+    }
+  },
+  {
+    path: '/safety',
+    name: 'Safety',
+    component: () => import('@/views/info/SafetyPage.vue'),
+    meta: {
+      title: '安全提示'
+    }
+  },
+  {
+    path: '/terms',
+    name: 'Terms',
+    component: () => import('@/views/info/TermsPage.vue'),
+    meta: {
+      title: '服务条款'
+    }
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy',
+    component: () => import('@/views/info/PrivacyPage.vue'),
+    meta: {
+      title: '隐私政策'
+    }
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue'),
