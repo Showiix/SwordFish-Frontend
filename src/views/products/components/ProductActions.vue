@@ -10,7 +10,7 @@
       :loading="favoriteLoading"
       size="large"
     >
-      {{ isFavorited ? '已收藏' : '收藏' }}
+      {{ isFavorited ? $t('productDetail.actions.favorited') : $t('productDetail.actions.favorite') }}
     </el-button>
 
     <!-- ============================================ -->
@@ -22,7 +22,7 @@
       @click="handleContact"
       size="large"
     >
-      联系卖家
+      {{ $t('productDetail.actions.contact') }}
     </el-button>
 
     <!-- ============================================ -->
@@ -35,7 +35,7 @@
       :disabled="!isAvailable"
       size="large"
     >
-      {{ isAvailable ? '立即购买' : '已售出' }}
+      {{ isAvailable ? $t('productDetail.actions.buy') : $t('productDetail.actions.soldOut') }}
     </el-button>
 
     <!-- ============================================ -->
@@ -47,11 +47,11 @@
         <el-dropdown-menu>
           <el-dropdown-item command="share">
             <el-icon><Share /></el-icon>
-            <span>分享商品</span>
+            <span>{{ $t('productDetail.actions.share') }}</span>
           </el-dropdown-item>
           <el-dropdown-item command="report" divided>
             <el-icon><Warning /></el-icon>
-            <span>举报商品</span>
+            <span>{{ $t('productDetail.actions.report') }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -74,6 +74,7 @@
 
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/store/modules/auth'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {
@@ -104,6 +105,7 @@ const props = defineProps<Props>()
 
 const router = useRouter()
 const authStore = useAuthStore()
+const { t } = useI18n()
 
 // ============================================
 // 响应式数据
@@ -134,7 +136,7 @@ const isAvailable = computed(() => {
 const handleFavorite = async () => {
   // 检查登录状态
   if (!authStore.isAuthenticated) {
-    ElMessage.warning('请先登录')
+    ElMessage.warning(t('productDetail.messages.pleaseLogin'))
     router.push({
       path: '/login',
       query: { redirect: `/products/${props.product.goods_id}` }
@@ -159,10 +161,10 @@ const handleFavorite = async () => {
     isFavorited.value = !isFavorited.value
 
     // 显示提示
-    ElMessage.success(isFavorited.value ? '收藏成功' : '已取消收藏')
+    ElMessage.success(isFavorited.value ? t('productDetail.messages.favoriteSuccess') : t('productDetail.messages.unfavoriteSuccess'))
 
   } catch (error: any) {
-    ElMessage.error('操作失败：' + (error.message || '未知错误'))
+    ElMessage.error(t('productDetail.messages.operationFailed') + '：' + (error.message || t('productDetail.messages.unknownError')))
   } finally {
     favoriteLoading.value = false
   }
@@ -174,7 +176,7 @@ const handleFavorite = async () => {
 const handleContact = () => {
   // 检查登录状态
   if (!authStore.isAuthenticated) {
-    ElMessage.warning('请先登录')
+    ElMessage.warning(t('productDetail.messages.pleaseLogin'))
     router.push({
       path: '/login',
       query: { redirect: `/products/${props.product.goods_id}` }
@@ -184,7 +186,7 @@ const handleContact = () => {
 
   // 检查是否是自己的商品
   if (props.product.publisher?.user_id === authStore.user?.user_id) {
-    ElMessage.info('这是您自己发布的商品')
+    ElMessage.info(t('productDetail.messages.ownProduct'))
     return
   }
 
@@ -196,10 +198,10 @@ const handleContact = () => {
 
   // 方案2：显示联系方式（临时方案）
   ElMessageBox.alert(
-    '聊天功能正在开发中，敬请期待！',
-    '联系卖家',
+    t('productDetail.messages.chatComingSoon'),
+    t('productDetail.messages.contactSeller'),
     {
-      confirmButtonText: '我知道了',
+      confirmButtonText: t('productDetail.messages.iKnow'),
       type: 'info'
     }
   )
@@ -211,7 +213,7 @@ const handleContact = () => {
 const handleBuy = async () => {
   // 检查登录状态
   if (!authStore.isAuthenticated) {
-    ElMessage.warning('请先登录')
+    ElMessage.warning(t('productDetail.messages.pleaseLogin'))
     router.push({
       path: '/login',
       query: { redirect: `/products/${props.product.goods_id}` }
@@ -221,24 +223,24 @@ const handleBuy = async () => {
 
   // 检查商品状态
   if (!isAvailable.value) {
-    ElMessage.warning('商品已售出')
+    ElMessage.warning(t('productDetail.actions.soldOut'))
     return
   }
 
   // 检查是否是自己的商品
   if (props.product.publisher?.user_id === authStore.user?.user_id) {
-    ElMessage.info('不能购买自己的商品')
+    ElMessage.info(t('productDetail.messages.cannotBuyOwn'))
     return
   }
 
   try {
     // 确认购买
     await ElMessageBox.confirm(
-      `确认购买商品「${props.product.goods_title}」？\n价格：¥${props.product.goods_price.toFixed(2)}`,
-      '确认购买',
+      `${t('productDetail.messages.confirmPurchaseMsg', { title: props.product.goods_title })}\n${t('productDetail.messages.priceLabel')}：¥${props.product.goods_price.toFixed(2)}`,
+      t('productDetail.messages.confirmPurchase'),
       {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+        confirmButtonText: t('productDetail.messages.confirm'),
+        cancelButtonText: t('productDetail.messages.cancel'),
         type: 'info'
       }
     )
@@ -249,7 +251,7 @@ const handleBuy = async () => {
     //   amount: props.product.goods_price
     // })
 
-    ElMessage.success('购买成功！')
+    ElMessage.success(t('productDetail.messages.purchaseSuccess'))
 
     // 跳转到订单页面（如果有）
     // router.push(`/orders/${order.order_id}`)
@@ -257,7 +259,7 @@ const handleBuy = async () => {
   } catch (error) {
     // 用户取消购买或发生错误
     if (error !== 'cancel') {
-      ElMessage.error('购买失败，请重试')
+      ElMessage.error(t('productDetail.messages.purchaseFailed'))
     }
   }
 }
@@ -287,10 +289,10 @@ const handleShare = () => {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(url)
       .then(() => {
-        ElMessage.success('链接已复制到剪贴板')
+        ElMessage.success(t('productDetail.messages.linkCopied'))
       })
       .catch(() => {
-        ElMessage.error('复制失败，请手动复制')
+        ElMessage.error(t('productDetail.messages.copyFailed'))
       })
   } else {
     // 降级方案：使用传统方法
@@ -302,9 +304,9 @@ const handleShare = () => {
     textArea.select()
     try {
       document.execCommand('copy')
-      ElMessage.success('链接已复制到剪贴板')
+      ElMessage.success(t('productDetail.messages.linkCopied'))
     } catch (err) {
-      ElMessage.error('复制失败，请手动复制')
+      ElMessage.error(t('productDetail.messages.copyFailed'))
     }
     document.body.removeChild(textArea)
   }
@@ -325,26 +327,26 @@ const handleShare = () => {
 const handleReport = () => {
   // 检查登录状态
   if (!authStore.isAuthenticated) {
-    ElMessage.warning('请先登录')
+    ElMessage.warning(t('productDetail.messages.pleaseLogin'))
     return
   }
 
-  ElMessageBox.prompt('请输入举报原因', '举报商品', {
-    confirmButtonText: '提交',
-    cancelButtonText: '取消',
+  ElMessageBox.prompt(t('productDetail.messages.reportReason'), t('productDetail.messages.reportTitle'), {
+    confirmButtonText: t('productDetail.messages.submit'),
+    cancelButtonText: t('productDetail.messages.cancel'),
     inputPattern: /.{5,}/,
-    inputErrorMessage: '请输入至少5个字符的举报原因',
+    inputErrorMessage: t('productDetail.messages.reportMinLength'),
     inputType: 'textarea',
-    inputPlaceholder: '请详细描述举报原因，帮助我们更好地处理...'
+    inputPlaceholder: t('productDetail.messages.reportPlaceholder')
   })
-    .then(({ value }) => {
+    .then(() => {
       // TODO: 调用举报API
       // await reportProduct({
       //   goods_id: props.product.goods_id,
       //   reason: value
       // })
 
-      ElMessage.success('举报已提交，我们会尽快处理')
+      ElMessage.success(t('productDetail.messages.reportSuccess'))
     })
     .catch(() => {
       // 用户取消

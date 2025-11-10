@@ -4,7 +4,7 @@
     <!-- 卡片标题 -->
     <!-- ============================================ -->
     <div class="seller-header">
-      <h3>卖家信息</h3>
+      <h3>{{ $t('productDetail.sellerCard.title') }}</h3>
     </div>
 
     <!-- ============================================ -->
@@ -27,9 +27,9 @@
         <div class="seller-details">
           <!-- 姓名和认证 -->
           <div class="seller-name">
-            <span>{{ seller.real_name || '用户' + seller.student_id }}</span>
+            <span>{{ seller.real_name || $t('productDetail.sellerCard.defaultName') + seller.student_id }}</span>
             <!-- 认证标识（如果已认证） -->
-            <el-tooltip content="已认证用户" placement="top">
+            <el-tooltip :content="$t('productDetail.sellerCard.verified')" placement="top">
               <el-icon color="#67c23a" :size="18">
                 <SuccessFilled />
               </el-icon>
@@ -40,20 +40,20 @@
           <div class="seller-meta">
             <span class="meta-item">
               <el-icon><User /></el-icon>
-              学号：{{ seller.student_id }}
+              {{ $t('productDetail.sellerCard.studentId') }}：{{ seller.student_id }}
             </span>
           </div>
 
           <!-- 信用评分 -->
           <div class="seller-rating">
-            <span class="label">信用评分：</span>
+            <span class="label">{{ $t('productDetail.sellerCard.creditScore') }}：</span>
             <el-rate
               :model-value="sellerRating"
               disabled
               show-score
               text-color="#ff9900"
-              score-template="{value} 分"
             />
+            <span class="rating-text">{{ formattedRating }} {{ $t('productDetail.sellerCard.scoreUnit') }}</span>
           </div>
         </div>
       </div>
@@ -62,15 +62,15 @@
       <div class="seller-stats">
         <div class="stat-item">
           <span class="stat-value">{{ seller.active_products_count || 0 }}</span>
-          <span class="stat-label">在售商品</span>
+          <span class="stat-label">{{ $t('productDetail.sellerCard.stats.activeProducts') }}</span>
         </div>
         <div class="stat-item">
           <span class="stat-value">{{ seller.sold_count || 0 }}</span>
-          <span class="stat-label">已售商品</span>
+          <span class="stat-label">{{ $t('productDetail.sellerCard.stats.soldProducts') }}</span>
         </div>
         <div class="stat-item">
           <span class="stat-value">{{ seller.credit_score || 100 }}</span>
-          <span class="stat-label">信用分</span>
+          <span class="stat-label">{{ $t('productDetail.sellerCard.stats.creditScore') }}</span>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
     <!-- 没有卖家信息时的占位 -->
     <!-- ============================================ -->
     <div v-else class="seller-empty">
-      <el-empty description="卖家信息不可用" :image-size="60" />
+      <el-empty :description="$t('productDetail.sellerCard.unavailable')" :image-size="60" />
     </div>
   </div>
 </template>
@@ -132,6 +132,14 @@ const sellerRating = computed(() => {
   if (!props.seller) return 5
   // 100分制转5分制：100分 -> 5星
   return (props.seller.credit_score / 100) * 5
+})
+
+/**
+ * 格式化信用评分（保留1位小数）
+ */
+const formattedRating = computed(() => {
+  if (!props.seller) return '5.0'
+  return sellerRating.value.toFixed(1)
 })
 
 // ============================================
@@ -233,10 +241,15 @@ const getInitial = (name: string): string => {
             white-space: nowrap;
           }
 
+          .rating-text {
+            font-size: 14px;
+            color: #606266;
+            margin-left: 8px;
+          }
+
           :deep(.el-rate) {
             .el-rate__text {
-              font-size: 14px;
-              color: #606266;
+              display: none;
             }
           }
         }

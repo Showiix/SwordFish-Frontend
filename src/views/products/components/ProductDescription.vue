@@ -4,7 +4,7 @@
     <!-- 描述标题 -->
     <!-- ============================================ -->
     <div class="description-header">
-      <h3>商品描述</h3>
+      <h3>{{ $t('productDetail.description.title') }}</h3>
     </div>
 
     <!-- ============================================ -->
@@ -15,7 +15,7 @@
         {{ description }}
       </div>
       <div v-else class="empty-content">
-        <el-empty description="暂无商品描述" :image-size="80" />
+        <el-empty :description="$t('productDetail.description.empty')" :image-size="80" />
       </div>
     </div>
   </div>

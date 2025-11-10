@@ -288,20 +288,98 @@ export function getMockProductById(id: number): Product | undefined {
 }
 
 /**
- * 获取 Mock 商品列表
+ * 获取 Mock 商品列表（支持筛选和排序）
  */
-export function getMockProductList(page = 1, pageSize = 10) {
+export function getMockProductList(
+  page = 1,
+  pageSize = 10,
+  filters?: {
+    keyword?: string
+    goods_type?: number
+    min_price?: number
+    max_price?: number
+    condition?: string
+    sort_by?: string
+    sort_order?: 'ASC' | 'DESC'
+  }
+) {
+  // 1. 筛选数据
+  let filteredProducts = [...mockProducts]
+
+  // 关键词搜索（标题和描述）
+  if (filters?.keyword) {
+    const keyword = filters.keyword.toLowerCase()
+    filteredProducts = filteredProducts.filter(
+      p =>
+        p.goods_title.toLowerCase().includes(keyword) ||
+        p.goods_desc?.toLowerCase().includes(keyword)
+    )
+  }
+
+  // 商品分类筛选
+  if (filters?.goods_type !== undefined) {
+    filteredProducts = filteredProducts.filter(p => p.goods_type === filters.goods_type)
+  }
+
+  // 价格范围筛选
+  if (filters?.min_price !== undefined) {
+    filteredProducts = filteredProducts.filter(p => p.goods_price >= filters.min_price!)
+  }
+  if (filters?.max_price !== undefined) {
+    filteredProducts = filteredProducts.filter(p => p.goods_price <= filters.max_price!)
+  }
+
+  // 商品成色筛选
+  if (filters?.condition) {
+    filteredProducts = filteredProducts.filter(p => p.condition_level === filters.condition)
+  }
+
+  // 2. 排序数据
+  if (filters?.sort_by && filters?.sort_order) {
+    const sortBy = filters.sort_by
+    const sortOrder = filters.sort_order
+
+    filteredProducts.sort((a, b) => {
+      let aValue: any
+      let bValue: any
+
+      switch (sortBy) {
+        case 'goods_price':
+          aValue = a.goods_price
+          bValue = b.goods_price
+          break
+        case 'create_time':
+          aValue = new Date(a.create_time || 0).getTime()
+          bValue = new Date(b.create_time || 0).getTime()
+          break
+        case 'views':
+          aValue = a.views || 0
+          bValue = b.views || 0
+          break
+        default:
+          return 0
+      }
+
+      if (sortOrder === 'ASC') {
+        return aValue > bValue ? 1 : aValue < bValue ? -1 : 0
+      } else {
+        return aValue < bValue ? 1 : aValue > bValue ? -1 : 0
+      }
+    })
+  }
+
+  // 3. 分页
   const start = (page - 1) * pageSize
   const end = start + pageSize
-  const items = mockProducts.slice(start, end)
-  
+  const items = filteredProducts.slice(start, end)
+
   return {
     items,
     pagination: {
       current_page: page,
       page_size: pageSize,
-      total: mockProducts.length,
-      total_pages: Math.ceil(mockProducts.length / pageSize)
+      total: filteredProducts.length,
+      total_pages: Math.ceil(filteredProducts.length / pageSize)
     }
   }
 }

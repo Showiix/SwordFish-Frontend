@@ -51,17 +51,26 @@ export const useProductsStore = defineStore('products', () => {
       if (USE_MOCK) {
         // 模拟网络延迟
         await new Promise(resolve => setTimeout(resolve, 500))
-        
-        const mockData = getMockProductList(page, pagination.value.page_size)
-        
+
+        // 传递筛选参数到 Mock 函数
+        const mockData = getMockProductList(page, pagination.value.page_size, {
+          keyword: filters.value.keyword,
+          goods_type: filters.value.goods_type,
+          min_price: filters.value.min_price,
+          max_price: filters.value.max_price,
+          condition: filters.value.condition,
+          sort_by: filters.value.sort_by,
+          sort_order: filters.value.sort_order
+        })
+
         if (append) {
           products.value.push(...mockData.items)
         } else {
           products.value = mockData.items
         }
-        
+
         pagination.value = mockData.pagination
-        
+
         return { code: 200, msg: 'success', data: mockData }
       }
 

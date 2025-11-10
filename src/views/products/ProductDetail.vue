@@ -34,13 +34,13 @@
       <div class="container">
         <el-result
           icon="warning"
-          :title="errorMessage || '商品不存在'"
-          sub-title="该商品可能已被删除或下架"
+          :title="errorMessage || $t('productDetail.messages.productNotFound')"
+          :sub-title="$t('productDetail.messages.loadFailed')"
         >
           <template #extra>
             <el-space>
-              <el-button type="primary" @click="retry">重新加载</el-button>
-              <el-button @click="router.push('/products')">返回商品列表</el-button>
+              <el-button type="primary" @click="retry">{{ $t('productList.messages.retryLoad') }}</el-button>
+              <el-button @click="router.push('/products')">{{ $t('productList.messages.backToList') }}</el-button>
             </el-space>
           </template>
         </el-result>
@@ -107,6 +107,7 @@
 
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useProductsStore } from '@/store/modules/products'
 import { ElMessage } from 'element-plus'
 
@@ -124,6 +125,7 @@ import ProductDescription from '@/views/products/components/ProductDescription.v
 const route = useRoute()
 const router = useRouter()
 const productsStore = useProductsStore()
+const { t } = useI18n()
 
 // ============================================
 // 2. 响应式数据
@@ -169,7 +171,7 @@ const loadProductDetail = async () => {
 
     // 验证 ID 是否有效
     if (isNaN(id) || id <= 0) {
-      throw new Error('无效的商品ID')
+      throw new Error(t('productDetail.messages.productNotFound'))
     }
 
     // 调用 store 方法获取商品详情
@@ -177,14 +179,14 @@ const loadProductDetail = async () => {
 
     // 如果获取失败（商品不存在）
     if (!currentProduct.value) {
-      throw new Error('商品不存在')
+      throw new Error(t('productDetail.messages.productNotFound'))
     }
 
   } catch (err: any) {
     // 捕获错误并显示
     error.value = true
-    errorMessage.value = err.message || '加载失败'
-    ElMessage.error(err.message || '加载商品详情失败')
+    errorMessage.value = err.message || t('productDetail.messages.loadFailed')
+    ElMessage.error(err.message || t('productDetail.messages.loadFailed'))
   }
 }
 

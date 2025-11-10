@@ -979,5 +979,159 @@ export default {
       updateFailed: 'Update failed',
       passwordChangeFailed: 'Password change failed'
     }
+  },
+
+  // Product List Page
+  productList: {
+    title: 'Product List',
+    subtitle: 'Discover campus treasures',
+    search: {
+      placeholder: 'Search product name, description...',
+      button: 'Search'
+    },
+    filter: {
+      category: 'Category',
+      categoryPlaceholder: 'All Categories',
+      condition: 'Condition',
+      conditionPlaceholder: 'Product Condition',
+      price: 'Price',
+      minPrice: 'Min Price',
+      maxPrice: 'Max Price',
+      sort: 'Sort',
+      reset: 'Reset',
+      currentFilters: 'Active Filters:',
+      keyword: 'Keyword'
+    },
+    sort: {
+      latest: 'Latest',
+      priceLowToHigh: 'Price: Low to High',
+      priceHighToLow: 'Price: High to Low'
+    },
+    empty: 'No products available',
+    publishBtn: 'Publish Product',
+    loadMore: 'Load More',
+    loading: 'Loading...',
+    pagination: {
+      total: 'Total',
+      items: 'items',
+      page: 'Page',
+      of: 'of',
+      pages: ''
+    },
+    messages: {
+      searchFailed: 'Search failed, please try again',
+      filterFailed: 'Filter failed, please try again',
+      sortFailed: 'Sort failed, please try again',
+      resetSuccess: 'Filters have been reset',
+      resetFailed: 'Reset failed, please try again',
+      loadFailed: 'Load failed, please try again',
+      loadListFailed: 'Failed to load product list',
+      favoriteSuccess: 'Added to favorites'
+    }
+  },
+
+  // Product Categories
+  productCategories: {
+    electronics: 'Electronics',
+    books: 'Books & Stationery',
+    fashion: 'Fashion & Accessories',
+    furniture: 'Furniture & Home',
+    music: 'Music & Audio',
+    sports: 'Sports & Outdoors',
+    art: 'Art & Collectibles',
+    kitchen: 'Kitchen & Dining'
+  },
+
+  // Product Condition
+  productCondition: {
+    brandNew: 'Brand New',
+    likeNew: 'Like New',
+    lightlyUsed: 'Lightly Used',
+    wellUsed: 'Well Used',
+    heavilyUsed: 'Heavily Used'
+  },
+
+  // Product Detail Page
+  productDetail: {
+    // Basic Information
+    basicInfo: {
+      price: 'Price',
+      condition: 'Condition',
+      inStock: 'In Stock',
+      soldOut: 'Sold Out',
+      category: 'Category',
+      publishTime: 'Published',
+      views: 'Views',
+      viewsUnit: 'times',
+      productId: 'Product ID',
+      unknown: 'Unknown',
+      uncategorized: 'Uncategorized'
+    },
+
+    // Seller Information
+    sellerCard: {
+      title: 'Seller Information',
+      verified: 'Verified User',
+      studentId: 'Student ID',
+      creditScore: 'Credit Score',
+      scoreUnit: 'pts',
+      stats: {
+        activeProducts: 'Active Listings',
+        soldProducts: 'Sold Items',
+        creditScore: 'Credit'
+      },
+      unavailable: 'Seller information unavailable',
+      defaultName: 'User'
+    },
+
+    // Product Actions
+    actions: {
+      favorite: 'Favorite',
+      favorited: 'Favorited',
+      contact: 'Contact Seller',
+      buy: 'Buy Now',
+      soldOut: 'Sold Out',
+      share: 'Share',
+      report: 'Report'
+    },
+
+    // Product Description
+    description: {
+      title: 'Product Description',
+      empty: 'No description available'
+    },
+
+    // Messages
+    messages: {
+      pleaseLogin: 'Please login first',
+      favoriteSuccess: 'Added to favorites',
+      unfavoriteSuccess: 'Removed from favorites',
+      operationFailed: 'Operation failed',
+      unknownError: 'Unknown error',
+      ownProduct: 'This is your own product',
+      chatComingSoon: 'Chat feature is coming soon!',
+      contactSeller: 'Contact Seller',
+      iKnow: 'Got it',
+      cannotBuyOwn: 'Cannot buy your own product',
+      confirmPurchase: 'Confirm Purchase',
+      confirmPurchaseMsg: 'Confirm purchase of "{title}"?',
+      priceLabel: 'Price',
+      confirm: 'Confirm',
+      cancel: 'Cancel',
+      purchaseSuccess: 'Purchase successful!',
+      purchaseFailed: 'Purchase failed, please try again',
+      linkCopied: 'Link copied to clipboard',
+      copyFailed: 'Copy failed, please copy manually',
+      reportTitle: 'Report Product',
+      reportPlaceholder: 'Please describe the reason for reporting in detail...',
+      reportReason: 'Please enter the reason for reporting',
+      reportMinLength: 'Please enter at least 5 characters',
+      submit: 'Submit',
+      reportSuccess: 'Report submitted successfully',
+      loadFailed: 'Failed to load product details',
+      productNotFound: 'Product not found',
+      retryLoad: 'Retry',
+      backToList: 'Back to list'
+    }
   }
 }

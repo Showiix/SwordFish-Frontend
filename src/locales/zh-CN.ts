@@ -970,5 +970,159 @@ export default {
       updateFailed: '更新失败',
       passwordChangeFailed: '密码修改失败'
     }
+  },
+
+  // 商品列表页
+  productList: {
+    title: '商品列表',
+    subtitle: '发现你的校园好物',
+    search: {
+      placeholder: '搜索商品名称、描述...',
+      button: '搜索'
+    },
+    filter: {
+      category: '分类',
+      categoryPlaceholder: '全部分类',
+      condition: '成色',
+      conditionPlaceholder: '商品成色',
+      price: '价格',
+      minPrice: '最低价',
+      maxPrice: '最高价',
+      sort: '排序',
+      reset: '重置',
+      currentFilters: '当前筛选：',
+      keyword: '关键词'
+    },
+    sort: {
+      latest: '最新发布',
+      priceLowToHigh: '价格从低到高',
+      priceHighToLow: '价格从高到低'
+    },
+    empty: '暂无商品',
+    publishBtn: '发布商品',
+    loadMore: '加载更多',
+    loading: '加载中...',
+    pagination: {
+      total: '共',
+      items: '件商品',
+      page: '第',
+      of: '/',
+      pages: '页'
+    },
+    messages: {
+      searchFailed: '搜索失败，请重试',
+      filterFailed: '筛选失败，请重试',
+      sortFailed: '排序失败，请重试',
+      resetSuccess: '已重置筛选条件',
+      resetFailed: '重置失败，请重试',
+      loadFailed: '加载失败，请重试',
+      loadListFailed: '加载商品列表失败',
+      favoriteSuccess: '收藏成功'
+    }
+  },
+
+  // 商品分类
+  productCategories: {
+    electronics: '电子产品',
+    books: '图书文具',
+    fashion: '服饰鞋包',
+    furniture: '家具家居',
+    music: '音乐器材',
+    sports: '运动户外',
+    art: '艺术收藏',
+    kitchen: '厨房用品'
+  },
+
+  // 商品成色
+  productCondition: {
+    brandNew: '全新',
+    likeNew: '几乎全新',
+    lightlyUsed: '轻度使用',
+    wellUsed: '明显使用痕迹',
+    heavilyUsed: '重度使用'
+  },
+
+  // 商品详情页
+  productDetail: {
+    // 商品基本信息
+    basicInfo: {
+      price: '价格',
+      condition: '成色',
+      inStock: '在售中',
+      soldOut: '已售出',
+      category: '商品分类',
+      publishTime: '发布时间',
+      views: '浏览次数',
+      viewsUnit: '次',
+      productId: '商品编号',
+      unknown: '未知',
+      uncategorized: '未分类'
+    },
+
+    // 卖家信息
+    sellerCard: {
+      title: '卖家信息',
+      verified: '已认证用户',
+      studentId: '学号',
+      creditScore: '信用评分',
+      scoreUnit: '分',
+      stats: {
+        activeProducts: '在售商品',
+        soldProducts: '已售商品',
+        creditScore: '信用分'
+      },
+      unavailable: '卖家信息不可用',
+      defaultName: '用户'
+    },
+
+    // 商品操作
+    actions: {
+      favorite: '收藏',
+      favorited: '已收藏',
+      contact: '联系卖家',
+      buy: '立即购买',
+      soldOut: '已售出',
+      share: '分享商品',
+      report: '举报商品'
+    },
+
+    // 商品描述
+    description: {
+      title: '商品描述',
+      empty: '暂无商品描述'
+    },
+
+    // 消息提示
+    messages: {
+      pleaseLogin: '请先登录',
+      favoriteSuccess: '收藏成功',
+      unfavoriteSuccess: '已取消收藏',
+      operationFailed: '操作失败',
+      unknownError: '未知错误',
+      ownProduct: '这是您自己发布的商品',
+      chatComingSoon: '聊天功能正在开发中，敬请期待！',
+      contactSeller: '联系卖家',
+      iKnow: '我知道了',
+      cannotBuyOwn: '不能购买自己的商品',
+      confirmPurchase: '确认购买',
+      confirmPurchaseMsg: '确认购买商品「{title}」？',
+      priceLabel: '价格',
+      confirm: '确定',
+      cancel: '取消',
+      purchaseSuccess: '购买成功！',
+      purchaseFailed: '购买失败，请重试',
+      linkCopied: '链接已复制到剪贴板',
+      copyFailed: '复制失败，请手动复制',
+      reportTitle: '举报商品',
+      reportPlaceholder: '请详细描述举报原因，帮助我们更好地处理...',
+      reportReason: '请输入举报原因',
+      reportMinLength: '请输入至少5个字符的举报原因',
+      submit: '提交',
+      reportSuccess: '举报已提交，我们会尽快处理',
+      loadFailed: '加载商品详情失败',
+      productNotFound: '商品不存在',
+      retryLoad: '重新加载',
+      backToList: '返回商品列表'
+    }
   }
 }

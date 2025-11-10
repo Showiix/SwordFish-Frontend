@@ -3,8 +3,8 @@
     <div class="container">
       <!-- 页面标题 -->
       <div class="page-header">
-        <h1>商品列表</h1>
-        <p class="subtitle">发现你的校园好物</p>
+        <h1>{{ $t('productList.title') }}</h1>
+        <p class="subtitle">{{ $t('productList.subtitle') }}</p>
       </div>
 
       <!-- 搜索和筛选区域 -->
@@ -13,7 +13,7 @@
         <div class="search-bar">
           <el-input
             v-model="searchKeyword"
-            placeholder="搜索商品..."
+            :placeholder="$t('productList.search.placeholder')"
             prefix-icon="Search"
             size="large"
             clearable
@@ -21,82 +21,148 @@
             @clear="handleSearch"
           >
             <template #append>
-              <el-button icon="Search" @click="handleSearch">搜索</el-button>
+              <el-button icon="Search" @click="handleSearch">{{ $t('productList.search.button') }}</el-button>
             </template>
           </el-input>
         </div>
 
         <!-- 筛选栏 -->
         <div class="filter-bar">
-          <!-- 商品分类 -->
-          <el-select
-            v-model="productsStore.filters.goods_type"
-            placeholder="全部分类"
-            clearable
-            @change="handleFilterChange"
-          >
-            <el-option
-              v-for="category in PRODUCT_CATEGORIES"
-              :key="category.id"
-              :label="category.label"
-              :value="category.id"
+          <div class="filter-group">
+            <label class="filter-label">
+              <el-icon><Grid /></el-icon>
+              {{ $t('productList.filter.category') }}
+            </label>
+            <el-select
+              v-model="productsStore.filters.goods_type"
+              :placeholder="$t('productList.filter.categoryPlaceholder')"
+              clearable
+              @change="handleFilterChange"
+              class="filter-select"
             >
-              <div class="category-option">
-                <el-icon><component :is="category.icon" /></el-icon>
-                <span>{{ category.label }}</span>
-              </div>
-            </el-option>
-          </el-select>
-
-          <!-- 商品成色 -->
-          <el-select
-            v-model="productsStore.filters.condition"
-            placeholder="商品成色"
-            clearable
-            @change="handleFilterChange"
-          >
-            <el-option
-              v-for="condition in CONDITION_OPTIONS"
-              :key="condition.value"
-              :label="condition.label"
-              :value="condition.value"
-            />
-          </el-select>
-
-          <!-- 价格范围 -->
-          <div class="price-filter">
-            <el-input-number
-              v-model="productsStore.filters.min_price"
-              placeholder="最低价"
-              :min="0"
-              :controls="false"
-              @change="handleFilterChange"
-            />
-            <span class="separator">-</span>
-            <el-input-number
-              v-model="productsStore.filters.max_price"
-              placeholder="最高价"
-              :min="0"
-              :controls="false"
-              @change="handleFilterChange"
-            />
+              <el-option
+                v-for="category in PRODUCT_CATEGORIES"
+                :key="category.id"
+                :label="getCategoryI18nLabel(category.name)"
+                :value="category.id"
+              >
+                <div class="category-option">
+                  <el-icon><component :is="category.icon" /></el-icon>
+                  <span>{{ getCategoryI18nLabel(category.name) }}</span>
+                </div>
+              </el-option>
+            </el-select>
           </div>
 
-          <!-- 排序方式 -->
-          <el-select
-            v-model="sortOption"
-            @change="handleSortChange"
-          >
-            <el-option label="最新发布" value="create_time_DESC" />
-            <el-option label="价格从低到高" value="goods_price_ASC" />
-            <el-option label="价格从高到低" value="goods_price_DESC" />
-          </el-select>
+          <div class="filter-group">
+            <label class="filter-label">
+              <el-icon><Star /></el-icon>
+              {{ $t('productList.filter.condition') }}
+            </label>
+            <el-select
+              v-model="productsStore.filters.condition"
+              :placeholder="$t('productList.filter.conditionPlaceholder')"
+              clearable
+              @change="handleFilterChange"
+              class="filter-select"
+            >
+              <el-option
+                v-for="condition in CONDITION_OPTIONS"
+                :key="condition.value"
+                :label="getConditionI18nLabel(condition.value)"
+                :value="condition.value"
+              />
+            </el-select>
+          </div>
 
-          <!-- 重置按钮 -->
-          <el-button @click="handleReset">
-            <el-icon><RefreshLeft /></el-icon>
-            重置
-          </el-button>
+          <div class="filter-group price-group">
+            <label class="filter-label">
+              <el-icon><PriceTag /></el-icon>
+              {{ $t('productList.filter.price') }}
+            </label>
+            <div class="price-filter">
+              <el-input-number
+                v-model="productsStore.filters.min_price"
+                :placeholder="$t('productList.filter.minPrice')"
+                :min="0"
+                :controls="false"
+                @change="handleFilterChange"
+                class="price-input"
+              />
+              <span class="separator">-</span>
+              <el-input-number
+                v-model="productsStore.filters.max_price"
+                :placeholder="$t('productList.filter.maxPrice')"
+                :min="0"
+                :controls="false"
+                @change="handleFilterChange"
+                class="price-input"
+              />
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">
+              <el-icon><Sort /></el-icon>
+              {{ $t('productList.filter.sort') }}
+            </label>
+            <el-select
+              v-model="sortOption"
+              @change="handleSortChange"
+              class="filter-select"
+            >
+              <el-option :label="$t('productList.sort.latest')" value="create_time_DESC" />
+              <el-option :label="$t('productList.sort.priceLowToHigh')" value="goods_price_ASC" />
+              <el-option :label="$t('productList.sort.priceHighToLow')" value="goods_price_DESC" />
+            </el-select>
+          </div>
+
+          <div class="filter-actions">
+            <el-button @click="handleReset" class="reset-btn">
+              <el-icon><RefreshLeft /></el-icon>
+              {{ $t('productList.filter.reset') }}
+            </el-button>
+          </div>
+        </div>
+
+        <!-- 当前筛选标签 -->
+        <div v-if="hasActiveFilters" class="active-filters">
+          <span class="filter-tip">{{ $t('productList.filter.currentFilters') }}</span>
+          <el-tag
+            v-if="searchKeyword"
+            closable
+            @close="searchKeyword = ''; handleSearch()"
+          >
+            {{ $t('productList.filter.keyword') }}: {{ searchKeyword }}
+          </el-tag>
+          <el-tag
+            v-if="productsStore.filters.goods_type"
+            closable
+            @close="productsStore.filters.goods_type = undefined; handleFilterChange()"
+          >
+            {{ getCategoryLabel(productsStore.filters.goods_type) }}
+          </el-tag>
+          <el-tag
+            v-if="productsStore.filters.condition"
+            closable
+            @close="productsStore.filters.condition = undefined; handleFilterChange()"
+          >
+            {{ getConditionLabel(productsStore.filters.condition) }}
+          </el-tag>
+          <el-tag
+            v-if="productsStore.filters.min_price"
+            closable
+            @close="productsStore.filters.min_price = undefined; handleFilterChange()"
+          >
+            ≥ ¥{{ productsStore.filters.min_price }}
+          </el-tag>
+          <el-tag
+            v-if="productsStore.filters.max_price"
+            closable
+            @close="productsStore.filters.max_price = undefined; handleFilterChange()"
+          >
+            ≤ ¥{{ productsStore.filters.max_price }}
+          </el-tag>
         </div>
       </div>
 
@@ -121,10 +187,10 @@
       <!-- 空状态 -->
       <el-empty
         v-if="!productsStore.hasProducts && !productsStore.loading"
-        description="暂无商品"
+        :description="$t('productList.empty')"
       >
         <el-button type="primary" @click="$router.push('/products/publish')">
-          发布商品
+          {{ $t('productList.publishBtn') }}
         </el-button>
       </el-empty>
 
@@ -139,16 +205,16 @@
           :loading="loadingMore"
           @click="handleLoadMore"
         >
-          {{ loadingMore ? '加载中...' : '加载更多' }}
+          {{ loadingMore ? $t('productList.loading') : $t('productList.loadMore') }}
         </el-button>
       </div>
 
       <!-- 分页信息 -->
       <div v-if="productsStore.hasProducts" class="pagination-info">
         <span>
-          共 {{ productsStore.pagination.total }} 件商品
+          {{ $t('productList.pagination.total') }} {{ productsStore.pagination.total }} {{ $t('productList.pagination.items') }}
           ·
-          第 {{ productsStore.pagination.current_page }} / {{ productsStore.pagination.total_pages }} 页
+          {{ $t('productList.pagination.page') }} {{ productsStore.pagination.current_page }} {{ $t('productList.pagination.of') }} {{ productsStore.pagination.total_pages }} {{ $t('productList.pagination.pages') }}
         </span>
       </div>
     </div>
@@ -158,13 +224,15 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
-import { RefreshLeft } from '@element-plus/icons-vue'
+import { RefreshLeft, Grid, Star, PriceTag, Sort } from '@element-plus/icons-vue'
 import { useProductsStore } from '@/store/modules/products'
 import ProductCard from '@/components/business/ProductCard.vue'
 import { PRODUCT_CATEGORIES, PRODUCT_CONDITION } from '@/utils/constants'
 
 const router = useRouter()
+const { t } = useI18n()
 const productsStore = useProductsStore()
 
 const searchKeyword = ref('')
@@ -183,6 +251,41 @@ const sortOption = computed({
   }
 })
 
+// 是否有激活的筛选条件
+const hasActiveFilters = computed(() => {
+  return (
+    searchKeyword.value ||
+    productsStore.filters.goods_type !== undefined ||
+    productsStore.filters.condition !== undefined ||
+    productsStore.filters.min_price !== undefined ||
+    productsStore.filters.max_price !== undefined
+  )
+})
+
+// 获取分类的i18n标签
+const getCategoryI18nLabel = (categoryName: string) => {
+  const key = categoryName.toLowerCase()
+  return t(`productCategories.${key}`)
+}
+
+// 获取成色的i18n标签
+const getConditionI18nLabel = (conditionValue: string) => {
+  // 将 brand_new 转换为 brandNew
+  const key = conditionValue.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())
+  return t(`productCondition.${key}`)
+}
+
+// 获取分类标签（用于激活筛选标签显示）
+const getCategoryLabel = (typeId: number) => {
+  const category = PRODUCT_CATEGORIES.find(c => c.id === typeId)
+  return category ? getCategoryI18nLabel(category.name) : ''
+}
+
+// 获取成色标签（用于激活筛选标签显示）
+const getConditionLabel = (conditionValue: string) => {
+  return getConditionI18nLabel(conditionValue)
+}
+
 /**
  * 处理搜索
  */
@@ -190,7 +293,7 @@ const handleSearch = async () => {
   try {
     await productsStore.searchProducts(searchKeyword.value)
   } catch (error) {
-    ElMessage.error('搜索失败，请重试')
+    ElMessage.error(t('productList.messages.searchFailed'))
   }
 }
 
@@ -201,7 +304,7 @@ const handleFilterChange = async () => {
   try {
     await productsStore.fetchProducts(1, false)
   } catch (error) {
-    ElMessage.error('筛选失败，请重试')
+    ElMessage.error(t('productList.messages.filterFailed'))
   }
 }
 
@@ -212,7 +315,7 @@ const handleSortChange = async () => {
   try {
     await productsStore.fetchProducts(1, false)
   } catch (error) {
-    ElMessage.error('排序失败，请重试')
+    ElMessage.error(t('productList.messages.sortFailed'))
   }
 }
 
@@ -223,9 +326,9 @@ const handleReset = async () => {
   searchKeyword.value = ''
   try {
     await productsStore.resetFilters()
-    ElMessage.success('已重置筛选条件')
+    ElMessage.success(t('productList.messages.resetSuccess'))
   } catch (error) {
-    ElMessage.error('重置失败，请重试')
+    ElMessage.error(t('productList.messages.resetFailed'))
   }
 }
 
@@ -237,7 +340,7 @@ const handleLoadMore = async () => {
     loadingMore.value = true
     await productsStore.loadMore()
   } catch (error) {
-    ElMessage.error('加载失败，请重试')
+    ElMessage.error(t('productList.messages.loadFailed'))
   } finally {
     loadingMore.value = false
   }
@@ -256,7 +359,7 @@ const goToProductDetail = (id: number) => {
 const handleFavorite = (productId: number) => {
   // TODO: 实现收藏功能
   console.log('收藏商品ID:', productId)
-  ElMessage.success('收藏成功')
+  ElMessage.success(t('productList.messages.favoriteSuccess'))
 }
 
 // 页面加载时获取商品列表
@@ -264,12 +367,12 @@ onMounted(async () => {
   try {
     await productsStore.fetchProducts()
   } catch (error) {
-    ElMessage.error('加载商品列表失败')
+    ElMessage.error(t('productList.messages.loadListFailed'))
   }
 })
 </script>
 
-<style scoped lang="scss">
+ <style scoped lang="scss">
 .product-list-page {
   min-height: 100vh;
   background: $bg-secondary;
@@ -302,7 +405,7 @@ onMounted(async () => {
 
 .search-filter-section {
   background: white;
-  padding: $spacing-lg;
+  padding: $spacing-xl;
   border-radius: $border-radius-lg;
   box-shadow: $shadow-sm;
   margin-bottom: $spacing-xl;
@@ -313,9 +416,39 @@ onMounted(async () => {
 
   .filter-bar {
     display: flex;
-    gap: $spacing-md;
-    align-items: center;
+    gap: $spacing-lg;
+    align-items: flex-end;
     flex-wrap: wrap;
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+      flex: 0 0 auto;
+
+      &.price-group {
+        flex: 0 0 auto;
+      }
+
+      .filter-label {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        font-size: 14px;
+        font-weight: 500;
+        color: $text-secondary;
+        white-space: nowrap;
+
+        .el-icon {
+          font-size: 16px;
+          color: $primary-color;
+        }
+      }
+
+      .filter-select {
+        min-width: 160px;
+      }
+    }
 
     .category-option {
       display: flex;
@@ -330,10 +463,78 @@ onMounted(async () => {
 
       .separator {
         color: $text-tertiary;
+        font-weight: 500;
       }
 
-      :deep(.el-input-number) {
+      .price-input {
         width: 120px;
+
+        :deep(.el-input__inner) {
+          text-align: center;
+        }
+      }
+    }
+
+    .filter-actions {
+      margin-left: auto;
+
+      .reset-btn {
+        border-color: $border-color;
+
+        &:hover {
+          color: $primary-color;
+          border-color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .active-filters {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-color;
+
+    .filter-tip {
+      font-size: 14px;
+      color: $text-secondary;
+      font-weight: 500;
+    }
+
+    .el-tag {
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: $spacing-md;
+
+    .filter-bar {
+      gap: $spacing-md;
+
+      .filter-group {
+        flex: 1 1 100%;
+
+        .filter-select {
+          width: 100%;
+        }
+      }
+
+      .filter-actions {
+        flex: 1 1 100%;
+        margin-left: 0;
+
+        .reset-btn {
+          width: 100%;
+        }
       }
     }
   }

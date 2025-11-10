@@ -2,23 +2,23 @@
 
 // 商品分类
 export const PRODUCT_CATEGORIES = [
-  { id: 1, name: 'Electronics', label: '电子产品', icon: 'Laptop' },
+  { id: 1, name: 'Electronics', label: '电子产品', icon: 'Monitor' },
   { id: 2, name: 'Books', label: '图书文具', icon: 'Reading' },
-  { id: 3, name: 'Fashion', label: '服饰鞋包', icon: 'Shirt' },
-  { id: 4, name: 'Furniture', label: '家具家居', icon: 'Toilet' },
+  { id: 3, name: 'Fashion', label: '服饰鞋包', icon: 'ShoppingBag' },
+  { id: 4, name: 'Furniture', label: '家具家居', icon: 'House' },
   { id: 5, name: 'Music', label: '音乐器材', icon: 'Headset' },
-  { id: 6, name: 'Sports', label: '运动户外', icon: 'Basketball' },
+  { id: 6, name: 'Sports', label: '运动户外', icon: 'Trophy' },
   { id: 7, name: 'Art', label: '艺术收藏', icon: 'Picture' },
   { id: 8, name: 'Kitchen', label: '厨房用品', icon: 'Coffee' }
 ]
 
 // 商品成色
 export const PRODUCT_CONDITION = {
-  EXCELLENT: { value: 'excellent', label: '极好', color: '#67c23a' },
-  VERY_GOOD: { value: 'very_good', label: '很好', color: '#409eff' },
-  GOOD: { value: 'good', label: '良好', color: '#e6a23c' },
-  FAIR: { value: 'fair', label: '一般', color: '#f56c6c' },
-  POOR: { value: 'poor', label: '较差', color: '#909399' }
+  BRAND_NEW: { value: 'brand_new', label: '全新', color: '#67c23a' },
+  LIKE_NEW: { value: 'like_new', label: '几乎全新', color: '#409eff' },
+  LIGHTLY_USED: { value: 'lightly_used', label: '轻度使用', color: '#e6a23c' },
+  WELL_USED: { value: 'well_used', label: '明显使用痕迹', color: '#f56c6c' },
+  HEAVILY_USED: { value: 'heavily_used', label: '重度使用', color: '#909399' }
 }
 
 // 商品状态

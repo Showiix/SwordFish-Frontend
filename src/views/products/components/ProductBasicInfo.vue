@@ -13,13 +13,13 @@
     <div class="product-meta">
       <!-- 价格区域 -->
       <div class="price-section">
-        <span class="price-label">价格</span>
+        <span class="price-label">{{ $t('productDetail.basicInfo.price') }}</span>
         <span class="price-value">¥{{ formattedPrice }}</span>
       </div>
 
       <!-- 成色区域 -->
       <div v-if="product.condition_level" class="condition-section">
-        <span class="label">成色</span>
+        <span class="label">{{ $t('productDetail.basicInfo.condition') }}</span>
         <el-tag :type="conditionTagType" size="large">
           {{ conditionText }}
         </el-tag>
@@ -28,7 +28,7 @@
       <!-- 商品状态 -->
       <div class="status-section">
         <el-tag v-if="isAvailable" type="success" effect="dark">
-          在售中
+          {{ $t('productDetail.basicInfo.inStock') }}
         </el-tag>
         <el-tag v-else type="info" effect="dark">
           {{ statusText }}
@@ -40,19 +40,19 @@
     <!-- 商品信息列表 -->
     <!-- ============================================ -->
     <el-descriptions :column="2" border class="product-descriptions">
-      <el-descriptions-item label="商品分类">
+      <el-descriptions-item :label="$t('productDetail.basicInfo.category')">
         <el-tag>{{ categoryText }}</el-tag>
       </el-descriptions-item>
 
-      <el-descriptions-item label="发布时间">
+      <el-descriptions-item :label="$t('productDetail.basicInfo.publishTime')">
         {{ publishTimeText }}
       </el-descriptions-item>
 
-      <el-descriptions-item label="浏览次数" v-if="product.views !== undefined">
-        {{ product.views || 0 }} 次
+      <el-descriptions-item :label="$t('productDetail.basicInfo.views')" v-if="product.views !== undefined">
+        {{ product.views || 0 }} {{ $t('productDetail.basicInfo.viewsUnit') }}
       </el-descriptions-item>
 
-      <el-descriptions-item label="商品编号">
+      <el-descriptions-item :label="$t('productDetail.basicInfo.productId')">
         #{{ product.goods_id }}
       </el-descriptions-item>
     </el-descriptions>
@@ -73,14 +73,16 @@
  */
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Product } from '@/types/products'
 import {
-  CONDITION_MAP,
   CONDITION_TAG_TYPE,
-  CATEGORY_MAP,
   ProductStatus,
   STATUS_MAP
 } from '@/types/products'
+import { PRODUCT_CATEGORIES } from '@/utils/constants'
+
+const { t } = useI18n()
 
 // ============================================
 // Props 定义
@@ -105,12 +107,15 @@ const formattedPrice = computed(() => {
 })
 
 /**
- * 成色文本
+ * 成色文本 (使用i18n)
  * 将成色代码转换为用户可读的文字
  */
 const conditionText = computed(() => {
   const condition = props.product.condition_level
-  return condition ? CONDITION_MAP[condition] || '未知' : '未知'
+  if (!condition) return t('productDetail.basicInfo.unknown')
+  // 将 brand_new 转换为 brandNew
+  const key = condition.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase())
+  return t(`productCondition.${key}`)
 })
 
 /**
@@ -123,10 +128,13 @@ const conditionTagType = computed(() => {
 })
 
 /**
- * 商品分类文本
+ * 商品分类文本 (使用i18n)
  */
 const categoryText = computed(() => {
-  return CATEGORY_MAP[props.product.goods_type] || '未分类'
+  const category = PRODUCT_CATEGORIES.find(c => c.id === props.product.goods_type)
+  if (!category) return t('productDetail.basicInfo.uncategorized')
+  const key = category.name.toLowerCase()
+  return t(`productCategories.${key}`)
 })
 
 /**
@@ -140,7 +148,7 @@ const isAvailable = computed(() => {
  * 商品状态文本
  */
 const statusText = computed(() => {
-  return STATUS_MAP[props.product.goods_status] || '未知'
+  return STATUS_MAP[props.product.goods_status] || t('productDetail.basicInfo.unknown')
 })
 
 /**
@@ -150,7 +158,7 @@ const statusText = computed(() => {
 const publishTimeText = computed(() => {
   const createTime = props.product.create_time
 
-  if (!createTime) return '未知'
+  if (!createTime) return t('productDetail.basicInfo.unknown')
 
   // 方案1：显示绝对时间
   const date = new Date(createTime)
