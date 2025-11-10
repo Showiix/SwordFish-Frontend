@@ -11,12 +11,12 @@
 
           <!-- 主标题 -->
           <h1 class="hero-title">
-            您的校园二手交易市场
+            {{ $t('homePage.hero.title') }}
           </h1>
 
           <!-- 副标题 -->
           <p class="hero-subtitle">
-            在您的大学社区内安心买卖。让学生的可持续购物变得简单。
+            {{ $t('homePage.hero.subtitle') }}
           </p>
         </div>
       </div>
@@ -26,16 +26,16 @@
     <section class="cta-section">
       <div class="container">
         <div class="cta-content">
-          <h2 class="cta-title">准备好开始了吗？</h2>
+          <h2 class="cta-title">{{ $t('homePage.cta.title') }}</h2>
           <p class="cta-subtitle">
-            加入 Swordfish，让您的闲置物品找到新主人，或者发现心仪的二手好物
+            {{ $t('homePage.cta.subtitle') }}
           </p>
           <div class="cta-buttons">
             <el-button type="primary" size="large" class="cta-btn" @click="goToProducts">
-              浏览商品
+              {{ $t('homePage.cta.browseBtn') }}
             </el-button>
             <el-button size="large" class="cta-btn-outline" @click="goToPublish">
-              发布商品
+              {{ $t('homePage.cta.publishBtn') }}
             </el-button>
           </div>
         </div>
@@ -45,16 +45,16 @@
     <!-- 功能介绍区域 -->
     <section class="features-section">
       <div class="container">
-        <h2 class="section-title">为什么选择 Swordfish？</h2>
+        <h2 class="section-title">{{ $t('homePage.features.title') }}</h2>
 
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon">
               <el-icon><CircleCheck /></el-icon>
             </div>
-            <h3 class="feature-title">安全可靠</h3>
+            <h3 class="feature-title">{{ $t('homePage.features.secure.title') }}</h3>
             <p class="feature-desc">
-              学生身份认证和安全支付系统，让交易无忧。
+              {{ $t('homePage.features.secure.desc') }}
             </p>
           </div>
 
@@ -62,9 +62,9 @@
             <div class="feature-icon">
               <el-icon><ChatDotRound /></el-icon>
             </div>
-            <h3 class="feature-title">便捷沟通</h3>
+            <h3 class="feature-title">{{ $t('homePage.features.communication.title') }}</h3>
             <p class="feature-desc">
-              内置即时通讯系统，快速联系买家和卖家。
+              {{ $t('homePage.features.communication.desc') }}
             </p>
           </div>
 
@@ -72,9 +72,9 @@
             <div class="feature-icon">
               <el-icon><Trophy /></el-icon>
             </div>
-            <h3 class="feature-title">信用体系</h3>
+            <h3 class="feature-title">{{ $t('homePage.features.credit.title') }}</h3>
             <p class="feature-desc">
-              通过信用评分系统和可信评价建立您的声誉。
+              {{ $t('homePage.features.credit.desc') }}
             </p>
           </div>
 
@@ -82,9 +82,9 @@
             <div class="feature-icon">
               <el-icon><Sunny /></el-icon>
             </div>
-            <h3 class="feature-title">绿色环保</h3>
+            <h3 class="feature-title">{{ $t('homePage.features.green.title') }}</h3>
             <p class="feature-desc">
-              让物品在校园内获得第二次生命，支持可持续发展。
+              {{ $t('homePage.features.green.desc') }}
             </p>
           </div>
         </div>

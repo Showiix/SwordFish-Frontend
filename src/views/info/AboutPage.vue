@@ -3,8 +3,8 @@
     <!-- Hero 区域 -->
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-title">关于我们</h1>
-        <p class="page-subtitle">了解 Swordfish 的故事与使命</p>
+        <h1 class="page-title">{{ $t('aboutPage.hero.title') }}</h1>
+        <p class="page-subtitle">{{ $t('aboutPage.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -16,11 +16,9 @@
           <div class="section-icon">
             <el-icon><Aim /></el-icon>
           </div>
-          <h2 class="section-title">我们的使命</h2>
+          <h2 class="section-title">{{ $t('aboutPage.mission.title') }}</h2>
           <p class="section-text">
-            Swordfish 致力于为大学生打造一个安全、便捷的二手交易平台。
-            我们相信，每一件闲置物品都值得被珍惜，每一次交易都应该简单可靠。
-            通过技术创新和社区建设，我们让校园内的资源得到更好的流通和利用。
+            {{ $t('aboutPage.mission.content') }}
           </p>
         </div>
 
@@ -29,35 +27,35 @@
           <div class="section-icon">
             <el-icon><Medal /></el-icon>
           </div>
-          <h2 class="section-title">核心价值观</h2>
+          <h2 class="section-title">{{ $t('aboutPage.values.title') }}</h2>
           <div class="values-grid">
             <div class="value-card">
               <div class="value-icon">
                 <el-icon><CircleCheck /></el-icon>
               </div>
-              <h3 class="value-title">诚信为本</h3>
-              <p class="value-desc">建立基于信用的交易体系，让每一笔交易都值得信赖</p>
+              <h3 class="value-title">{{ $t('aboutPage.values.integrity.title') }}</h3>
+              <p class="value-desc">{{ $t('aboutPage.values.integrity.desc') }}</p>
             </div>
             <div class="value-card">
               <div class="value-icon">
                 <el-icon><User /></el-icon>
               </div>
-              <h3 class="value-title">用户至上</h3>
-              <p class="value-desc">以用户需求为导向，持续优化产品体验</p>
+              <h3 class="value-title">{{ $t('aboutPage.values.userFirst.title') }}</h3>
+              <p class="value-desc">{{ $t('aboutPage.values.userFirst.desc') }}</p>
             </div>
             <div class="value-card">
               <div class="value-icon">
                 <el-icon><Sunny /></el-icon>
               </div>
-              <h3 class="value-title">绿色环保</h3>
-              <p class="value-desc">倡导可持续消费，让物品发挥更大价值</p>
+              <h3 class="value-title">{{ $t('aboutPage.values.green.title') }}</h3>
+              <p class="value-desc">{{ $t('aboutPage.values.green.desc') }}</p>
             </div>
             <div class="value-card">
               <div class="value-icon">
                 <el-icon><Connection /></el-icon>
               </div>
-              <h3 class="value-title">社区共建</h3>
-              <p class="value-desc">打造活跃友好的校园社区，促进交流与分享</p>
+              <h3 class="value-title">{{ $t('aboutPage.values.community.title') }}</h3>
+              <p class="value-desc">{{ $t('aboutPage.values.community.desc') }}</p>
             </div>
           </div>
         </div>
@@ -67,27 +65,27 @@
           <div class="section-icon">
             <el-icon><Calendar /></el-icon>
           </div>
-          <h2 class="section-title">发展历程</h2>
+          <h2 class="section-title">{{ $t('aboutPage.timeline.title') }}</h2>
           <div class="timeline">
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div class="timeline-content">
-                <h3 class="timeline-title">2024年 - 项目启动</h3>
-                <p class="timeline-desc">基于校园二手交易需求，Swordfish 项目正式立项</p>
+                <h3 class="timeline-title">{{ $t('aboutPage.timeline.year2024.title') }}</h3>
+                <p class="timeline-desc">{{ $t('aboutPage.timeline.year2024.desc') }}</p>
               </div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div class="timeline-content">
-                <h3 class="timeline-title">2024年底 - 平台上线</h3>
-                <p class="timeline-desc">完成核心功能开发，平台正式上线测试</p>
+                <h3 class="timeline-title">{{ $t('aboutPage.timeline.year2024End.title') }}</h3>
+                <p class="timeline-desc">{{ $t('aboutPage.timeline.year2024End.desc') }}</p>
               </div>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div class="timeline-content">
-                <h3 class="timeline-title">2025年 - 持续优化</h3>
-                <p class="timeline-desc">不断完善功能，提升用户体验，拓展服务范围</p>
+                <h3 class="timeline-title">{{ $t('aboutPage.timeline.year2025.title') }}</h3>
+                <p class="timeline-desc">{{ $t('aboutPage.timeline.year2025.desc') }}</p>
               </div>
             </div>
           </div>
@@ -98,11 +96,9 @@
           <div class="section-icon">
             <el-icon><UserFilled /></el-icon>
           </div>
-          <h2 class="section-title">我们的团队</h2>
+          <h2 class="section-title">{{ $t('aboutPage.team.title') }}</h2>
           <p class="section-text">
-            我们是一群热爱技术、关注环保的大学生。
-            团队成员来自计算机、设计、运营等不同专业，
-            我们用自己的专业知识和热情，为校园社区创造价值。
+            {{ $t('aboutPage.team.intro') }}
           </p>
 
           <div class="team-grid">
@@ -111,25 +107,24 @@
                 <img src="@/assets/images/top.png" alt="Showiix" class="avatar-img" />
               </div>
               <h3 class="member-name">Showiix</h3>
-              <p class="member-role">创始人 & 开发者</p>
-              <p class="member-motto">"有一些瞬间就足够了"</p>
+              <p class="member-role">{{ $t('aboutPage.team.founder') }}</p>
+              <p class="member-motto">{{ $t('aboutPage.team.motto') }}</p>
             </div>
           </div>
         </div>
 
         <!-- 联系信息 -->
         <div class="content-section cta-section">
-          <h2 class="section-title">加入我们</h2>
+          <h2 class="section-title">{{ $t('aboutPage.cta.title') }}</h2>
           <p class="section-text">
-            如果你也认同我们的理念，欢迎加入 Swordfish 社区。
-            无论是使用我们的平台，还是加入我们的团队，我们都期待与你相遇。
+            {{ $t('aboutPage.cta.content') }}
           </p>
           <div class="cta-buttons">
             <el-button type="primary" size="large" @click="goToRegister">
-              立即注册
+              {{ $t('aboutPage.cta.registerBtn') }}
             </el-button>
             <el-button size="large" @click="goToContact">
-              联系我们
+              {{ $t('aboutPage.cta.contactBtn') }}
             </el-button>
           </div>
         </div>

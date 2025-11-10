@@ -3,8 +3,8 @@
     <!-- Hero 区域 -->
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-title">帮助中心</h1>
-        <p class="page-subtitle">我们随时为你提供帮助和支持</p>
+        <h1 class="page-title">{{ $t('helpCenterPage.hero.title') }}</h1>
+        <p class="page-subtitle">{{ $t('helpCenterPage.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -15,23 +15,23 @@
         <div class="quick-nav">
           <div class="nav-card" @click="scrollTo('getting-started')">
             <el-icon class="nav-icon"><Guide /></el-icon>
-            <h3 class="nav-title">新手入门</h3>
-            <p class="nav-desc">快速了解平台功能</p>
+            <h3 class="nav-title">{{ $t('helpCenterPage.quickNav.gettingStarted.title') }}</h3>
+            <p class="nav-desc">{{ $t('helpCenterPage.quickNav.gettingStarted.desc') }}</p>
           </div>
           <div class="nav-card" @click="scrollTo('account')">
             <el-icon class="nav-icon"><User /></el-icon>
-            <h3 class="nav-title">账号管理</h3>
-            <p class="nav-desc">账号相关问题</p>
+            <h3 class="nav-title">{{ $t('helpCenterPage.quickNav.account.title') }}</h3>
+            <p class="nav-desc">{{ $t('helpCenterPage.quickNav.account.desc') }}</p>
           </div>
           <div class="nav-card" @click="scrollTo('trading')">
             <el-icon class="nav-icon"><ShoppingBag /></el-icon>
-            <h3 class="nav-title">交易指南</h3>
-            <p class="nav-desc">买卖流程说明</p>
+            <h3 class="nav-title">{{ $t('helpCenterPage.quickNav.trading.title') }}</h3>
+            <p class="nav-desc">{{ $t('helpCenterPage.quickNav.trading.desc') }}</p>
           </div>
           <div class="nav-card" @click="scrollTo('safety')">
             <el-icon class="nav-icon"><Lock /></el-icon>
-            <h3 class="nav-title">安全保障</h3>
-            <p class="nav-desc">保护账号安全</p>
+            <h3 class="nav-title">{{ $t('helpCenterPage.quickNav.safety.title') }}</h3>
+            <p class="nav-desc">{{ $t('helpCenterPage.quickNav.safety.desc') }}</p>
           </div>
         </div>
 
@@ -39,36 +39,20 @@
         <div id="getting-started" class="help-section">
           <h2 class="help-title">
             <el-icon><Guide /></el-icon>
-            <span>新手入门</span>
+            <span>{{ $t('helpCenterPage.gettingStarted.title') }}</span>
           </h2>
           <div class="help-content">
             <div class="help-item">
-              <h3 class="item-title">什么是 Swordfish？</h3>
-              <p class="item-text">
-                Swordfish 是一个专为大学生设计的校园二手交易平台。我们致力于为学生提供安全、便捷的二手物品交易服务，
-                让闲置物品找到新主人，让每一次交易都简单可靠。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.gettingStarted.what.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.gettingStarted.what.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">如何开始使用？</h3>
-              <p class="item-text">
-                1. <strong>注册账号</strong>：使用学校邮箱注册账号<br>
-                2. <strong>完善信息</strong>：填写个人资料，上传头像<br>
-                3. <strong>浏览商品</strong>：通过搜索或分类查找心仪商品<br>
-                4. <strong>发布商品</strong>：拍照上传，填写详细信息<br>
-                5. <strong>开始交易</strong>：与买家/卖家沟通，约定交易方式
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.gettingStarted.howTo.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.gettingStarted.howTo.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">平台有哪些功能？</h3>
-              <p class="item-text">
-                • 商品浏览与搜索<br>
-                • 商品发布与管理<br>
-                • 实时聊天沟通<br>
-                • 信用评分系统<br>
-                • 订单管理<br>
-                • 收藏与关注
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.gettingStarted.features.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.gettingStarted.features.content')"></p>
             </div>
           </div>
         </div>
@@ -77,33 +61,20 @@
         <div id="account" class="help-section">
           <h2 class="help-title">
             <el-icon><User /></el-icon>
-            <span>账号管理</span>
+            <span>{{ $t('helpCenterPage.account.title') }}</span>
           </h2>
           <div class="help-content">
             <div class="help-item">
-              <h3 class="item-title">如何修改个人信息？</h3>
-              <p class="item-text">
-                登录后点击右上角头像，选择"个人中心"，即可编辑你的个人信息、头像、联系方式等。
-                修改后记得点击保存按钮。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.account.edit.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.account.edit.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">如何修改密码？</h3>
-              <p class="item-text">
-                在个人中心-账号设置中，点击"修改密码"，输入当前密码和新密码即可。
-                为了账号安全，建议定期更换密码。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.account.password.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.account.password.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">如何提升信用分数？</h3>
-              <p class="item-text">
-                信用分数基于以下因素：<br>
-                • 完成交易次数<br>
-                • 买卖双方评价<br>
-                • 账号活跃度<br>
-                • 违规记录<br>
-                保持良好的交易记录和行为规范可以提升信用分数。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.account.credit.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.account.credit.content')"></p>
             </div>
           </div>
         </div>
@@ -112,37 +83,20 @@
         <div id="trading" class="help-section">
           <h2 class="help-title">
             <el-icon><ShoppingBag /></el-icon>
-            <span>交易指南</span>
+            <span>{{ $t('helpCenterPage.trading.title') }}</span>
           </h2>
           <div class="help-content">
             <div class="help-item">
-              <h3 class="item-title">如何购买商品？</h3>
-              <p class="item-text">
-                1. 浏览商品，查看详细信息<br>
-                2. 点击"联系卖家"与卖家沟通<br>
-                3. 确认商品细节和价格<br>
-                4. 约定见面时间和地点<br>
-                5. 当面验货付款<br>
-                6. 交易完成后给予评价
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.trading.buy.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.trading.buy.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">如何发布商品？</h3>
-              <p class="item-text">
-                1. 点击"发布商品"按钮<br>
-                2. 上传清晰的商品照片（至少3张）<br>
-                3. 填写商品标题、描述、价格<br>
-                4. 选择商品分类和成色<br>
-                5. 提交审核<br>
-                6. 审核通过后商品自动上架
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.trading.publish.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.trading.publish.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">商品审核需要多久？</h3>
-              <p class="item-text">
-                通常在24小时内完成审核。我们会检查商品信息是否完整、图片是否清晰、描述是否准确。
-                如果审核未通过，会通过站内消息告知原因。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.trading.review.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.trading.review.content')"></p>
             </div>
           </div>
         </div>
@@ -151,49 +105,34 @@
         <div id="safety" class="help-section">
           <h2 class="help-title">
             <el-icon><Lock /></el-icon>
-            <span>安全保障</span>
+            <span>{{ $t('helpCenterPage.safety.title') }}</span>
           </h2>
           <div class="help-content">
             <div class="help-item">
-              <h3 class="item-title">如何保障交易安全？</h3>
-              <p class="item-text">
-                • 建议在校园内公共场所交易<br>
-                • 当面验货后再付款<br>
-                • 不要提前转账<br>
-                • 保留聊天记录和交易凭证<br>
-                • 注意保护个人隐私信息<br>
-                • 遇到可疑情况及时举报
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.safety.ensure.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.safety.ensure.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">如何举报违规行为？</h3>
-              <p class="item-text">
-                如果发现违规商品或用户，请点击商品或用户页面的"举报"按钮，
-                选择举报原因并提交。我们会在24小时内处理并给予反馈。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.safety.report.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.safety.report.content')"></p>
             </div>
             <div class="help-item">
-              <h3 class="item-title">遇到纠纷怎么办？</h3>
-              <p class="item-text">
-                如果交易过程中产生纠纷，请先尝试与对方沟通解决。
-                如果无法解决，可以联系平台客服介入处理，我们会根据实际情况协助解决。
-              </p>
+              <h3 class="item-title">{{ $t('helpCenterPage.safety.dispute.title') }}</h3>
+              <p class="item-text" v-html="$t('helpCenterPage.safety.dispute.content')"></p>
             </div>
           </div>
         </div>
 
         <!-- 联系我们 -->
         <div class="contact-section">
-          <h3 class="contact-title">还有其他问题？</h3>
-          <p class="contact-desc">
-            如果以上内容无法解决你的问题，欢迎联系我们的客服团队
-          </p>
+          <h3 class="contact-title">{{ $t('helpCenterPage.cta.title') }}</h3>
+          <p class="contact-desc">{{ $t('helpCenterPage.cta.desc') }}</p>
           <div class="contact-buttons">
             <el-button type="primary" size="large" @click="goToFAQ">
-              查看常见问题
+              {{ $t('helpCenterPage.cta.faqBtn') }}
             </el-button>
             <el-button size="large" @click="goToContact">
-              联系客服
+              {{ $t('helpCenterPage.cta.contactBtn') }}
             </el-button>
           </div>
         </div>

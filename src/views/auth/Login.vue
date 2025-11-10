@@ -47,8 +47,8 @@
           <!-- 记住我和忘记密码 -->
           <el-form-item class="extra-options">
             <div class="options-wrapper">
-              <el-checkbox v-model="rememberMe">记住我</el-checkbox>
-              <el-button type="text" class="forgot-password">忘记密码？</el-button>
+              <el-checkbox v-model="rememberMe">{{ $t('login.rememberMe') }}</el-checkbox>
+              <el-button type="text" class="forgot-password">{{ $t('login.forgotPassword') }}</el-button>
             </div>
           </el-form-item>
 
@@ -66,9 +66,9 @@
 
           <!-- 去注册 -->
           <div class="footer-section">
-            <span class="footer-text">还没有账号？</span>
-            <el-button 
-              type="text" 
+            <span class="footer-text">{{ $t('login.noAccount') }}</span>
+            <el-button
+              type="text"
               @click="goToRegister"
               class="register-link"
             >

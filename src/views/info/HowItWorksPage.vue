@@ -3,8 +3,8 @@
     <!-- Hero 区域 -->
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-title">如何使用</h1>
-        <p class="page-subtitle">快速上手 Swordfish，开启你的二手交易之旅</p>
+        <h1 class="page-title">{{ $t('howItWorksPage.hero.title') }}</h1>
+        <p class="page-subtitle">{{ $t('howItWorksPage.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -17,7 +17,7 @@
             <div class="section-icon">
               <el-icon><ShoppingCart /></el-icon>
             </div>
-            <h2 class="section-title">买家指南</h2>
+            <h2 class="section-title">{{ $t('howItWorksPage.buyer.title') }}</h2>
           </div>
 
           <div class="steps-grid">
@@ -26,10 +26,9 @@
               <div class="step-icon">
                 <el-icon><Search /></el-icon>
               </div>
-              <h3 class="step-title">浏览商品</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.buyer.step1.title') }}</h3>
               <p class="step-desc">
-                通过首页、分类或搜索功能，找到你感兴趣的商品。
-                可以使用筛选功能缩小范围，快速定位心仪物品。
+                {{ $t('howItWorksPage.buyer.step1.desc') }}
               </p>
             </div>
 
@@ -38,10 +37,9 @@
               <div class="step-icon">
                 <el-icon><View /></el-icon>
               </div>
-              <h3 class="step-title">查看详情</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.buyer.step2.title') }}</h3>
               <p class="step-desc">
-                点击商品查看详细信息，包括图片、描述、成色、价格等。
-                查看卖家信用评分，了解卖家历史交易记录。
+                {{ $t('howItWorksPage.buyer.step2.desc') }}
               </p>
             </div>
 
@@ -50,10 +48,9 @@
               <div class="step-icon">
                 <el-icon><ChatDotRound /></el-icon>
               </div>
-              <h3 class="step-title">联系卖家</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.buyer.step3.title') }}</h3>
               <p class="step-desc">
-                使用站内聊天功能与卖家沟通，咨询商品细节、
-                确认交易方式和地点。建议当面交易，确保安全。
+                {{ $t('howItWorksPage.buyer.step3.desc') }}
               </p>
             </div>
 
@@ -62,10 +59,9 @@
               <div class="step-icon">
                 <el-icon><CircleCheck /></el-icon>
               </div>
-              <h3 class="step-title">完成交易</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.buyer.step4.title') }}</h3>
               <p class="step-desc">
-                约定见面时间地点，当面验货付款。
-                交易完成后，记得给卖家评价，帮助其他用户做出决策。
+                {{ $t('howItWorksPage.buyer.step4.desc') }}
               </p>
             </div>
           </div>
@@ -77,7 +73,7 @@
             <div class="section-icon seller">
               <el-icon><Sell /></el-icon>
             </div>
-            <h2 class="section-title">卖家指南</h2>
+            <h2 class="section-title">{{ $t('howItWorksPage.seller.title') }}</h2>
           </div>
 
           <div class="steps-grid">
@@ -86,10 +82,9 @@
               <div class="step-icon seller">
                 <el-icon><Plus /></el-icon>
               </div>
-              <h3 class="step-title">发布商品</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.seller.step1.title') }}</h3>
               <p class="step-desc">
-                点击"发布商品"按钮，填写商品信息。
-                上传清晰的商品照片，详细描述商品状况和特点。
+                {{ $t('howItWorksPage.seller.step1.desc') }}
               </p>
             </div>
 
@@ -98,10 +93,9 @@
               <div class="step-icon seller">
                 <el-icon><PriceTag /></el-icon>
               </div>
-              <h3 class="step-title">定价合理</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.seller.step2.title') }}</h3>
               <p class="step-desc">
-                根据商品成色、市场价格合理定价。
-                可以参考平台上同类商品的价格，提高成交率。
+                {{ $t('howItWorksPage.seller.step2.desc') }}
               </p>
             </div>
 
@@ -110,10 +104,9 @@
               <div class="step-icon seller">
                 <el-icon><Message /></el-icon>
               </div>
-              <h3 class="step-title">及时回复</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.seller.step3.title') }}</h3>
               <p class="step-desc">
-                收到买家咨询后及时回复，耐心解答疑问。
-                保持良好的沟通态度，提升交易成功率。
+                {{ $t('howItWorksPage.seller.step3.desc') }}
               </p>
             </div>
 
@@ -122,10 +115,9 @@
               <div class="step-icon seller">
                 <el-icon><Checked /></el-icon>
               </div>
-              <h3 class="step-title">顺利交接</h3>
+              <h3 class="step-title">{{ $t('howItWorksPage.seller.step4.title') }}</h3>
               <p class="step-desc">
-                约定安全的交易地点和时间，当面交易。
-                确认收款后，将商品标记为已售出。
+                {{ $t('howItWorksPage.seller.step4.desc') }}
               </p>
             </div>
           </div>
@@ -137,27 +129,27 @@
             <div class="safety-icon">
               <el-icon><Warning /></el-icon>
             </div>
-            <h2 class="safety-title">安全交易提示</h2>
+            <h2 class="safety-title">{{ $t('howItWorksPage.safety.title') }}</h2>
             <div class="safety-tips">
               <div class="tip-item">
                 <el-icon><Select /></el-icon>
-                <span>建议在校园内公共场所当面交易</span>
+                <span>{{ $t('howItWorksPage.safety.tip1') }}</span>
               </div>
               <div class="tip-item">
                 <el-icon><Select /></el-icon>
-                <span>交易前仔细验货，确认商品状况</span>
+                <span>{{ $t('howItWorksPage.safety.tip2') }}</span>
               </div>
               <div class="tip-item">
                 <el-icon><Select /></el-icon>
-                <span>不要提前转账，避免财产损失</span>
+                <span>{{ $t('howItWorksPage.safety.tip3') }}</span>
               </div>
               <div class="tip-item">
                 <el-icon><Select /></el-icon>
-                <span>遇到可疑情况及时联系平台客服</span>
+                <span>{{ $t('howItWorksPage.safety.tip4') }}</span>
               </div>
               <div class="tip-item">
                 <el-icon><Select /></el-icon>
-                <span>保留聊天记录和交易凭证</span>
+                <span>{{ $t('howItWorksPage.safety.tip5') }}</span>
               </div>
             </div>
           </div>
@@ -165,16 +157,16 @@
 
         <!-- CTA -->
         <div class="content-section cta-section">
-          <h2 class="cta-title">准备好开始了吗？</h2>
+          <h2 class="cta-title">{{ $t('howItWorksPage.cta.title') }}</h2>
           <p class="cta-subtitle">
-            加入 Swordfish，开始你的校园二手交易之旅
+            {{ $t('howItWorksPage.cta.subtitle') }}
           </p>
           <div class="cta-buttons">
             <el-button type="primary" size="large" @click="goToProducts">
-              浏览商品
+              {{ $t('howItWorksPage.cta.browseBtn') }}
             </el-button>
             <el-button size="large" @click="goToPublish">
-              发布商品
+              {{ $t('howItWorksPage.cta.publishBtn') }}
             </el-button>
           </div>
         </div>
@@ -433,4 +425,3 @@ const goToPublish = () => {
   }
 }
 </style>
-

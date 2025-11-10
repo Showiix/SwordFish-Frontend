@@ -3,8 +3,8 @@
     <!-- Hero 区域 -->
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-title">安全提示</h1>
-        <p class="page-subtitle">保护你的账号和财产安全</p>
+        <h1 class="page-title">{{ $t('safetyPage.hero.title') }}</h1>
+        <p class="page-subtitle">{{ $t('safetyPage.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -14,48 +14,45 @@
         <!-- 安全警示 -->
         <div class="warning-card">
           <el-icon class="warning-icon"><Warning /></el-icon>
-          <h3 class="warning-title">重要提示</h3>
-          <p class="warning-text">
-            请务必遵守以下安全规则，保护你的账号和财产安全。
-            如遇可疑情况，请立即停止交易并联系平台客服。
-          </p>
+          <h3 class="warning-title">{{ $t('safetyPage.warning.title') }}</h3>
+          <p class="warning-text">{{ $t('safetyPage.warning.content') }}</p>
         </div>
 
         <!-- 交易安全 -->
         <div class="safety-section">
           <h2 class="section-title">
             <el-icon><ShoppingBag /></el-icon>
-            <span>交易安全</span>
+            <span>{{ $t('safetyPage.trading.title') }}</span>
           </h2>
 
           <div class="tips-grid">
             <div class="tip-card">
               <div class="tip-header">
                 <el-icon class="tip-icon do"><CircleCheck /></el-icon>
-                <h3 class="tip-title">建议做</h3>
+                <h3 class="tip-title">{{ $t('safetyPage.trading.do.title') }}</h3>
               </div>
               <ul class="tip-list">
-                <li>在校园内公共场所进行当面交易</li>
-                <li>交易前仔细验货，确认商品状况</li>
-                <li>当面验货无误后再付款</li>
-                <li>保留聊天记录和交易凭证</li>
-                <li>完成交易后及时给予评价</li>
-                <li>选择信用分数高的交易对象</li>
+                <li>{{ $t('safetyPage.trading.do.tip1') }}</li>
+                <li>{{ $t('safetyPage.trading.do.tip2') }}</li>
+                <li>{{ $t('safetyPage.trading.do.tip3') }}</li>
+                <li>{{ $t('safetyPage.trading.do.tip4') }}</li>
+                <li>{{ $t('safetyPage.trading.do.tip5') }}</li>
+                <li>{{ $t('safetyPage.trading.do.tip6') }}</li>
               </ul>
             </div>
 
             <div class="tip-card">
               <div class="tip-header">
                 <el-icon class="tip-icon dont"><CircleClose /></el-icon>
-                <h3 class="tip-title">不要做</h3>
+                <h3 class="tip-title">{{ $t('safetyPage.trading.dont.title') }}</h3>
               </div>
               <ul class="tip-list">
-                <li>不要在偏僻地点交易</li>
-                <li>不要在未见面前提前转账</li>
-                <li>不要相信"先付款后发货"</li>
-                <li>不要泄露个人敏感信息</li>
-                <li>不要接受可疑的付款方式</li>
-                <li>不要购买明显低于市场价的商品</li>
+                <li>{{ $t('safetyPage.trading.dont.tip1') }}</li>
+                <li>{{ $t('safetyPage.trading.dont.tip2') }}</li>
+                <li>{{ $t('safetyPage.trading.dont.tip3') }}</li>
+                <li>{{ $t('safetyPage.trading.dont.tip4') }}</li>
+                <li>{{ $t('safetyPage.trading.dont.tip5') }}</li>
+                <li>{{ $t('safetyPage.trading.dont.tip6') }}</li>
               </ul>
             </div>
           </div>
@@ -65,7 +62,7 @@
         <div class="safety-section">
           <h2 class="section-title">
             <el-icon><Lock /></el-icon>
-            <span>账号安全</span>
+            <span>{{ $t('safetyPage.account.title') }}</span>
           </h2>
 
           <div class="safety-items">
@@ -74,11 +71,8 @@
                 <el-icon><Key /></el-icon>
               </div>
               <div class="item-content">
-                <h3 class="item-title">设置强密码</h3>
-                <p class="item-desc">
-                  使用至少8位的复杂密码，包含大小写字母、数字和特殊字符。
-                  不要使用生日、手机号等容易被猜到的密码。
-                </p>
+                <h3 class="item-title">{{ $t('safetyPage.account.password.title') }}</h3>
+                <p class="item-desc">{{ $t('safetyPage.account.password.desc') }}</p>
               </div>
             </div>
 
@@ -87,11 +81,8 @@
                 <el-icon><Refresh /></el-icon>
               </div>
               <div class="item-content">
-                <h3 class="item-title">定期更换密码</h3>
-                <p class="item-desc">
-                  建议每3-6个月更换一次密码，增强账号安全性。
-                  不要在多个平台使用相同的密码。
-                </p>
+                <h3 class="item-title">{{ $t('safetyPage.account.change.title') }}</h3>
+                <p class="item-desc">{{ $t('safetyPage.account.change.desc') }}</p>
               </div>
             </div>
 
@@ -100,11 +91,8 @@
                 <el-icon><Hide /></el-icon>
               </div>
               <div class="item-content">
-                <h3 class="item-title">保护个人信息</h3>
-                <p class="item-desc">
-                  不要将账号密码告诉他人，不要在公共电脑上保存登录信息。
-                  退出账号时使用"退出登录"功能。
-                </p>
+                <h3 class="item-title">{{ $t('safetyPage.account.protect.title') }}</h3>
+                <p class="item-desc">{{ $t('safetyPage.account.protect.desc') }}</p>
               </div>
             </div>
 
@@ -113,10 +101,8 @@
                 <el-icon><View /></el-icon>
               </div>
               <div class="item-content">
-                <h3 class="item-title">注意登录提醒</h3>
-                <p class="item-desc">
-                  关注账号登录提醒，如发现异常登录记录，请立即修改密码并联系客服。
-                </p>
+                <h3 class="item-title">{{ $t('safetyPage.account.notice.title') }}</h3>
+                <p class="item-desc">{{ $t('safetyPage.account.notice.desc') }}</p>
               </div>
             </div>
           </div>
@@ -126,54 +112,54 @@
         <div class="safety-section">
           <h2 class="section-title">
             <el-icon><WarnTriangleFilled /></el-icon>
-            <span>防骗指南</span>
+            <span>{{ $t('safetyPage.scam.title') }}</span>
           </h2>
 
           <div class="scam-cards">
             <div class="scam-card">
-              <h3 class="scam-title">常见骗术</h3>
+              <h3 class="scam-title">{{ $t('safetyPage.scam.common.title') }}</h3>
               <ul class="scam-list">
                 <li>
-                  <strong>先款后货诈骗</strong>
-                  <p>要求买家先转账，之后失联或发送假货。</p>
+                  <strong>{{ $t('safetyPage.scam.common.scam1.title') }}</strong>
+                  <p>{{ $t('safetyPage.scam.common.scam1.desc') }}</p>
                 </li>
                 <li>
-                  <strong>虚假商品诈骗</strong>
-                  <p>发布价格远低于市场价的虚假商品信息。</p>
+                  <strong>{{ $t('safetyPage.scam.common.scam2.title') }}</strong>
+                  <p>{{ $t('safetyPage.scam.common.scam2.desc') }}</p>
                 </li>
                 <li>
-                  <strong>钓鱼链接诈骗</strong>
-                  <p>发送虚假链接，窃取账号密码或个人信息。</p>
+                  <strong>{{ $t('safetyPage.scam.common.scam3.title') }}</strong>
+                  <p>{{ $t('safetyPage.scam.common.scam3.desc') }}</p>
                 </li>
                 <li>
-                  <strong>身份冒充诈骗</strong>
-                  <p>冒充平台客服或工作人员，要求提供账号信息。</p>
+                  <strong>{{ $t('safetyPage.scam.common.scam4.title') }}</strong>
+                  <p>{{ $t('safetyPage.scam.common.scam4.desc') }}</p>
                 </li>
               </ul>
             </div>
 
             <div class="scam-card">
-              <h3 class="scam-title">如何防范</h3>
+              <h3 class="scam-title">{{ $t('safetyPage.scam.prevent.title') }}</h3>
               <ul class="scam-list prevention">
                 <li>
                   <el-icon><Select /></el-icon>
-                  <span>坚持当面交易，拒绝任何形式的提前付款要求</span>
+                  <span>{{ $t('safetyPage.scam.prevent.tip1') }}</span>
                 </li>
                 <li>
                   <el-icon><Select /></el-icon>
-                  <span>对价格异常便宜的商品保持警惕</span>
+                  <span>{{ $t('safetyPage.scam.prevent.tip2') }}</span>
                 </li>
                 <li>
                   <el-icon><Select /></el-icon>
-                  <span>不点击来历不明的链接</span>
+                  <span>{{ $t('safetyPage.scam.prevent.tip3') }}</span>
                 </li>
                 <li>
                   <el-icon><Select /></el-icon>
-                  <span>平台客服不会主动索要密码和验证码</span>
+                  <span>{{ $t('safetyPage.scam.prevent.tip4') }}</span>
                 </li>
                 <li>
                   <el-icon><Select /></el-icon>
-                  <span>遇到可疑情况立即举报并联系客服</span>
+                  <span>{{ $t('safetyPage.scam.prevent.tip5') }}</span>
                 </li>
               </ul>
             </div>
@@ -184,31 +170,29 @@
         <div class="emergency-section">
           <h3 class="emergency-title">
             <el-icon><Phone /></el-icon>
-            <span>遇到问题怎么办？</span>
+            <span>{{ $t('safetyPage.emergency.title') }}</span>
           </h3>
-          <p class="emergency-desc">
-            如果你遇到欺诈、威胁或其他安全问题，请立即采取以下措施：
-          </p>
+          <p class="emergency-desc">{{ $t('safetyPage.emergency.desc') }}</p>
           <div class="emergency-steps">
             <div class="step">
               <div class="step-num">1</div>
-              <p>停止交易，保留证据</p>
+              <p>{{ $t('safetyPage.emergency.step1') }}</p>
             </div>
             <div class="step">
               <div class="step-num">2</div>
-              <p>使用平台举报功能</p>
+              <p>{{ $t('safetyPage.emergency.step2') }}</p>
             </div>
             <div class="step">
               <div class="step-num">3</div>
-              <p>联系平台客服</p>
+              <p>{{ $t('safetyPage.emergency.step3') }}</p>
             </div>
             <div class="step">
               <div class="step-num">4</div>
-              <p>必要时报警处理</p>
+              <p>{{ $t('safetyPage.emergency.step4') }}</p>
             </div>
           </div>
           <el-button type="primary" size="large" @click="goToContact">
-            联系客服
+            {{ $t('safetyPage.emergency.contactBtn') }}
           </el-button>
         </div>
       </div>

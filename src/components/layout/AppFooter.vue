@@ -78,11 +78,9 @@ import { useI18n } from 'vue-i18n'
 import { Message, Star, Share } from '@element-plus/icons-vue'
 
 const router = useRouter()
-const { locale } = useI18n()
+const { t } = useI18n()
 const currentYear = computed(() => new Date().getFullYear())
-const madeWithLove = computed(() => {
-  return locale.value === 'zh-CN' ? '用 ❤️ 为学生打造' : 'Made with ❤️ for students'
-})
+const madeWithLove = computed(() => t('footer.madeWithLove'))
 
 const goTo = (path: string) => {
   router.push(path)

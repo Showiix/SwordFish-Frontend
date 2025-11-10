@@ -3,8 +3,8 @@
     <!-- Hero 区域 -->
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-title">常见问题</h1>
-        <p class="page-subtitle">快速找到你想了解的问题答案</p>
+        <h1 class="page-title">{{ $t('faqPage.hero.title') }}</h1>
+        <p class="page-subtitle">{{ $t('faqPage.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -15,7 +15,7 @@
         <div class="search-box">
           <el-input
             v-model="searchKeyword"
-            placeholder="搜索问题..."
+            :placeholder="$t('faqPage.searchPlaceholder')"
             size="large"
             clearable
           >
@@ -65,12 +65,12 @@
         <div class="no-answer-section">
           <div class="no-answer-card">
             <el-icon class="no-answer-icon"><ChatDotRound /></el-icon>
-            <h3 class="no-answer-title">没有找到你要的答案？</h3>
+            <h3 class="no-answer-title">{{ $t('faqPage.noAnswer.title') }}</h3>
             <p class="no-answer-desc">
-              联系我们的客服团队，我们会尽快为你解答
+              {{ $t('faqPage.noAnswer.desc') }}
             </p>
             <el-button type="primary" size="large" @click="goToContact">
-              联系客服
+              {{ $t('faqPage.noAnswer.contactBtn') }}
             </el-button>
           </div>
         </div>
@@ -82,6 +82,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import {
   Search,
   QuestionFilled,
@@ -93,122 +94,123 @@ import {
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
+const { t } = useI18n()
 
 const searchKeyword = ref('')
 const activeCategory = ref('all')
 const activeNames = ref<string[]>([])
 
 // 分类
-const categories = [
-  { id: 'all', name: '全部', icon: 'Setting' },
-  { id: 'account', name: '账号相关', icon: 'User' },
-  { id: 'trading', name: '交易相关', icon: 'ShoppingCart' },
-  { id: 'safety', name: '安全相关', icon: 'Lock' }
-]
+const categories = computed(() => [
+  { id: 'all', name: t('faqPage.categories.all'), icon: 'Setting' },
+  { id: 'account', name: t('faqPage.categories.account'), icon: 'User' },
+  { id: 'trading', name: t('faqPage.categories.trading'), icon: 'ShoppingCart' },
+  { id: 'safety', name: t('faqPage.categories.safety'), icon: 'Lock' }
+])
 
 // FAQ 数据
-const faqs = [
+const faqs = computed(() => [
   {
     id: '1',
     category: 'account',
-    question: '如何注册 Swordfish 账号？',
-    answer: '点击页面右上角的"登录"按钮，然后选择"注册"。填写你的学号、姓名、密码等信息，完成邮箱验证即可注册成功。'
+    question: t('faqPage.faqs.account.q1.question'),
+    answer: t('faqPage.faqs.account.q1.answer')
   },
   {
     id: '2',
     category: 'account',
-    question: '忘记密码怎么办？',
-    answer: '在登录页面点击"忘记密码"，输入你的注册邮箱，我们会向你发送重置密码的链接。点击链接即可设置新密码。'
+    question: t('faqPage.faqs.account.q2.question'),
+    answer: t('faqPage.faqs.account.q2.answer')
   },
   {
     id: '3',
     category: 'account',
-    question: '如何修改个人信息？',
-    answer: '登录后点击右上角的头像，选择"个人中心"，即可编辑你的个人信息、头像、联系方式等。'
+    question: t('faqPage.faqs.account.q3.question'),
+    answer: t('faqPage.faqs.account.q3.answer')
   },
   {
     id: '4',
     category: 'account',
-    question: '信用评分是如何计算的？',
-    answer: '信用评分基于你的交易历史、买卖双方评价、账号活跃度等多个维度综合计算。保持良好的交易记录可以提升信用分数。'
+    question: t('faqPage.faqs.account.q4.question'),
+    answer: t('faqPage.faqs.account.q4.answer')
   },
   {
     id: '5',
     category: 'trading',
-    question: '如何发布商品？',
-    answer: '登录后点击页面顶部的"发布商品"按钮，填写商品信息、上传图片、设置价格，提交审核即可。审核通过后商品会在平台上展示。'
+    question: t('faqPage.faqs.trading.q1.question'),
+    answer: t('faqPage.faqs.trading.q1.answer')
   },
   {
     id: '6',
     category: 'trading',
-    question: '商品审核需要多长时间？',
-    answer: '通常情况下，商品审核会在 24 小时内完成。我们会检查商品信息是否完整、图片是否清晰、描述是否准确等。'
+    question: t('faqPage.faqs.trading.q2.question'),
+    answer: t('faqPage.faqs.trading.q2.answer')
   },
   {
     id: '7',
     category: 'trading',
-    question: '可以修改已发布的商品信息吗？',
-    answer: '可以。在"我的商品"页面找到对应商品，点击"编辑"即可修改商品信息。修改后需要重新审核。'
+    question: t('faqPage.faqs.trading.q3.question'),
+    answer: t('faqPage.faqs.trading.q3.answer')
   },
   {
     id: '8',
     category: 'trading',
-    question: '如何联系卖家/买家？',
-    answer: '在商品详情页点击"联系卖家"按钮，即可打开聊天窗口。平台提供实时聊天功能，你可以与对方沟通商品细节、约定交易时间地点等。'
+    question: t('faqPage.faqs.trading.q4.question'),
+    answer: t('faqPage.faqs.trading.q4.answer')
   },
   {
     id: '9',
     category: 'trading',
-    question: '交易方式有哪些？',
-    answer: '我们建议在校园内公共场所进行当面交易。买家验货无误后再付款，确保交易安全。暂不支持线上支付和邮寄交易。'
+    question: t('faqPage.faqs.trading.q5.question'),
+    answer: t('faqPage.faqs.trading.q5.answer')
   },
   {
     id: '10',
     category: 'trading',
-    question: '商品卖出后如何操作？',
-    answer: '交易完成后，请在"我的商品"中将商品标记为"已售出"。同时记得给买家评价，帮助建立良好的社区信用体系。'
+    question: t('faqPage.faqs.trading.q6.question'),
+    answer: t('faqPage.faqs.trading.q6.answer')
   },
   {
     id: '11',
     category: 'trading',
-    question: '可以下架商品吗？',
-    answer: '可以。在"我的商品"页面找到对应商品，点击"下架"按钮即可。下架后的商品不会在平台上显示，但信息会保留。'
+    question: t('faqPage.faqs.trading.q7.question'),
+    answer: t('faqPage.faqs.trading.q7.answer')
   },
   {
     id: '12',
     category: 'safety',
-    question: '如何确保交易安全？',
-    answer: '建议在校园内人流量大的公共场所进行当面交易，仔细验货后再付款。保留聊天记录和交易凭证，遇到可疑情况及时联系客服。'
+    question: t('faqPage.faqs.safety.q1.question'),
+    answer: t('faqPage.faqs.safety.q1.answer')
   },
   {
     id: '13',
     category: 'safety',
-    question: '遇到诈骗怎么办？',
-    answer: '立即停止交易，保留聊天记录和相关证据，联系平台客服举报。我们会对违规用户进行处理，必要时协助报警。'
+    question: t('faqPage.faqs.safety.q2.question'),
+    answer: t('faqPage.faqs.safety.q2.answer')
   },
   {
     id: '14',
     category: 'safety',
-    question: '个人信息会泄露吗？',
-    answer: '我们严格保护用户隐私。你的手机号、邮箱等敏感信息不会公开显示。聊天记录经过加密传输，请放心使用。'
+    question: t('faqPage.faqs.safety.q3.question'),
+    answer: t('faqPage.faqs.safety.q3.answer')
   },
   {
     id: '15',
     category: 'safety',
-    question: '如何举报违规商品或用户？',
-    answer: '在商品详情页或用户主页点击"举报"按钮，选择举报原因并提交。我们会在 24 小时内处理举报并给予反馈。'
+    question: t('faqPage.faqs.safety.q4.question'),
+    answer: t('faqPage.faqs.safety.q4.answer')
   },
   {
     id: '16',
     category: 'account',
-    question: '可以注销账号吗？',
-    answer: '可以。在"个人中心"-"账号设置"中选择"注销账号"。注意：注销后你的账号信息、交易记录等将被永久删除且无法恢复。'
+    question: t('faqPage.faqs.account.q5.question'),
+    answer: t('faqPage.faqs.account.q5.answer')
   }
-]
+])
 
 // 过滤 FAQ
 const filteredFAQs = computed(() => {
-  let result = faqs
+  let result = faqs.value
 
   // 按分类筛选
   if (activeCategory.value !== 'all') {

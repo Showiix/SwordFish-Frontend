@@ -90,10 +90,10 @@
           <el-form-item class="terms-item">
             <el-checkbox v-model="registerForm.agreeToTerms">
               <span class="terms-text">
-                我已阅读并同意
-                <a href="#" class="terms-link">《服务条款》</a>
-                和
-                <a href="#" class="terms-link">《隐私政策》</a>
+                {{ $t('register.termsPrefix') }}
+                <a href="#" class="terms-link">{{ $t('register.termsService') }}</a>
+                {{ $t('register.termsAnd') }}
+                <a href="#" class="terms-link">{{ $t('register.termsPrivacy') }}</a>
               </span>
             </el-checkbox>
           </el-form-item>
@@ -113,9 +113,9 @@
 
           <!-- 去登录 -->
           <div class="footer-section">
-            <span class="footer-text">已有账号？</span>
-            <el-button 
-              type="text" 
+            <span class="footer-text">{{ $t('register.alreadyHaveAccount') }}</span>
+            <el-button
+              type="text"
               @click="goToLogin"
               class="login-link"
             >

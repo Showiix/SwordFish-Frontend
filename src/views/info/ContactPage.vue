@@ -3,8 +3,8 @@
     <!-- Hero 区域 -->
     <section class="page-hero">
       <div class="container">
-        <h1 class="page-title">联系我们</h1>
-        <p class="page-subtitle">我们随时准备倾听你的声音</p>
+        <h1 class="page-title">{{ $t('contactPage.hero.title') }}</h1>
+        <p class="page-subtitle">{{ $t('contactPage.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -19,27 +19,27 @@
                 <div class="method-icon">
                   <el-icon><Message /></el-icon>
                 </div>
-                <h3 class="method-title">邮箱</h3>
-                <p class="method-value">2138757206@qq.com</p>
-                <p class="method-desc">我们会在 24 小时内回复</p>
+                <h3 class="method-title">{{ $t('contactPage.methods.email.title') }}</h3>
+                <p class="method-value">{{ $t('contactPage.methods.email.value') }}</p>
+                <p class="method-desc">{{ $t('contactPage.methods.email.desc') }}</p>
               </div>
 
               <div class="method-card">
                 <div class="method-icon wechat">
                   <el-icon><ChatDotRound /></el-icon>
                 </div>
-                <h3 class="method-title">微信号</h3>
-                <p class="method-value">aa13717132345</p>
-                <p class="method-desc">添加微信联系我们</p>
+                <h3 class="method-title">{{ $t('contactPage.methods.wechat.title') }}</h3>
+                <p class="method-value">{{ $t('contactPage.methods.wechat.value') }}</p>
+                <p class="method-desc">{{ $t('contactPage.methods.wechat.desc') }}</p>
               </div>
 
               <div class="method-card">
                 <div class="method-icon">
                   <el-icon><Location /></el-icon>
                 </div>
-                <h3 class="method-title">办公地址</h3>
-                <p class="method-value">华南师范大学南海校区</p>
-                <p class="method-desc">欢迎预约到访</p>
+                <h3 class="method-title">{{ $t('contactPage.methods.address.title') }}</h3>
+                <p class="method-value">{{ $t('contactPage.methods.address.value') }}</p>
+                <p class="method-desc">{{ $t('contactPage.methods.address.desc') }}</p>
               </div>
             </div>
           </div>
@@ -47,8 +47,8 @@
           <!-- 右侧：反馈表单 -->
           <div class="contact-form-section">
             <div class="form-card">
-              <h2 class="form-title">发送消息</h2>
-              <p class="form-desc">填写下方表单，我们会尽快回复你</p>
+              <h2 class="form-title">{{ $t('contactPage.form.title') }}</h2>
+              <p class="form-desc">{{ $t('contactPage.form.desc') }}</p>
 
               <el-form
                 ref="formRef"
@@ -57,44 +57,44 @@
                 label-position="top"
                 class="contact-form"
               >
-                <el-form-item label="姓名" prop="name">
+                <el-form-item :label="$t('contactPage.form.name')" prop="name">
                   <el-input
                     v-model="form.name"
-                    placeholder="请输入你的姓名"
+                    :placeholder="$t('contactPage.form.namePlaceholder')"
                     size="large"
                   />
                 </el-form-item>
 
-                <el-form-item label="邮箱" prop="email">
+                <el-form-item :label="$t('contactPage.form.email')" prop="email">
                   <el-input
                     v-model="form.email"
-                    placeholder="请输入你的邮箱"
+                    :placeholder="$t('contactPage.form.emailPlaceholder')"
                     size="large"
                   />
                 </el-form-item>
 
-                <el-form-item label="主题" prop="subject">
+                <el-form-item :label="$t('contactPage.form.subject')" prop="subject">
                   <el-select
                     v-model="form.subject"
-                    placeholder="请选择主题"
+                    :placeholder="$t('contactPage.form.subjectPlaceholder')"
                     size="large"
                     style="width: 100%"
                   >
-                    <el-option label="技术问题" value="technical" />
-                    <el-option label="账号问题" value="account" />
-                    <el-option label="交易纠纷" value="dispute" />
-                    <el-option label="功能建议" value="suggestion" />
-                    <el-option label="合作咨询" value="cooperation" />
-                    <el-option label="其他" value="other" />
+                    <el-option :label="$t('contactPage.form.subjects.technical')" value="technical" />
+                    <el-option :label="$t('contactPage.form.subjects.account')" value="account" />
+                    <el-option :label="$t('contactPage.form.subjects.dispute')" value="dispute" />
+                    <el-option :label="$t('contactPage.form.subjects.suggestion')" value="suggestion" />
+                    <el-option :label="$t('contactPage.form.subjects.cooperation')" value="cooperation" />
+                    <el-option :label="$t('contactPage.form.subjects.other')" value="other" />
                   </el-select>
                 </el-form-item>
 
-                <el-form-item label="消息内容" prop="message">
+                <el-form-item :label="$t('contactPage.form.message')" prop="message">
                   <el-input
                     v-model="form.message"
                     type="textarea"
                     :rows="6"
-                    placeholder="请详细描述你的问题或建议..."
+                    :placeholder="$t('contactPage.form.messagePlaceholder')"
                     maxlength="500"
                     show-word-limit
                   />
@@ -108,7 +108,7 @@
                     @click="handleSubmit"
                     style="width: 100%"
                   >
-                    {{ submitting ? '发送中...' : '发送消息' }}
+                    {{ submitting ? $t('contactPage.form.submittingBtn') : $t('contactPage.form.submitBtn') }}
                   </el-button>
                 </el-form-item>
               </el-form>
@@ -118,24 +118,24 @@
 
         <!-- FAQ 快速链接 -->
         <div class="quick-links">
-          <h3 class="quick-title">常见问题</h3>
-          <p class="quick-desc">或许这里能找到你的答案</p>
+          <h3 class="quick-title">{{ $t('contactPage.quickLinks.title') }}</h3>
+          <p class="quick-desc">{{ $t('contactPage.quickLinks.desc') }}</p>
           <div class="quick-grid">
             <a href="#" class="quick-link" @click.prevent="goToFAQ">
               <el-icon><QuestionFilled /></el-icon>
-              <span>如何注册账号？</span>
+              <span>{{ $t('contactPage.quickLinks.q1') }}</span>
             </a>
             <a href="#" class="quick-link" @click.prevent="goToFAQ">
               <el-icon><QuestionFilled /></el-icon>
-              <span>如何发布商品？</span>
+              <span>{{ $t('contactPage.quickLinks.q2') }}</span>
             </a>
             <a href="#" class="quick-link" @click.prevent="goToFAQ">
               <el-icon><QuestionFilled /></el-icon>
-              <span>如何确保交易安全？</span>
+              <span>{{ $t('contactPage.quickLinks.q3') }}</span>
             </a>
             <a href="#" class="quick-link" @click.prevent="goToFAQ">
               <el-icon><QuestionFilled /></el-icon>
-              <span>忘记密码怎么办？</span>
+              <span>{{ $t('contactPage.quickLinks.q4') }}</span>
             </a>
           </div>
         </div>
@@ -147,6 +147,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import {
   Message,
@@ -156,6 +157,7 @@ import {
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
+const { t } = useI18n()
 
 const formRef = ref<FormInstance>()
 const submitting = ref(false)
@@ -169,18 +171,18 @@ const form = reactive({
 
 const rules: FormRules = {
   name: [
-    { required: true, message: '请输入姓名', trigger: 'blur' }
+    { required: true, message: () => t('contactPage.form.rules.nameRequired'), trigger: 'blur' }
   ],
   email: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
+    { required: true, message: () => t('contactPage.form.rules.emailRequired'), trigger: 'blur' },
+    { type: 'email', message: () => t('contactPage.form.rules.emailInvalid'), trigger: 'blur' }
   ],
   subject: [
-    { required: true, message: '请选择主题', trigger: 'change' }
+    { required: true, message: () => t('contactPage.form.rules.subjectRequired'), trigger: 'change' }
   ],
   message: [
-    { required: true, message: '请输入消息内容', trigger: 'blur' },
-    { min: 10, message: '消息内容至少 10 个字符', trigger: 'blur' }
+    { required: true, message: () => t('contactPage.form.rules.messageRequired'), trigger: 'blur' },
+    { min: 10, message: () => t('contactPage.form.rules.messageMin'), trigger: 'blur' }
   ]
 }
 
@@ -194,8 +196,8 @@ const handleSubmit = async () => {
     // 模拟提交
     await new Promise(resolve => setTimeout(resolve, 1500))
 
-    ElMessage.success('消息发送成功！我们会尽快回复你')
-    
+    ElMessage.success(t('contactPage.form.submitSuccess'))
+
     // 重置表单
     formRef.value.resetFields()
   } catch (error) {
