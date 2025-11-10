@@ -872,5 +872,103 @@ export default {
         desc: '让物品在校园内获得第二次生命，支持可持续发展。'
       }
     }
+  },
+
+  profilePage: {
+    hero: {
+      defaultName: '用户',
+      studentId: '学号',
+      creditScore: '信用分',
+      editBtn: '编辑资料'
+    },
+    tabs: {
+      info: '个人信息',
+      products: '我的商品',
+      orders: '我的订单',
+      credit: '信用记录'
+    },
+    info: {
+      title: '基本信息',
+      username: '用户名',
+      name: '姓名',
+      gender: '性别',
+      male: '男',
+      female: '女',
+      studentId: '学号',
+      college: '学院',
+      phone: '手机号',
+      email: '邮箱'
+    },
+    security: {
+      title: '账号安全',
+      changePasswordBtn: '修改密码'
+    },
+    products: {
+      empty: '您还没有发布任何商品',
+      publishBtn: '立即发布',
+      status: {
+        0: '审核中',
+        1: '已上架',
+        2: '已下架',
+        3: '已售出'
+      }
+    },
+    orders: {
+      empty: '您还没有任何订单',
+      orderNo: '订单号',
+      viewDetailBtn: '查看详情',
+      status: {
+        0: '待支付',
+        1: '已完成',
+        2: '已取消'
+      }
+    },
+    credit: {
+      currentScore: '当前信用分',
+      empty: '暂无信用记录'
+    },
+    editDialog: {
+      title: '编辑个人信息',
+      name: '姓名',
+      gender: '性别',
+      male: '男',
+      female: '女',
+      college: '学院',
+      phone: '手机号',
+      email: '邮箱',
+      avatar: '头像链接',
+      cancelBtn: '取消',
+      confirmBtn: '确定',
+      nameRequired: '请输入姓名',
+      phoneRequired: '请输入手机号',
+      phoneInvalid: '手机号格式不正确',
+      emailRequired: '请输入邮箱',
+      emailInvalid: '邮箱格式不正确'
+    },
+    passwordDialog: {
+      title: '修改密码',
+      oldPassword: '原密码',
+      newPassword: '新密码',
+      confirmPassword: '确认密码',
+      cancelBtn: '取消',
+      confirmBtn: '确定',
+      oldPasswordRequired: '请输入原密码',
+      newPasswordRequired: '请输入新密码',
+      passwordMinLength: '密码长度不能少于6位',
+      confirmPasswordRequired: '请再次输入新密码',
+      passwordNotMatch: '两次输入的密码不一致'
+    },
+    messages: {
+      updateSuccess: '更新成功',
+      passwordChangeSuccess: '密码修改成功'
+    },
+    errors: {
+      fetchUserInfoFailed: '获取用户信息失败',
+      fetchProductsFailed: '获取商品列表失败',
+      fetchOrdersFailed: '获取订单列表失败',
+      fetchCreditFailed: '获取信用记录失败',
+      updateFailed: '更新失败',
+      passwordChangeFailed: '密码修改失败'
+    }
   }
 }

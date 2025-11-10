@@ -881,5 +881,103 @@ export default {
         desc: 'Give items a second life on campus and support sustainable development.'
       }
     }
+  },
+
+  profilePage: {
+    hero: {
+      defaultName: 'User',
+      studentId: 'Student ID',
+      creditScore: 'Credit Score',
+      editBtn: 'Edit Profile'
+    },
+    tabs: {
+      info: 'Personal Info',
+      products: 'My Products',
+      orders: 'My Orders',
+      credit: 'Credit Records'
+    },
+    info: {
+      title: 'Basic Information',
+      username: 'Username',
+      name: 'Name',
+      gender: 'Gender',
+      male: 'Male',
+      female: 'Female',
+      studentId: 'Student ID',
+      college: 'College',
+      phone: 'Phone',
+      email: 'Email'
+    },
+    security: {
+      title: 'Account Security',
+      changePasswordBtn: 'Change Password'
+    },
+    products: {
+      empty: 'You haven\'t published any products yet',
+      publishBtn: 'Publish Now',
+      status: {
+        0: 'Under Review',
+        1: 'Listed',
+        2: 'Unlisted',
+        3: 'Sold'
+      }
+    },
+    orders: {
+      empty: 'You don\'t have any orders yet',
+      orderNo: 'Order No',
+      viewDetailBtn: 'View Details',
+      status: {
+        0: 'Pending Payment',
+        1: 'Completed',
+        2: 'Cancelled'
+      }
+    },
+    credit: {
+      currentScore: 'Current Credit Score',
+      empty: 'No credit records yet'
+    },
+    editDialog: {
+      title: 'Edit Profile',
+      name: 'Name',
+      gender: 'Gender',
+      male: 'Male',
+      female: 'Female',
+      college: 'College',
+      phone: 'Phone',
+      email: 'Email',
+      avatar: 'Avatar URL',
+      cancelBtn: 'Cancel',
+      confirmBtn: 'Confirm',
+      nameRequired: 'Please enter your name',
+      phoneRequired: 'Please enter your phone number',
+      phoneInvalid: 'Invalid phone number format',
+      emailRequired: 'Please enter your email',
+      emailInvalid: 'Invalid email format'
+    },
+    passwordDialog: {
+      title: 'Change Password',
+      oldPassword: 'Old Password',
+      newPassword: 'New Password',
+      confirmPassword: 'Confirm Password',
+      cancelBtn: 'Cancel',
+      confirmBtn: 'Confirm',
+      oldPasswordRequired: 'Please enter your old password',
+      newPasswordRequired: 'Please enter a new password',
+      passwordMinLength: 'Password must be at least 6 characters',
+      confirmPasswordRequired: 'Please confirm your new password',
+      passwordNotMatch: 'Passwords do not match'
+    },
+    messages: {
+      updateSuccess: 'Update successful',
+      passwordChangeSuccess: 'Password changed successfully'
+    },
+    errors: {
+      fetchUserInfoFailed: 'Failed to fetch user information',
+      fetchProductsFailed: 'Failed to fetch product list',
+      fetchOrdersFailed: 'Failed to fetch order list',
+      fetchCreditFailed: 'Failed to fetch credit records',
+      updateFailed: 'Update failed',
+      passwordChangeFailed: 'Password change failed'
+    }
   }
 }
