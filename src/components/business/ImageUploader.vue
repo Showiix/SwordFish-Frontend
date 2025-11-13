@@ -1,10 +1,10 @@
 <template>
   <div class="image-uploader">
     <div class="upload-header">
-      <span class="label">商品图片</span>
+      <span class="label">{{ $t('imageUploader.label') }}</span>
       <span class="tips">
         <el-icon><InfoFilled /></el-icon>
-        最多上传{{ maxCount }}张，每张最大{{ maxSizeMB }}MB，支持 JPG、PNG、WEBP 格式
+        {{ $t('imageUploader.tips', { maxCount, maxSize: maxSizeMB }) }}
       </span>
     </div>
 
@@ -28,11 +28,11 @@
               <template #error>
                 <div class="image-error">
                   <el-icon><Picture /></el-icon>
-                  <span>加载失败</span>
+                  <span>{{ $t('imageUploader.loadFailed') }}</span>
                 </div>
               </template>
             </el-image>
-            
+
             <!-- 删除按钮 -->
             <div class="image-actions">
               <el-button
@@ -47,7 +47,7 @@
 
             <!-- 主图标记 -->
             <div v-if="index === 0" class="primary-badge">
-              主图
+              {{ $t('imageUploader.primaryBadge') }}
             </div>
           </div>
         </template>
@@ -65,8 +65,7 @@
       >
         <div class="upload-placeholder">
           <el-icon class="upload-icon"><Plus /></el-icon>
-          <div class="upload-text">点击或拖拽上传</div>
-          <div class="upload-hint">{{ imageListLocal.length }}/{{ maxCount }}</div>
+          <div class="upload-hint">{{ $t('imageUploader.uploadHint', { current: imageListLocal.length, total: maxCount }) }}</div>
         </div>
         <input
           ref="fileInputRef"
@@ -83,6 +82,7 @@
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import { Plus, Delete, Picture, InfoFilled } from '@element-plus/icons-vue'
 import draggable from 'vuedraggable'
@@ -102,6 +102,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string[]): void
 }>()
 
+const { t } = useI18n()
 // 本地图片列表（用于拖拽排序）
 const imageListLocal = ref<string[]>([...props.modelValue])
 
@@ -190,7 +191,7 @@ const handleFiles = async (files: File[]) => {
   // 验证数量
   const remainingCount = props.maxCount - imageListLocal.value.length
   if (files.length > remainingCount) {
-    ElMessage.warning(`最多还能上传 ${remainingCount} 张图片`)
+    ElMessage.warning(t('imageUploader.exceedCount', { count: remainingCount }))
     files = files.slice(0, remainingCount)
   }
 
@@ -209,20 +210,20 @@ const beforeUpload = async (file: File): Promise<boolean> => {
   // 验证文件类型
   const isImage = file.type.startsWith('image/')
   if (!isImage) {
-    ElMessage.error(`${file.name} 不是图片文件！`)
+    ElMessage.error(t('imageUploader.notImage', { name: file.name }))
     return false
   }
 
   // 验证文件大小
   const isLtMaxSize = file.size / 1024 / 1024 < props.maxSize
   if (!isLtMaxSize) {
-    ElMessage.error(`${file.name} 大小超过 ${props.maxSize}MB！`)
+    ElMessage.error(t('imageUploader.exceedSize', { name: file.name, size: props.maxSize }))
     return false
   }
 
   // 验证数量
   if (imageListLocal.value.length >= props.maxCount) {
-    ElMessage.error(`最多只能上传 ${props.maxCount} 张图片！`)
+    ElMessage.error(t('imageUploader.exceedMaxCount', { count: props.maxCount }))
     return false
   }
 
@@ -238,14 +239,14 @@ const uploadFile = async (file: File) => {
     try {
       const url = await mockUploadImage(file)
       imageListLocal.value.push(url)
-      ElMessage.success(`${file.name} 上传成功`)
+      ElMessage.success(t('imageUploader.uploadSuccess', { name: file.name }))
     } catch (error) {
-      ElMessage.error(`${file.name} 上传失败`)
+      ElMessage.error(t('imageUploader.uploadFailed', { name: file.name }))
     }
   } else {
     // 真实上传逻辑
     // TODO: 实现真实的文件上传
-    ElMessage.info('真实上传功能待实现')
+    ElMessage.info(t('imageUploader.realUploadTodo'))
   }
 }
 
@@ -253,14 +254,14 @@ const uploadFile = async (file: File) => {
  * Mock 图片上传
  */
 const mockUploadImage = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     // 模拟上传延迟
     setTimeout(() => {
       // 使用占位图服务（推荐方案）
       const randomId = Date.now() + Math.random().toString(36).substring(7)
       const url = `https://picsum.photos/600/400?random=${randomId}`
       resolve(url)
-      
+
       // 或者使用 Base64（适合真实预览）
       // const reader = new FileReader()
       // reader.onload = (e) => {
@@ -277,7 +278,7 @@ const mockUploadImage = (file: File): Promise<string> => {
  */
 const handleRemove = (index: number) => {
   imageListLocal.value.splice(index, 1)
-  ElMessage.success('已删除')
+  ElMessage.success(t('imageUploader.deleted'))
 }
 
 /**
@@ -285,7 +286,7 @@ const handleRemove = (index: number) => {
  */
 const handleDragEnd = () => {
   // 拖拽排序完成，数据已自动更新
-  ElMessage.success('排序已更新，第一张为主图')
+  ElMessage.success(t('imageUploader.sortUpdated'))
 }
 </script>
 

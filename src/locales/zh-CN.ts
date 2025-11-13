@@ -1024,13 +1024,12 @@ export default {
   // 商品分类
   productCategories: {
     electronics: '电子产品',
-    books: '图书文具',
-    fashion: '服饰鞋包',
-    furniture: '家具家居',
-    music: '音乐器材',
+    books: '图书教材',
+    furniture: '生活用品',
+    fashion: '服装鞋包',
     sports: '运动户外',
-    art: '艺术收藏',
-    kitchen: '厨房用品'
+    beauty: '美妆护肤',
+    other: '其他'
   },
 
   // 商品成色
@@ -1124,5 +1123,86 @@ export default {
       retryLoad: '重新加载',
       backToList: '返回商品列表'
     }
+  },
+
+  // 发布商品页面
+  publishProduct: {
+    pageTitle: '发布商品',
+    pageSubtitle: '填写商品信息，快速发布你的闲置物品',
+
+    form: {
+      title: '商品标题',
+      titlePlaceholder: '请输入商品标题，简洁明了更容易被搜索到',
+      category: '商品分类',
+      categoryPlaceholder: '请选择商品分类',
+      price: '商品价格',
+      pricePlaceholder: '请输入商品价格',
+      priceUnit: '元',
+      condition: '商品成色',
+      images: '商品图片',
+      description: '商品描述',
+      descriptionPlaceholder: '请详细描述商品的使用情况、购买时间、新旧程度、存在的问题等信息，方便买家了解'
+    },
+
+    validation: {
+      titleRequired: '请输入商品标题',
+      titleLength: '标题长度为 2-50 个字符',
+      categoryRequired: '请选择商品分类',
+      priceRequired: '请输入商品价格',
+      pricePositive: '价格必须大于0',
+      priceFormat: '价格最多保留2位小数',
+      conditionRequired: '请选择商品成色',
+      imagesRequired: '请至少上传1张商品图片',
+      descriptionLength: '描述最多1000个字符'
+    },
+
+    tips: {
+      title: '温馨提示：',
+      tip1: '请确保商品信息真实有效，虚假信息将影响信用分',
+      tip2: '商品图片需清晰展示商品全貌，第一张图片将作为封面',
+      tip3: '合理定价，参考同类商品价格，更容易成交',
+      tip4: '详细描述商品状况，减少买卖纠纷'
+    },
+
+    actions: {
+      publish: '立即发布',
+      publishing: '发布中...',
+      saveDraft: '保存草稿',
+      reset: '重置'
+    },
+
+    messages: {
+      confirmPublish: '确认发布该商品吗？发布后将进入审核流程',
+      confirmPublishTitle: '确认发布',
+      confirmButton: '确认发布',
+      cancelButton: '再想想',
+      publishSuccess: '发布成功！',
+      publishFailed: '发布失败，请重试',
+      draftSaved: '草稿已保存',
+      draftSaveFailed: '保存草稿失败',
+      draftRestored: '已恢复上次编辑的草稿',
+      confirmReset: '确认重置表单吗？所有填写的内容将被清空',
+      confirmResetTitle: '确认重置',
+      resetSuccess: '表单已重置'
+    }
+  },
+
+  // 图片上传组件
+  imageUploader: {
+    label: '商品图片',
+    tips: '最多上传{maxCount}张，每张最大{maxSize}MB，支持 JPG、PNG、WEBP 格式',
+    loadFailed: '加载失败',
+    primaryBadge: '主图',
+    uploadText: '点击或拖拽上传',
+    uploadHint: '{current}/{total}',
+    exceedCount: '最多还能上传 {count} 张图片',
+    notImage: '{name} 不是图片文件！',
+    exceedSize: '{name} 大小超过 {size}MB！',
+    exceedMaxCount: '最多只能上传 {count} 张图片！',
+    uploadSuccess: '{name} 上传成功',
+    uploadFailed: '{name} 上传失败',
+    deleted: '已删除',
+    sortUpdated: '排序已更新，第一张为主图',
+    realUploadTodo: '真实上传功能待实现'
   }
 }

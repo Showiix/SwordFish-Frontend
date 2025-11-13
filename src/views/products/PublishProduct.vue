@@ -3,8 +3,8 @@
     <div class="container">
       <!-- 页面头部 -->
       <div class="page-header">
-        <h1 class="page-title">发布商品</h1>
-        <p class="page-subtitle">填写商品信息，快速发布你的闲置物品</p>
+        <h1 class="page-title">{{ $t('publishProduct.pageTitle') }}</h1>
+        <p class="page-subtitle">{{ $t('publishProduct.pageSubtitle') }}</p>
       </div>
 
       <!-- 发布表单 -->
@@ -18,10 +18,10 @@
           @submit.prevent="handleSubmit"
         >
           <!-- 商品标题 -->
-          <el-form-item label="商品标题" prop="goods_title">
+          <el-form-item :label="$t('publishProduct.form.title')" prop="goods_title">
             <el-input
               v-model="form.goods_title"
-              placeholder="请输入商品标题，简洁明了更容易被搜索到"
+              :placeholder="$t('publishProduct.form.titlePlaceholder')"
               maxlength="50"
               show-word-limit
               clearable
@@ -35,15 +35,15 @@
           <!-- 商品分类和价格 -->
           <el-row :gutter="20">
             <el-col :xs="24" :sm="12">
-              <el-form-item label="商品分类" prop="goods_type">
+              <el-form-item :label="$t('publishProduct.form.category')" prop="goods_type">
                 <el-select
                   v-model="form.goods_type"
-                  placeholder="请选择商品分类"
+                  :placeholder="$t('publishProduct.form.categoryPlaceholder')"
                   clearable
                   style="width: 100%"
                 >
                   <el-option
-                    v-for="(label, id) in CATEGORY_MAP"
+                    v-for="(label, id) in categoryMap"
                     :key="id"
                     :label="label"
                     :value="Number(id)"
@@ -55,27 +55,27 @@
             </el-col>
 
             <el-col :xs="24" :sm="12">
-              <el-form-item label="商品价格" prop="goods_price">
+              <el-form-item :label="$t('publishProduct.form.price')" prop="goods_price">
                 <el-input
                   v-model.number="form.goods_price"
                   type="number"
-                  placeholder="请输入商品价格"
+                  :placeholder="$t('publishProduct.form.pricePlaceholder')"
                   clearable
                 >
                   <template #prefix>
                     <span style="color: #f56c6c; font-weight: bold">¥</span>
                   </template>
-                  <template #append>元</template>
+                  <template #append>{{ $t('publishProduct.form.priceUnit') }}</template>
                 </el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <!-- 商品成色 -->
-          <el-form-item label="商品成色" prop="condition_level">
+          <el-form-item :label="$t('publishProduct.form.condition')" prop="condition_level">
             <el-radio-group v-model="form.condition_level" class="condition-group">
               <el-radio
-                v-for="(label, value) in CONDITION_MAP"
+                v-for="(label, value) in conditionMap"
                 :key="value"
                 :label="value"
                 border
@@ -91,12 +91,12 @@
           </el-form-item>
 
           <!-- 商品描述 -->
-          <el-form-item label="商品描述" prop="goods_desc">
+          <el-form-item :label="$t('publishProduct.form.description')" prop="goods_desc">
             <el-input
               v-model="form.goods_desc"
               type="textarea"
               :rows="6"
-              placeholder="请详细描述商品的使用情况、购买时间、新旧程度、存在的问题等信息，方便买家了解"
+              :placeholder="$t('publishProduct.form.descriptionPlaceholder')"
               maxlength="1000"
               show-word-limit
             />
@@ -111,12 +111,12 @@
           >
             <template #title>
               <div class="tips-content">
-                <p><strong>温馨提示：</strong></p>
+                <p><strong>{{ $t('publishProduct.tips.title') }}</strong></p>
                 <ul>
-                  <li>请确保商品信息真实有效，虚假信息将影响信用分</li>
-                  <li>商品图片需清晰展示商品全貌，第一张图片将作为封面</li>
-                  <li>合理定价，参考同类商品价格，更容易成交</li>
-                  <li>详细描述商品状况，减少买卖纠纷</li>
+                  <li>{{ $t('publishProduct.tips.tip1') }}</li>
+                  <li>{{ $t('publishProduct.tips.tip2') }}</li>
+                  <li>{{ $t('publishProduct.tips.tip3') }}</li>
+                  <li>{{ $t('publishProduct.tips.tip4') }}</li>
                 </ul>
               </div>
             </template>
@@ -135,9 +135,9 @@
                 <template #icon>
                   <el-icon><Upload /></el-icon>
                 </template>
-                {{ loading ? '发布中...' : '立即发布' }}
+                {{ loading ? $t('publishProduct.actions.publishing') : $t('publishProduct.actions.publish') }}
               </el-button>
-              
+
               <el-button
                 size="large"
                 :disabled="loading"
@@ -147,7 +147,7 @@
                 <template #icon>
                   <el-icon><Document /></el-icon>
                 </template>
-                保存草稿
+                {{ $t('publishProduct.actions.saveDraft') }}
               </el-button>
 
               <el-button
@@ -155,7 +155,7 @@
                 :disabled="loading"
                 @click="handleReset"
               >
-                重置
+                {{ $t('publishProduct.actions.reset') }}
               </el-button>
             </div>
           </el-form-item>
@@ -166,24 +166,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { ElMessage, ElMessageBox, type FormInstance, type FormRules } from 'element-plus'
 import { Edit, Upload, Document } from '@element-plus/icons-vue'
 import type { PublishProductForm } from '@/types/products'
-import { CATEGORY_MAP, CONDITION_MAP, ProductCondition } from '@/types/products'
+import { getCategoryMap, getConditionMap, ProductCondition } from '@/types/products'
 import ImageUploader from '@/components/business/ImageUploader.vue'
 import { useProductsStore } from '@/store/modules/products'
 import { storage } from '@/utils/storage'
 
 const router = useRouter()
 const productsStore = useProductsStore()
+const { t } = useI18n()
 
 // 表单引用
 const formRef = ref<FormInstance>()
 
 // 加载状态
 const loading = ref(false)
+
+// 获取国际化的商品分类映射
+const categoryMap = computed(() => getCategoryMap(t))
+
+// 获取国际化的商品成色映射
+const conditionMap = computed(() => getConditionMap(t))
 
 // 表单数据
 const form = reactive<PublishProductForm & { goods_images: string[] }>({
@@ -203,22 +211,22 @@ const DRAFT_KEY = 'publish_product_draft'
  */
 const rules: FormRules<PublishProductForm> = {
   goods_title: [
-    { required: true, message: '请输入商品标题', trigger: 'blur' },
-    { min: 2, max: 50, message: '标题长度为 2-50 个字符', trigger: 'blur' }
+    { required: true, message: t('publishProduct.validation.titleRequired'), trigger: 'blur' },
+    { min: 2, max: 50, message: t('publishProduct.validation.titleLength'), trigger: 'blur' }
   ],
   goods_type: [
-    { required: true, message: '请选择商品分类', trigger: 'change' }
+    { required: true, message: t('publishProduct.validation.categoryRequired'), trigger: 'change' }
   ],
   goods_price: [
-    { required: true, message: '请输入商品价格', trigger: 'blur' },
+    { required: true, message: t('publishProduct.validation.priceRequired'), trigger: 'blur' },
     {
       validator: (_rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入商品价格'))
+          callback(new Error(t('publishProduct.validation.priceRequired')))
         } else if (value <= 0) {
-          callback(new Error('价格必须大于0'))
+          callback(new Error(t('publishProduct.validation.pricePositive')))
         } else if (!/^\d+(\.\d{1,2})?$/.test(value.toString())) {
-          callback(new Error('价格最多保留2位小数'))
+          callback(new Error(t('publishProduct.validation.priceFormat')))
         } else {
           callback()
         }
@@ -227,13 +235,13 @@ const rules: FormRules<PublishProductForm> = {
     }
   ],
   condition_level: [
-    { required: true, message: '请选择商品成色', trigger: 'change' }
+    { required: true, message: t('publishProduct.validation.conditionRequired'), trigger: 'change' }
   ],
   goods_images: [
     {
       validator: (_rule, value, callback) => {
         if (!value || value.length === 0) {
-          callback(new Error('请至少上传1张商品图片'))
+          callback(new Error(t('publishProduct.validation.imagesRequired')))
         } else {
           callback()
         }
@@ -242,7 +250,7 @@ const rules: FormRules<PublishProductForm> = {
     }
   ],
   goods_desc: [
-    { max: 1000, message: '描述最多1000个字符', trigger: 'blur' }
+    { max: 1000, message: t('publishProduct.validation.descriptionLength'), trigger: 'blur' }
   ]
 }
 
@@ -274,11 +282,11 @@ const handleSubmit = async () => {
 
     // 确认发布
     await ElMessageBox.confirm(
-      '确认发布该商品吗？发布后将进入审核流程',
-      '确认发布',
+      t('publishProduct.messages.confirmPublish'),
+      t('publishProduct.messages.confirmPublishTitle'),
       {
-        confirmButtonText: '确认发布',
-        cancelButtonText: '再想想',
+        confirmButtonText: t('publishProduct.messages.confirmButton'),
+        cancelButtonText: t('publishProduct.messages.cancelButton'),
         type: 'info'
       }
     )
@@ -289,21 +297,21 @@ const handleSubmit = async () => {
     const result = await productsStore.publishNewProduct(form)
 
     if (result.code === 200) {
-      ElMessage.success('发布成功！')
-      
+      ElMessage.success(t('publishProduct.messages.publishSuccess'))
+
       // 清除草稿
       storage.remove(DRAFT_KEY)
-      
+
       // 跳转到商品详情页
       const productId = result.data.goods_id
       router.push(`/products/${productId}`)
     } else {
-      ElMessage.error(result.msg || '发布失败，请重试')
+      ElMessage.error(result.msg || t('publishProduct.messages.publishFailed'))
     }
   } catch (error: any) {
     if (error !== 'cancel') {
       console.error('发布商品失败:', error)
-      ElMessage.error(error.message || '发布失败，请重试')
+      ElMessage.error(error.message || t('publishProduct.messages.publishFailed'))
     }
   } finally {
     loading.value = false
@@ -316,9 +324,9 @@ const handleSubmit = async () => {
 const handleSaveDraft = () => {
   try {
     storage.set(DRAFT_KEY, form)
-    ElMessage.success('草稿已保存')
+    ElMessage.success(t('publishProduct.messages.draftSaved'))
   } catch (error) {
-    ElMessage.error('保存草稿失败')
+    ElMessage.error(t('publishProduct.messages.draftSaveFailed'))
   }
 }
 
@@ -328,18 +336,18 @@ const handleSaveDraft = () => {
 const handleReset = async () => {
   try {
     await ElMessageBox.confirm(
-      '确认重置表单吗？所有填写的内容将被清空',
-      '确认重置',
+      t('publishProduct.messages.confirmReset'),
+      t('publishProduct.messages.confirmResetTitle'),
       {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
+        confirmButtonText: t('common.confirm'),
+        cancelButtonText: t('common.cancel'),
         type: 'warning'
       }
     )
 
     formRef.value?.resetFields()
     form.goods_images = []
-    ElMessage.success('表单已重置')
+    ElMessage.success(t('publishProduct.messages.resetSuccess'))
   } catch (error) {
     // 用户取消
   }
@@ -353,7 +361,7 @@ const loadDraft = () => {
     const draft = storage.get(DRAFT_KEY)
     if (draft) {
       Object.assign(form, draft)
-      ElMessage.info('已恢复上次编辑的草稿')
+      ElMessage.info(t('publishProduct.messages.draftRestored'))
     }
   } catch (error) {
     console.error('加载草稿失败:', error)

@@ -1,0 +1,108 @@
+fix(products): 修复商品筛选功能并完成详情页i18n集成
+
+## 主要改动
+
+### 功能修复
+- 修复商品列表筛选功能无法生效的问题
+- 实现完整的Mock数据筛选逻辑（关键词、分类、价格、成色、排序）
+- 修复信用评分显示精度问题（4.6000000000000005 → 4.6）
+- 修复部分Element Plus图标不存在的问题
+
+### UI优化
+- 重构商品列表筛选栏布局和样式
+- 添加激活筛选标签显示功能
+- 优化筛选条件的视觉层级和用户体验
+- 添加响应式设计支持（桌面端/移动端）
+
+### 国际化集成
+- 完成商品列表页完整i18n集成（50+条翻译）
+- 完成商品详情页完整i18n集成（100+条翻译）
+- 实现动态内容智能转换（分类、成色等）
+- 所有详情页子组件全面国际化
+
+## 详细改动
+
+### 核心功能层
+- **src/mock/products.ts**
+  - 实现getMockProductList的完整筛选逻辑
+  - 支持关键词搜索（标题+描述）
+  - 支持分类、价格区间、成色筛选
+  - 支持多字段排序（价格、时间、浏览量）
+  - 优化分页计算逻辑
+
+- **src/store/modules/products.ts**
+  - 传递所有筛选参数到Mock函数
+  - 确保筛选条件与UI状态同步
+
+- **src/utils/constants.ts**
+  - 修复图标：Monitor, ShoppingBag, House, Trophy
+  - 统一成色值为snake_case格式
+
+### UI组件层
+- **src/views/products/ProductList.vue**
+  - 重构筛选栏UI布局
+  - 添加筛选标签组件
+  - 实现智能命名转换函数
+  - 全面集成i18n
+
+- **src/views/products/ProductDetail.vue**
+  - 错误提示国际化
+  - 加载状态文案国际化
+
+- **src/views/products/components/ProductBasicInfo.vue**
+  - 商品信息标签国际化
+  - 成色和分类动态翻译
+
+- **src/views/products/components/SellerCard.vue**
+  - 修复信用评分精度（toFixed(1)）
+  - 卖家信息全面国际化
+  - 添加formattedRating计算属性
+
+- **src/views/products/components/ProductActions.vue**
+  - 所有操作按钮文本国际化
+  - 20+条消息提示国际化
+  - 弹窗标题和内容国际化
+
+- **src/views/products/components/ProductDescription.vue**
+  - 标题和空状态国际化
+
+### 国际化文件
+- **src/locales/zh-CN.ts** (+154行)
+  - productList命名空间（搜索、筛选、排序、消息）
+  - productDetail命名空间（基本信息、卖家、操作、描述、消息）
+  - productCategories命名空间（8个分类）
+  - productCondition命名空间（5种成色）
+
+- **src/locales/en-US.ts** (+154行)
+  - 对应的完整英文翻译
+
+## 技术亮点
+
+1. **智能命名转换**：自动将snake_case转换为camelCase用于i18n键
+2. **完整筛选链路**：UI → Store → Mock → 结果 → UI更新
+3. **精度控制**：使用toFixed(1)解决浮点数精度问题
+4. **响应式设计**：支持桌面端和移动端自适应
+
+## 测试说明
+
+建议测试以下功能：
+- ✅ 筛选功能（关键词、分类、价格、成色、排序）
+- ✅ 筛选标签的添加和删除
+- ✅ 重置筛选功能
+- ✅ 中英文切换
+- ✅ 信用评分显示精度
+- ✅ 响应式布局（桌面/移动端）
+
+## Breaking Changes
+
+无破坏性变更
+
+## 文件统计
+
+```
+12 files changed, 800 insertions(+), 616 deletions(-)
+```
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>

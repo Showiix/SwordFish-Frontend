@@ -1033,13 +1033,12 @@ export default {
   // Product Categories
   productCategories: {
     electronics: 'Electronics',
-    books: 'Books & Stationery',
+    books: 'Books & Textbooks',
+    furniture: 'Daily Necessities',
     fashion: 'Fashion & Accessories',
-    furniture: 'Furniture & Home',
-    music: 'Music & Audio',
     sports: 'Sports & Outdoors',
-    art: 'Art & Collectibles',
-    kitchen: 'Kitchen & Dining'
+    beauty: 'Beauty & Skincare',
+    other: 'Other'
   },
 
   // Product Condition
@@ -1133,5 +1132,86 @@ export default {
       retryLoad: 'Retry',
       backToList: 'Back to list'
     }
+  },
+
+  // Publish Product Page
+  publishProduct: {
+    pageTitle: 'Publish Product',
+    pageSubtitle: 'Fill in product information and quickly publish your unused items',
+
+    form: {
+      title: 'Product Title',
+      titlePlaceholder: 'Enter product title, concise titles are easier to find',
+      category: 'Product Category',
+      categoryPlaceholder: 'Select product category',
+      price: 'Product Price',
+      pricePlaceholder: 'Enter product price',
+      priceUnit: 'CNY',
+      condition: 'Product Condition',
+      images: 'Product Images',
+      description: 'Product Description',
+      descriptionPlaceholder: 'Please describe in detail the usage, purchase time, condition, existing issues, etc., to help buyers understand'
+    },
+
+    validation: {
+      titleRequired: 'Please enter product title',
+      titleLength: 'Title must be 2-50 characters',
+      categoryRequired: 'Please select product category',
+      priceRequired: 'Please enter product price',
+      pricePositive: 'Price must be greater than 0',
+      priceFormat: 'Price can have at most 2 decimal places',
+      conditionRequired: 'Please select product condition',
+      imagesRequired: 'Please upload at least 1 product image',
+      descriptionLength: 'Description can be at most 1000 characters'
+    },
+
+    tips: {
+      title: 'Tips:',
+      tip1: 'Ensure product information is true and valid, false information will affect credit score',
+      tip2: 'Product images should clearly show the entire product, the first image will be the cover',
+      tip3: 'Set reasonable prices, refer to similar products for better transaction rates',
+      tip4: 'Describe product condition in detail to reduce disputes'
+    },
+
+    actions: {
+      publish: 'Publish Now',
+      publishing: 'Publishing...',
+      saveDraft: 'Save Draft',
+      reset: 'Reset'
+    },
+
+    messages: {
+      confirmPublish: 'Confirm publishing this product? It will enter the review process after publishing',
+      confirmPublishTitle: 'Confirm Publish',
+      confirmButton: 'Confirm Publish',
+      cancelButton: 'Think Again',
+      publishSuccess: 'Published successfully!',
+      publishFailed: 'Publish failed, please try again',
+      draftSaved: 'Draft saved',
+      draftSaveFailed: 'Failed to save draft',
+      draftRestored: 'Restored previous draft',
+      confirmReset: 'Confirm resetting the form? All entered content will be cleared',
+      confirmResetTitle: 'Confirm Reset',
+      resetSuccess: 'Form has been reset'
+    }
+  },
+
+  // Image Uploader Component
+  imageUploader: {
+    label: 'Product Images',
+    tips: 'Max {maxCount} images, {maxSize}MB each, JPG/PNG/WEBP',
+    loadFailed: 'Load failed',
+    primaryBadge: 'Cover',
+    uploadText: 'Click or drag to upload',
+    uploadHint: '{current}/{total}',
+    exceedCount: 'Can upload {count} more images',
+    notImage: '{name} is not an image file!',
+    exceedSize: '{name} exceeds {size}MB!',
+    exceedMaxCount: 'Can only upload up to {count} images!',
+    uploadSuccess: '{name} uploaded successfully',
+    uploadFailed: '{name} upload failed',
+    deleted: 'Deleted',
+    sortUpdated: 'Order updated, first image is the cover',
+    realUploadTodo: 'Real upload feature coming soon'
   }
 }

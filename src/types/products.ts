@@ -55,7 +55,7 @@ export interface ProductCategory {
   icon: string
 }
 
-
+ 
 /** 商品成色枚举 */
 export enum ProductCondition {
   BRAND_NEW = 'brand_new',      // 全新
@@ -65,7 +65,7 @@ export enum ProductCondition {
   HEAVILY_USED = 'heavily_used'  // 8成新
 }
 
-/** 成色映射 用于映射 */
+/** 成色映射 用于映射（已废弃，请使用 getConditionMap 函数） */
 export const CONDITION_MAP: Record<string, string> = {
   [ProductCondition.BRAND_NEW]: '全新',
   [ProductCondition.LIKE_NEW]: '99新',
@@ -73,6 +73,18 @@ export const CONDITION_MAP: Record<string, string> = {
   [ProductCondition.WELL_USED]: '9成新',
   [ProductCondition.HEAVILY_USED]: '8成新'
 }
+
+/**
+ * 获取国际化的商品成色映射
+ * @param t - i18n 翻译函数
+ */
+export const getConditionMap = (t: (key: string) => string): Record<string, string> => ({
+  [ProductCondition.BRAND_NEW]: t('productCondition.brandNew'),
+  [ProductCondition.LIKE_NEW]: t('productCondition.likeNew'),
+  [ProductCondition.LIGHTLY_USED]: t('productCondition.lightlyUsed'),
+  [ProductCondition.WELL_USED]: t('productCondition.wellUsed'),
+  [ProductCondition.HEAVILY_USED]: t('productCondition.heavilyUsed')
+})
 
 /** 商品成色标签类型映射（用于 el-tag 的 type 属性） */
 export const CONDITION_TAG_TYPE: Record<string, 'success' | 'info' | 'warning' | 'danger'> = {
@@ -101,7 +113,7 @@ export const STATUS_MAP: Record<number, string> = {
 }
 
 
-/** 商品分类映射 */
+/** 商品分类映射（已废弃，请使用 getCategoryMap 函数） */
 export const CATEGORY_MAP: { [key: number]: string } = {
   1: '电子产品',
   2: '图书教材',
@@ -112,4 +124,17 @@ export const CATEGORY_MAP: { [key: number]: string } = {
   7: '其他'
 }
 
+/**
+ * 获取国际化的商品分类映射
+ * @param t - i18n 翻译函数
+ */
+export const getCategoryMap = (t: (key: string) => string): { [key: number]: string } => ({
+  1: t('productCategories.electronics'),
+  2: t('productCategories.books'),
+  3: t('productCategories.furniture'),
+  4: t('productCategories.fashion'),
+  5: t('productCategories.sports'),
+  6: t('productCategories.beauty'),
+  7: t('productCategories.other')
+})
 
