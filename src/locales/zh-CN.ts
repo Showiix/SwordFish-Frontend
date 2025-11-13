@@ -1260,5 +1260,125 @@ export default {
       of: '/',
       pages: '页'
     }
+  },
+
+  // 我的商品页面
+  myProducts: {
+    pageTitle: '我的商品',
+    pageSubtitle: '管理你发布的所有商品',
+
+    tabs: {
+      all: '全部商品',
+      onSale: '在售中',
+      sold: '已售出',
+      offShelf: '已下架'
+    },
+
+    status: {
+      0: '在售中',
+      1: '已售出',
+      2: '已下架',
+      3: '已删除'
+    },
+
+    card: {
+      productId: '商品ID',
+      publishTime: '发布时间',
+      updateTime: '更新时间',
+      views: '浏览量',
+      viewsUnit: '次',
+      price: '价格',
+      status: '状态',
+      category: '分类',
+      condition: '成色',
+      edit: '编辑',
+      offShelf: '下架',
+      relist: '重新上架',
+      delete: '删除',
+      viewDetails: '查看详情'
+    },
+
+    empty: {
+      title: '还没有发布商品',
+      subtitle: '快去发布你的第一个闲置物品吧',
+      publishBtn: '立即发布'
+    },
+
+    messages: {
+      loadFailed: '加载商品列表失败',
+      offShelfConfirm: '确定要下架这个商品吗？',
+      offShelfConfirmTitle: '下架商品',
+      offShelfSuccess: '商品已下架',
+      offShelfFailed: '下架商品失败',
+      relistConfirm: '确定要重新上架这个商品吗？',
+      relistConfirmTitle: '重新上架',
+      relistSuccess: '商品已重新上架',
+      relistFailed: '重新上架失败',
+      deleteConfirm: '确定要删除这个商品吗？删除后将无法恢复',
+      deleteConfirmTitle: '删除商品',
+      deleteSuccess: '商品已删除',
+      deleteFailed: '删除商品失败',
+      editComingSoon: '编辑功能即将上线！'
+    }
+  },
+
+  // 聊天页面
+  chat: {
+    pageTitle: '消息',
+    pageSubtitle: '与买家卖家实时沟通',
+
+    conversationList: {
+      title: '会话列表',
+      empty: '暂无会话',
+      emptyHint: '快去找个商品聊聊吧',
+      unreadCount: '条未读',
+      searchPlaceholder: '搜索联系人...'
+    },
+
+    messageArea: {
+      title: '消息',
+      placeholder: '输入消息...',
+      sendBtn: '发送',
+      typing: '正在输入...',
+      selectConversation: '选择一个会话开始聊天',
+      productCard: {
+        title: '商品卡片',
+        price: '价格',
+        viewDetails: '查看详情'
+      },
+      imagePreview: '点击查看大图',
+      sendImage: '发送图片',
+      sendProduct: '分享商品'
+    },
+
+    empty: {
+      title: '暂无消息',
+      subtitle: '选择一个会话开始聊天，或者去浏览商品联系卖家',
+      browseBtn: '浏览商品'
+    },
+
+    messages: {
+      loadFailed: '加载会话列表失败',
+      loadMessagesFailed: '加载消息失败',
+      sendSuccess: '发送成功',
+      sendFailed: '发送失败',
+      markAsReadFailed: '标记已读失败',
+      cannotSendEmpty: '不能发送空消息',
+      imageUploadFailed: '图片上传失败'
+    },
+
+    actions: {
+      copy: '复制',
+      delete: '删除',
+      forward: '转发',
+      recall: '撤回'
+    },
+
+    status: {
+      sending: '发送中...',
+      sent: '已发送',
+      failed: '发送失败',
+      read: '已读'
+    }
   }
 }

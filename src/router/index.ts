@@ -73,6 +73,15 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/my-products',
+    name: 'MyProducts',
+    component: () => import('@/views/products/MyProducts.vue'),
+    meta: {
+      title: '我的商品',
+      requiresAuth: true
+    }
+  },
+  {
     path: '/chat',
     name: 'Chat',
     component: () => import('@/views/chat/ChatPage.vue'),

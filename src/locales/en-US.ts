@@ -1269,5 +1269,125 @@ export default {
       of: 'of',
       pages: ''
     }
+  },
+
+  // My Products Page
+  myProducts: {
+    pageTitle: 'My Products',
+    pageSubtitle: 'Manage all your published products',
+
+    tabs: {
+      all: 'All Products',
+      onSale: 'On Sale',
+      sold: 'Sold',
+      offShelf: 'Off Shelf'
+    },
+
+    status: {
+      0: 'On Sale',
+      1: 'Sold',
+      2: 'Off Shelf',
+      3: 'Deleted'
+    },
+
+    card: {
+      productId: 'Product ID',
+      publishTime: 'Published',
+      updateTime: 'Updated',
+      views: 'Views',
+      viewsUnit: '',
+      price: 'Price',
+      status: 'Status',
+      category: 'Category',
+      condition: 'Condition',
+      edit: 'Edit',
+      offShelf: 'Take Off Shelf',
+      relist: 'Relist',
+      delete: 'Delete',
+      viewDetails: 'View Details'
+    },
+
+    empty: {
+      title: 'No Products Yet',
+      subtitle: 'Publish your first item now',
+      publishBtn: 'Publish Product'
+    },
+
+    messages: {
+      loadFailed: 'Failed to load product list',
+      offShelfConfirm: 'Are you sure you want to take this product off shelf?',
+      offShelfConfirmTitle: 'Take Off Shelf',
+      offShelfSuccess: 'Product taken off shelf successfully',
+      offShelfFailed: 'Failed to take product off shelf',
+      relistConfirm: 'Are you sure you want to relist this product?',
+      relistConfirmTitle: 'Relist Product',
+      relistSuccess: 'Product relisted successfully',
+      relistFailed: 'Failed to relist product',
+      deleteConfirm: 'Are you sure you want to delete this product? This action cannot be undone',
+      deleteConfirmTitle: 'Delete Product',
+      deleteSuccess: 'Product deleted successfully',
+      deleteFailed: 'Failed to delete product',
+      editComingSoon: 'Edit feature coming soon!'
+    }
+  },
+
+  // Chat Page
+  chat: {
+    pageTitle: 'Messages',
+    pageSubtitle: 'Chat with buyers and sellers in real-time',
+
+    conversationList: {
+      title: 'Conversations',
+      empty: 'No conversations',
+      emptyHint: 'Go browse some products and start chatting',
+      unreadCount: 'unread',
+      searchPlaceholder: 'Search contacts...'
+    },
+
+    messageArea: {
+      title: 'Messages',
+      placeholder: 'Type a message...',
+      sendBtn: 'Send',
+      typing: 'typing...',
+      selectConversation: 'Select a conversation to start chatting',
+      productCard: {
+        title: 'Product Card',
+        price: 'Price',
+        viewDetails: 'View Details'
+      },
+      imagePreview: 'Click to view full image',
+      sendImage: 'Send Image',
+      sendProduct: 'Share Product'
+    },
+
+    empty: {
+      title: 'No Messages',
+      subtitle: 'Select a conversation to start chatting, or browse products to contact sellers',
+      browseBtn: 'Browse Products'
+    },
+
+    messages: {
+      loadFailed: 'Failed to load conversations',
+      loadMessagesFailed: 'Failed to load messages',
+      sendSuccess: 'Sent successfully',
+      sendFailed: 'Failed to send',
+      markAsReadFailed: 'Failed to mark as read',
+      cannotSendEmpty: 'Cannot send empty message',
+      imageUploadFailed: 'Image upload failed'
+    },
+
+    actions: {
+      copy: 'Copy',
+      delete: 'Delete',
+      forward: 'Forward',
+      recall: 'Recall'
+    },
+
+    status: {
+      sending: 'Sending...',
+      sent: 'Sent',
+      failed: 'Failed',
+      read: 'Read'
+    }
   }
 }

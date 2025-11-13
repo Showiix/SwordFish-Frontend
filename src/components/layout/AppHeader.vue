@@ -110,17 +110,19 @@ import {
   SwitchButton
 } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/store/modules/auth'
+import { useChatStore } from '@/store/modules/chat'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const chatStore = useChatStore()
 const { t } = useI18n()
 
 const searchKeyword = ref('')
-const unreadCount = ref(0)
 
 const isLoggedIn = computed(() => authStore.isAuthenticated)
 const userInfo = computed(() => authStore.user)
+const unreadCount = computed(() => chatStore.totalUnreadCount)
 
 // 搜索
 const handleSearch = () => {
@@ -171,7 +173,7 @@ const handleCommand = (command: string) => {
       router.push('/orders')
       break
     case 'products':
-      router.push('/profile/products')
+      router.push('/my-products')
       break
     case 'messages':
       router.push('/chat')

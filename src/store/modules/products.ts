@@ -5,7 +5,15 @@ import { getProductList, getProductDetail } from '@/services/products'
 import type { Product, ProductFilters } from '@/types/products'
 import { PAGE_SIZE, DEFAULT_PAGE } from '@/utils/constants'
 // 临时导入 Mock 数据（后端开发完成后可删除）
-import { getMockProductById, getMockProductList, mockPublishProduct } from '@/mock/products'
+import {
+  getMockProductById,
+  getMockProductList,
+  mockPublishProduct,
+  getMockMyProductsList,
+  mockOffShelfProduct,
+  mockRelistProduct,
+  mockDeleteProduct
+} from '@/mock/products'
 import { publishProduct } from '@/services/products'
 
 // 开发模式标志：true = 使用 Mock 数据，false = 使用真实 API
@@ -241,7 +249,7 @@ export const useProductsStore = defineStore('products', () => {
       // 使用真实 API
       // publishProduct 返回 Promise<ApiResponse<Product>>
       const apiResponse = await publishProduct(formData)
-      
+
       if (apiResponse.code === 200) {
         return apiResponse
       }
@@ -251,6 +259,164 @@ export const useProductsStore = defineStore('products', () => {
       throw error
     } finally {
       loading.value = false
+    }
+  }
+
+  // ==================== 我的商品相关 ====================
+
+  // 我的商品列表状态
+  const myProducts = ref<Product[]>([])
+  const myProductsLoading = ref(false)
+  const myProductsPagination = ref({
+    current_page: DEFAULT_PAGE,
+    page_size: PAGE_SIZE,
+    total: 0,
+    total_pages: 0
+  })
+  const myProductsStatusFilter = ref<number>(-1) // -1表示全部
+
+  // 计算属性
+  const hasMyProducts = computed(() => myProducts.value.length > 0)
+
+  /**
+   * 获取我的商品列表
+   */
+  const fetchMyProducts = async (page = DEFAULT_PAGE, status?: number) => {
+    try {
+      myProductsLoading.value = true
+
+      // 使用 Mock 数据
+      if (USE_MOCK) {
+        await new Promise(resolve => setTimeout(resolve, 800))
+
+        const statusValue = status !== undefined ? status : myProductsStatusFilter.value
+        const mockData = getMockMyProductsList(
+          page,
+          myProductsPagination.value.page_size,
+          statusValue
+        )
+
+        myProducts.value = mockData.items
+        myProductsPagination.value = mockData.pagination
+
+        return { code: 200, msg: 'success', data: mockData }
+      }
+
+      // TODO: 使用真实 API
+      // const response = await getMyProducts({ page, status })
+      // if (response.code === 200) {
+      //   myProducts.value = response.data.items
+      //   myProductsPagination.value = response.data.pagination
+      // }
+      // return response
+    } catch (error) {
+      console.error('获取我的商品列表失败:', error)
+      throw error
+    } finally {
+      myProductsLoading.value = false
+    }
+  }
+
+  /**
+   * 更新我的商品状态筛选
+   */
+  const updateMyProductsStatusFilter = async (status: number) => {
+    myProductsStatusFilter.value = status
+    await fetchMyProducts(DEFAULT_PAGE, status)
+  }
+
+  /**
+   * 下架商品
+   */
+  const offShelfProduct = async (goodsId: number) => {
+    try {
+      myProductsLoading.value = true
+
+      if (USE_MOCK) {
+        const result = await mockOffShelfProduct(goodsId)
+        if (result.success) {
+          // 更新本地状态
+          const product = myProducts.value.find(p => p.goods_id === goodsId)
+          if (product) {
+            product.goods_status = 2 // 已下架
+          }
+          return { code: 200, msg: result.message }
+        }
+        throw new Error(result.message)
+      }
+
+      // TODO: 使用真实 API
+      // const response = await offShelfProductApi(goodsId)
+      // if (response.code === 200) {
+      //   const product = myProducts.value.find(p => p.goods_id === goodsId)
+      //   if (product) {
+      //     product.goods_status = 2
+      //   }
+      // }
+      // return response
+    } catch (error) {
+      console.error('下架商品失败:', error)
+      throw error
+    } finally {
+      myProductsLoading.value = false
+    }
+  }
+
+  /**
+   * 重新上架商品
+   */
+  const relistProduct = async (goodsId: number) => {
+    try {
+      myProductsLoading.value = true
+
+      if (USE_MOCK) {
+        const result = await mockRelistProduct(goodsId)
+        if (result.success) {
+          // 更新本地状态
+          const product = myProducts.value.find(p => p.goods_id === goodsId)
+          if (product) {
+            product.goods_status = 0 // 在售
+          }
+          return { code: 200, msg: result.message }
+        }
+        throw new Error(result.message)
+      }
+
+      // TODO: 使用真实 API
+    } catch (error) {
+      console.error('重新上架商品失败:', error)
+      throw error
+    } finally {
+      myProductsLoading.value = false
+    }
+  }
+
+  /**
+   * 删除商品
+   */
+  const deleteProduct = async (goodsId: number) => {
+    try {
+      myProductsLoading.value = true
+
+      if (USE_MOCK) {
+        const result = await mockDeleteProduct(goodsId)
+        if (result.success) {
+          // 从列表中移除
+          const index = myProducts.value.findIndex(p => p.goods_id === goodsId)
+          if (index !== -1) {
+            myProducts.value.splice(index, 1)
+          }
+          return { code: 200, msg: result.message }
+        }
+        throw new Error(result.message)
+      }
+
+      // TODO: 使用真实 API
+    } catch (error) {
+      console.error('删除商品失败:', error)
+      throw error
+    } finally {
+      myProductsLoading.value = false
     }
   }
 
@@ -275,6 +441,18 @@ export const useProductsStore = defineStore('products', () => {
     loadMore,
     clearCurrentProduct,
     clearProducts,
-    publishNewProduct
+    publishNewProduct,
+
+    // 我的商品相关
+    myProducts: computed(() => myProducts.value),
+    myProductsLoading: computed(() => myProductsLoading.value),
+    myProductsPagination: computed(() => myProductsPagination.value),
+    myProductsStatusFilter: computed(() => myProductsStatusFilter.value),
+    hasMyProducts,
+    fetchMyProducts,
+    updateMyProductsStatusFilter,
+    offShelfProduct,
+    relistProduct,
+    deleteProduct
   }
 })

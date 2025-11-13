@@ -104,12 +104,31 @@ export enum ProductStatus {
 }
 
 
-/** 商品状态映射 */
+/** 商品状态映射（已废弃，请使用 getProductStatusMap 函数） */
 export const STATUS_MAP: Record<number, string> = {
   [ProductStatus.AVAILABLE]: '在售',
   [ProductStatus.SOLD]: '已售出',
   [ProductStatus.OFF_SHELF]: '已下架',
   [ProductStatus.DELETED]: '已删除'
+}
+
+/**
+ * 获取国际化的商品状态映射
+ * @param t - i18n 翻译函数
+ */
+export const getProductStatusMap = (t: (key: string) => string): Record<number, string> => ({
+  [ProductStatus.AVAILABLE]: t('profilePage.products.status.1'),
+  [ProductStatus.SOLD]: t('profilePage.products.status.3'),
+  [ProductStatus.OFF_SHELF]: t('profilePage.products.status.2'),
+  [ProductStatus.DELETED]: t('profilePage.products.status.2')
+})
+
+/** 商品状态标签类型映射 */
+export const PRODUCT_STATUS_TAG_TYPE: Record<number, 'success' | 'info' | 'warning' | 'danger'> = {
+  [ProductStatus.AVAILABLE]: 'success',
+  [ProductStatus.SOLD]: 'info',
+  [ProductStatus.OFF_SHELF]: 'warning',
+  [ProductStatus.DELETED]: 'danger'
 }
 
 

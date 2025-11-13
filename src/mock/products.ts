@@ -443,3 +443,263 @@ export async function mockPublishProduct(formData: {
     message: '发布成功'
   }
 }
+
+/**
+ * 当前登录用户的商品列表（用于"我的商品"页面）
+ */
+export const mockMyProducts: Product[] = [
+  {
+    goods_id: 101,
+    goods_title: 'iPad Air 5 256GB WIFI版 星光色',
+    goods_type: 1,
+    goods_price: 3999,
+    goods_desc: '自用iPad Air 第五代，256GB存储，星光色。买了一年，基本就用来看视频和轻度办公，9成新。配件齐全，贴了钢化膜，送原装保护套。',
+    goods_images: [
+      'https://picsum.photos/800/800?random=101',
+      'https://picsum.photos/800/800?random=102'
+    ],
+    goods_status: 0, // 在售
+    condition_level: 'like_new',
+    create_time: '2025-11-10T14:20:00Z',
+    update_time: '2025-11-10T14:20:00Z',
+    views: 45,
+    publisher: {
+      user_id: 101,
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  },
+  {
+    goods_id: 102,
+    goods_title: '戴尔显示器 27寸 2K IPS屏',
+    goods_type: 1,
+    goods_price: 899,
+    goods_desc: '戴尔27寸显示器，2K分辨率，IPS屏幕，Type-C接口。毕业出国用不上了，8成新，有轻微划痕但不影响使用。',
+    goods_images: [
+      'https://picsum.photos/800/800?random=103',
+      'https://picsum.photos/800/800?random=104',
+      'https://picsum.photos/800/800?random=105'
+    ],
+    goods_status: 1, // 已售出
+    condition_level: 'well_used',
+    create_time: '2025-11-05T10:30:00Z',
+    update_time: '2025-11-08T16:45:00Z',
+    views: 89,
+    publisher: {
+      user_id: 101,
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  },
+  {
+    goods_id: 103,
+    goods_title: '机械键盘 Cherry轴 RGB背光',
+    goods_type: 1,
+    goods_price: 299,
+    goods_desc: 'Cherry MX红轴机械键盘，RGB背光可调，87键无数字键盘版本。手感很好，适合打字和游戏。',
+    goods_images: [
+      'https://picsum.photos/800/800?random=106'
+    ],
+    goods_status: 0, // 在售
+    condition_level: 'lightly_used',
+    create_time: '2025-11-08T09:15:00Z',
+    update_time: '2025-11-08T09:15:00Z',
+    views: 23,
+    publisher: {
+      user_id: 101,
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  },
+  {
+    goods_id: 104,
+    goods_title: '计算机网络 第七版 谢希仁',
+    goods_type: 2,
+    goods_price: 28,
+    goods_desc: '计算机网络教材，谢希仁版本，上学期用的，有少量笔记标注。',
+    goods_images: [
+      'https://picsum.photos/800/800?random=107',
+      'https://picsum.photos/800/800?random=108'
+    ],
+    goods_status: 2, // 已下架
+    condition_level: 'lightly_used',
+    create_time: '2025-11-03T11:00:00Z',
+    update_time: '2025-11-06T15:20:00Z',
+    views: 67,
+    publisher: {
+      user_id: 101,
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  },
+  {
+    goods_id: 105,
+    goods_title: '罗技无线鼠标 MX Master 3S',
+    goods_type: 1,
+    goods_price: 499,
+    goods_desc: '罗技旗舰办公鼠标，多设备切换，人体工学设计，自用半年，功能完好。',
+    goods_images: [
+      'https://picsum.photos/800/800?random=109',
+      'https://picsum.photos/800/800?random=110'
+    ],
+    goods_status: 1, // 已售出
+    condition_level: 'like_new',
+    create_time: '2025-10-28T16:40:00Z',
+    update_time: '2025-10-30T10:15:00Z',
+    views: 112,
+    publisher: {
+      user_id: 101,
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  },
+  {
+    goods_id: 106,
+    goods_title: '小米手环8 NFC版 黑色',
+    goods_type: 1,
+    goods_price: 189,
+    goods_desc: '小米手环8代NFC版，支持公交卡和门禁卡模拟。买了3个月，几乎全新。',
+    goods_images: [
+      'https://picsum.photos/800/800?random=111'
+    ],
+    goods_status: 0, // 在售
+    condition_level: 'like_new',
+    create_time: '2025-11-09T13:25:00Z',
+    update_time: '2025-11-09T13:25:00Z',
+    views: 34,
+    publisher: {
+      user_id: 101,
+      student_id: '2024001',
+      real_name: '张三',
+      credit_score: 98,
+      avatar_url: 'https://i.pravatar.cc/150?img=1',
+      active_products_count: 4,
+      sold_count: 10
+    }
+  }
+]
+
+/**
+ * 获取当前用户的商品列表（支持状态筛选）
+ */
+export function getMockMyProductsList(
+  page = 1,
+  pageSize = 10,
+  statusFilter?: number
+) {
+  // 1. 筛选数据
+  let filteredProducts = [...mockMyProducts]
+
+  // 商品状态筛选（-1表示全部）
+  if (statusFilter !== undefined && statusFilter !== -1) {
+    filteredProducts = filteredProducts.filter(p => p.goods_status === statusFilter)
+  }
+
+  // 2. 按创建时间降序排序（最新的在前面）
+  filteredProducts.sort((a, b) => {
+    const timeA = new Date(a.create_time || 0).getTime()
+    const timeB = new Date(b.create_time || 0).getTime()
+    return timeB - timeA
+  })
+
+  // 3. 分页
+  const start = (page - 1) * pageSize
+  const end = start + pageSize
+  const items = filteredProducts.slice(start, end)
+
+  return {
+    items,
+    pagination: {
+      current_page: page,
+      page_size: pageSize,
+      total: filteredProducts.length,
+      total_pages: Math.ceil(filteredProducts.length / pageSize)
+    }
+  }
+}
+
+/**
+ * Mock 下架商品
+ */
+export async function mockOffShelfProduct(goodsId: number) {
+  await new Promise(resolve => setTimeout(resolve, 800))
+
+  const productIndex = mockMyProducts.findIndex(p => p.goods_id === goodsId)
+  if (productIndex !== -1) {
+    mockMyProducts[productIndex].goods_status = 2 // 已下架
+    mockMyProducts[productIndex].update_time = new Date().toISOString()
+    return {
+      success: true,
+      message: '商品已下架'
+    }
+  }
+
+  return {
+    success: false,
+    message: '商品不存在'
+  }
+}
+
+/**
+ * Mock 重新上架商品
+ */
+export async function mockRelistProduct(goodsId: number) {
+  await new Promise(resolve => setTimeout(resolve, 800))
+
+  const productIndex = mockMyProducts.findIndex(p => p.goods_id === goodsId)
+  if (productIndex !== -1) {
+    mockMyProducts[productIndex].goods_status = 0 // 在售
+    mockMyProducts[productIndex].update_time = new Date().toISOString()
+    return {
+      success: true,
+      message: '商品已重新上架'
+    }
+  }
+
+  return {
+    success: false,
+    message: '商品不存在'
+  }
+}
+
+/**
+ * Mock 删除商品
+ */
+export async function mockDeleteProduct(goodsId: number) {
+  await new Promise(resolve => setTimeout(resolve, 800))
+
+  const productIndex = mockMyProducts.findIndex(p => p.goods_id === goodsId)
+  if (productIndex !== -1) {
+    mockMyProducts[productIndex].goods_status = 3 // 已删除
+    mockMyProducts[productIndex].update_time = new Date().toISOString()
+    return {
+      success: true,
+      message: '商品已删除'
+    }
+  }
+
+  return {
+    success: false,
+    message: '商品不存在'
+  }
+}
