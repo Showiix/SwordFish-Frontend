@@ -1204,5 +1204,61 @@ export default {
     deleted: '已删除',
     sortUpdated: '排序已更新，第一张为主图',
     realUploadTodo: '真实上传功能待实现'
+  },
+
+  // 订单页面
+  orderList: {
+    pageTitle: '我的订单',
+    pageSubtitle: '查看和管理你的所有订单',
+
+    tabs: {
+      all: '全部订单',
+      pending: '待支付',
+      completed: '已完成',
+      cancelled: '已取消'
+    },
+
+    status: {
+      pending: '待支付',
+      completed: '已完成',
+      cancelled: '已取消'
+    },
+
+    card: {
+      orderNo: '订单号',
+      createTime: '下单时间',
+      seller: '卖家',
+      buyer: '买家',
+      buyerNote: '买家备注',
+      totalAmount: '订单金额',
+      viewDetails: '查看详情',
+      cancelOrder: '取消订单',
+      contactSeller: '联系卖家',
+      payNow: '立即支付'
+    },
+
+    empty: {
+      title: '暂无订单',
+      subtitle: '快去挑选心仪的商品吧',
+      browseBtn: '浏览商品'
+    },
+
+    messages: {
+      loadFailed: '加载订单列表失败',
+      cancelConfirm: '确定要取消这个订单吗？',
+      cancelConfirmTitle: '取消订单',
+      cancelSuccess: '订单取消成功',
+      cancelFailed: '取消订单失败',
+      paymentComingSoon: '支付功能即将上线，敬请期待！',
+      chatComingSoon: '聊天功能正在开发中，敬请期待！'
+    },
+
+    pagination: {
+      total: '共',
+      items: '个订单',
+      page: '第',
+      of: '/',
+      pages: '页'
+    }
   }
 }

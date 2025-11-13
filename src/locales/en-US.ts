@@ -1213,5 +1213,61 @@ export default {
     deleted: 'Deleted',
     sortUpdated: 'Order updated, first image is the cover',
     realUploadTodo: 'Real upload feature coming soon'
+  },
+
+  // Order List Page
+  orderList: {
+    pageTitle: 'My Orders',
+    pageSubtitle: 'View and manage all your orders',
+
+    tabs: {
+      all: 'All Orders',
+      pending: 'Pending',
+      completed: 'Completed',
+      cancelled: 'Cancelled'
+    },
+
+    status: {
+      pending: 'Pending',
+      completed: 'Completed',
+      cancelled: 'Cancelled'
+    },
+
+    card: {
+      orderNo: 'Order No',
+      createTime: 'Order Time',
+      seller: 'Seller',
+      buyer: 'Buyer',
+      buyerNote: 'Buyer Note',
+      totalAmount: 'Total Amount',
+      viewDetails: 'View Details',
+      cancelOrder: 'Cancel Order',
+      contactSeller: 'Contact Seller',
+      payNow: 'Pay Now'
+    },
+
+    empty: {
+      title: 'No Orders',
+      subtitle: 'Go browse some products',
+      browseBtn: 'Browse Products'
+    },
+
+    messages: {
+      loadFailed: 'Failed to load order list',
+      cancelConfirm: 'Are you sure you want to cancel this order?',
+      cancelConfirmTitle: 'Cancel Order',
+      cancelSuccess: 'Order cancelled successfully',
+      cancelFailed: 'Failed to cancel order',
+      paymentComingSoon: 'Payment feature coming soon!',
+      chatComingSoon: 'Chat feature is under development!'
+    },
+
+    pagination: {
+      total: 'Total',
+      items: 'orders',
+      page: 'Page',
+      of: 'of',
+      pages: ''
+    }
   }
 }
